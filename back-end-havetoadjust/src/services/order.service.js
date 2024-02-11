@@ -1,6 +1,5 @@
 // order.service.js
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const prisma = require('../db')
 
 // Create a new order
 const createOrder = async (data) => {
@@ -20,6 +19,10 @@ const getOrderById = async (id) => {
     where: {
       id,
     },
+    with: {
+      orderDetails: true,
+      payments: true
+    }
   });
 };
 
