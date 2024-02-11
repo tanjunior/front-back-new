@@ -2,12 +2,12 @@ import {Link, useNavigate} from 'react-router-dom'
 import useAuth from '../hooks/useAuth';
 
 const guestNav = [
-  { to : '/', text: 'Login' },
+  { to : '/login', text: 'Login' },
   { to : '/register', text: 'Register' },
 ]
 
 const userNav = [
-  { to : '/', text: 'Home' },
+  { to : '/home', text: 'Home' },
 ]
 
 export default function Header() {
@@ -24,10 +24,10 @@ export default function Header() {
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl">Hello, {user?.id ? user.username : 'Guest'}</a>
+        <a className="text-xl btn btn-ghost">Hello, {user?.id ? user.username : 'Guest'}</a>
       </div>
       <div className="flex-none">
-        <ul className="menu menu-horizontal px-1">
+        <ul className="px-1 menu menu-horizontal">
           { finalNav.map( el => (
             <li key={el.to} >
               <Link to={el.to}>{el.text}</Link>

@@ -7,7 +7,7 @@ export default function UserHome() {
   useEffect( ()=>{
     const run = async()=>{
       let token = localStorage.getItem('token')
-      const rs = await axios.get('http://localhost:8889/todos', {
+      const rs = await axios.get('http://localhost:3001/todos', {
         headers : { Authorization : `Bearer ${token}`}
       })
       setTodos(rs.data.todos)

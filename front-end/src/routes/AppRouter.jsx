@@ -1,20 +1,27 @@
-import {createBrowserRouter, RouterProvider, Outlet} from 'react-router-dom'
-import LoginForm from '../layout/LoginForm'
-import RegisterForm from '../layout/RegisterForm'
+import {createBrowserRouter, RouterProvider, Outlet, Navigate} from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
-import Header from '../layout/Header'
+import Landing from '../pages/Landing'
+import NavBar from '../components/NavBar'
+import ContactForm from '../pages/ContactForm'
+import HomePage from '../pages/HomePage'
+import AdminDashboard from '../pages/AdminDashboard'
+import LoginPage from '../pages/LoginPage'
+import RegisterPage from '../pages/RegisterPage'
 
 
 const guestRouter = createBrowserRouter([
   {
     path: '/',
     element: <>
-      <Header />
+      <NavBar />
       <Outlet />
     </>,
     children: [
-      { index: true, element: <LoginForm /> },
-      { path: '/register', element: <RegisterForm />}
+      { index: true, element: <Landing /> },
+      { path: '/home', element: <HomePage /> },
+      { path: '/login', element: <LoginPage />},
+      { path: '/register', element: <RegisterPage />},
+      { path: '/about', element: <ContactForm />}
     ]
   }
 ])
@@ -23,11 +30,28 @@ const userRouter = createBrowserRouter([
   {
     path: '/',
     element: <>
-      <Header />
+      <NavBar />
       <Outlet />
-    </>
+    </>,
+    children: [
+      { index: true, element: <HomePage /> },
+      { path: '/login', element: <Navigate to='/' />},
+    ]
   }
 ])
+
+const adminRouter = createBrowserRouter([
+  {
+    path: '/',
+    element: <>
+      <NavBar />
+      <Outlet />
+    </>,
+    children: [
+    ]
+  }
+])
+
 
 export default function AppRouter() {
   const {user} = useAuth()
