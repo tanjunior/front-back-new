@@ -1,7 +1,7 @@
 import axios from 'axios'
 import {useState} from "react";
 import useAuth from '../hooks/useAuth'
-import {Link, useNavigate} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 export default function LoginForm() {
   const { setUser } = useAuth()
@@ -9,7 +9,6 @@ export default function LoginForm() {
     username : '', 
     password : ''
   })
-  const navigateToHome = useNavigate("/home")
 
   const hdlChange = e => {
     setInput( prv => ( { ...prv, [e.target.name] : e.target.value } ) )
