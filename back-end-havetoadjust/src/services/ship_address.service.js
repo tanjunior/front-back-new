@@ -1,6 +1,6 @@
 // ship_address.service.js
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const prisma = require('../db')
+
 
 // Create a new ship address
 const createShipAddress = async (data) => {

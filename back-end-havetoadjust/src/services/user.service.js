@@ -1,6 +1,5 @@
 // user.service.js
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const prisma = require('../db')
 
 // Create a new user
 const createUser = async (data) => {
