@@ -1,3 +1,4 @@
+require('dotenv').config()
 // backend/server.js
 const express = require('express');
 // const userRoutes = require('./src/routes/userRoutes');
@@ -31,7 +32,6 @@ app.use('/api/ship_addresses', shipAddressRoutes);
 app.use('/api/products', productRoutes);
 app.use('/auth', authRoutes)
 app.use('/contact', contactRoutes)
-
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
