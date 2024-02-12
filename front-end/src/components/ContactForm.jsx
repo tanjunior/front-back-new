@@ -31,7 +31,7 @@ export default function ContactForm() {
     <div className="flex flex-col w-full px-9">
       <form className="flex flex-col items-center justify-center w-full gap-6" onSubmit={hdlSubmit}>
         <label className="w-full">
-          <span className="text-[#8B8E99] text-sm">Name</span>
+          <span className="text-[#8B8E99] text-sm">ชื่อ</span>
           <input
             type="text"
             className="w-full p-2 rounded-md bg-background border border-[#E4E7E9]"
@@ -42,7 +42,7 @@ export default function ContactForm() {
         </label>
         <div className='grid grid-cols-2 gap-3'>
           <label className="w-full">
-            <span className="text-[#8B8E99] text-sm">E-mail</span>
+            <span className="text-[#8B8E99] text-sm">อีเมล</span>
             <input
               type="email"
               className="w-full p-2 rounded-md bg-background border border-[#E4E7E9]"
@@ -52,7 +52,7 @@ export default function ContactForm() {
             />
           </label>
           <label className="w-full">
-            <span className="text-[#8B8E99] text-sm">Phone Number</span>
+            <span className="text-[#8B8E99] text-sm">โทรศัพท์</span>
             <input
               type="tel"
               className="w-full p-2 rounded-md bg-background border border-[#E4E7E9]"
@@ -63,13 +63,13 @@ export default function ContactForm() {
           </label>
         </div>
         <label className="w-full">
-          <span className="text-[#8B8E99] text-sm">Message</span>
+          <span className="text-[#8B8E99] text-sm">ข้อความ</span>
           <textarea 
             className="w-full p-2 rounded-md bg-background border border-[#E4E7E9]" name="message" cols="30" rows="10" value={input.message} onChange={hdlChange} />
         </label>
         
         <div className="flex w-full gap-5 ">
-          <button type="submit" className="w-full p-3 text-center rounded-lg bg-primary text-primary-foreground">Submit</button>
+          <button type="submit" className="w-full p-3 text-center rounded-lg bg-primary text-primary-foreground">ส่งข้อความ</button>
         </div>
       </form>
     </div>
