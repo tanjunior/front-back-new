@@ -55,9 +55,14 @@ export default function AdminProductAdd() {
 
     const uploadResult = await res.json()
 
-    if (uploadResult.success === false) return alert("upload fail")
+    let imageLink;
 
-    const imageLink = uploadResult.data.link
+    if (uploadResult.success === false) {
+      alert(uploadResult.data.error)
+      imageLink = "to be changed manually in DB"
+    }
+
+    imageLink = uploadResult.data.link
     //upload images
     //get image link from response
     //save to db
