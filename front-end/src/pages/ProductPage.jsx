@@ -43,32 +43,30 @@ export default function ProductPage() {
           <h1 className='text-xl'>{product.name} {product.capacity} {product.color}</h1>
           <div className='grid grid-cols-2'>
             <div className='text-[#5F6C72]'>ID: <span className='text-[#191C1F] font-medium'>{product.id}</span></div>
-            <div className='text-[#5F6C72]'>???: <span className='text-[#25B800] font-medium'>{product.id}</span></div>
-            <div className='text-[#5F6C72]'>???: <span className='text-[#191C1F] font-medium'>Apple</span></div>
-            <div className='text-[#5F6C72]'>???: <span className='text-[#191C1F] font-medium'>????</span></div>
+            <div className='text-[#5F6C72]'>Stock: <span className='text-[#25B800] font-medium'>{product.id}</span></div>
+            <div className='text-[#5F6C72]'>Product: <span className='text-[#191C1F] font-medium'>Apple</span></div>
+            <div className='text-[#5F6C72]'>Category: <span className='text-[#191C1F] font-medium'>iPhone 11</span></div>
           </div>
           <Separator />
           <div className='flex flex-col'>
-            <Label>???</Label>
+            <Label>สี</Label>
             <Select>
               <SelectTrigger>
-                <SelectValue placeholder="???" />
+                <SelectValue placeholder="เลือกสี" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="light">Light</SelectItem>
-                <SelectItem value="dark">Dark</SelectItem>
-                <SelectItem value="system">System</SelectItem>
+                <SelectItem value="light">Black</SelectItem>
+                <SelectItem value="dark">White</SelectItem>
               </SelectContent>
             </Select>
-            <Label>???</Label>
+            <Label>ความจุ</Label>
             <Select>
               <SelectTrigger>
-                <SelectValue placeholder="???" />
+                <SelectValue placeholder="เลือกความจุ" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="light">Light</SelectItem>
-                <SelectItem value="dark">Dark</SelectItem>
-                <SelectItem value="system">System</SelectItem>
+                <SelectItem value="light">64 GB Storage</SelectItem>
+                <SelectItem value="dark">128 GB Storage</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -85,14 +83,14 @@ export default function ProductPage() {
         <div className='flex flex-col gap-y-2'>
           <div className='flex flex-row gap-2'>
             <Input type="number" />
-            <Button variant={"outline"} className="w-full border-primary text-primary">???</Button>
+            <Button variant={"outline"} className="w-full border-primary text-primary">เพิ่มไปยังตะกร้า</Button>
           </div>
-          <Button className="w-full">???</Button>
+          <Button className="w-full">สั่งซื้อ</Button>
         </div>
       </div>
       <div className='border border-[#E4E7E9] flex flex-col w-full'>
         <div className='border border-[#E4E7E9] flex justify-center'>
-          <div className='border-b-[3px] border-orange-400'>????</div>
+          <div className='border-b-[3px] border-orange-400'>คำอธิบายสินค้า</div>
         </div>
         <div className='border border-[#E4E7E9] px-44 flex justify-center gap-x-32 py-6 items-start'>
           <div className='grid grid-rows-7 text-[#5F6C72] gap-x-2 w-full h-full gap-y-1'>
