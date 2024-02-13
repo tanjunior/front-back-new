@@ -14,6 +14,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors())
+app.use(express.urlencoded({ extended: false }));
 
 
 //middlewares
@@ -32,6 +33,9 @@ app.use('/api/ship_addresses', shipAddressRoutes);
 app.use('/api/products', productRoutes);
 app.use('/auth', authRoutes)
 app.use('/contact', contactRoutes)
+
+
+app.use(express.static('public'))
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
