@@ -29,7 +29,7 @@ function AuthContextProvider(props) {
     run()
   }, [])
 
-  const logout = async () => {
+  function logout() {
     try {
       
       setLoading(true)

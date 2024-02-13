@@ -14,7 +14,7 @@ exports.register = async (req, res, next) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 8);
-    console.log(hashedPassword);
+    // console.log(hashedPassword);
     const data = {
       username,
       password : hashedPassword,
@@ -24,7 +24,7 @@ exports.register = async (req, res, next) => {
     };
 
     const rs = await prisma.user.create({ data  })
-    console.log(rs)
+    // console.log(rs)
 
     res.json({ msg: 'Register successful' })
   } catch (err) {
@@ -51,7 +51,7 @@ exports.login = async (req, res, next) => {
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: '30d'
     })
-    console.log(token)
+    // console.log(token)
     res.json({token : token})
   }catch(err) {
     next(err)

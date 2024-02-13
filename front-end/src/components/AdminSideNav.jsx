@@ -3,15 +3,19 @@ import { cn } from "../lib/utils";
 import { cva } from "class-variance-authority"
 import Logo from "./Logo";
 import useAuth from "../hooks/useAuth";
-import Icons from "../assets/Icons";
+import Icons from "./ui/Icons";
 
 export default function AdminSideNav() {
   const navigate = useNavigate()
   const {logout} = useAuth
 
-  const hdlLogout = () => {
-    logout()
-    navigate('/')
+  function hdlLogout() {
+    try {
+      logout()
+      navigate('/')
+    } catch (e) {
+      console.error(e)
+    }
   }
   const {pathname} = useLocation()
   
@@ -29,7 +33,7 @@ export default function AdminSideNav() {
       
       <div className="flex flex-col">
         <h2 className='uppercase text-[#3858D6] opacity-50 text-xs'>user management</h2>
-        <NavButton title="Admin" path="/admin" activePath={pathname}><Icons.admin /></NavButton>
+        <NavButton title="Admin" path="/admin" activePath={pathname}><Icons.users /></NavButton>
         <NavButton title="Customer" path="/customer" activePath={pathname}><Icons.user /></NavButton>
       </div>
       
@@ -64,7 +68,7 @@ function NavButton(props) {
     }
   )
 
-  return <NavLink to={path} className={cn(buttonVariants({variant, className}))}>
+  return <NavLink to={path} state={{from: activePath}} className={cn(buttonVariants({variant, className}))}>
     {children}{title} 
   </NavLink>
 }
