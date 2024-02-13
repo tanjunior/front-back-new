@@ -1,4 +1,16 @@
+import {
+  Moon,
+  SunMedium,
+  Wallet,
+  User,
+  ShoppingCart,
+  Users
+} from "lucide-react"
+
+
 const Icons = {
+  sun: SunMedium,
+  moon: Moon,
   logout: (props) => (
     <svg width="22" height="22" fill="none" viewBox="0 0 22 22" {...props}>
       <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M7.667 21H3.222A2.222 2.222 0 0 1 1 18.778V3.222A2.222 2.222 0 0 1 3.222 1h4.445M15.444 16.555 21 11l-5.556-5.556M21 11H7.666"/>
@@ -28,21 +40,9 @@ const Icons = {
       <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 1H3a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2ZM19 13H3a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2ZM5 5h.01M5 17h.01"/>
     </svg>
   ),
-  wallet: (props) => (
-    <svg width="23" height="20" fill="none" {...props}>
-      <path fill="currentColor" d="M20.24 1H2.76a.76.76 0 0 0-.76.76v17.48c0 .42.34.76.76.76h17.48c.42 0 .76-.34.76-.76V1.76a.76.76 0 0 0-.76-.76Zm-.95 11.02h-7.41V8.98h7.41v3.04Zm0 6.27H3.71V2.71h15.58v4.75h-8.17a.76.76 0 0 0-.76.76v4.56c0 .42.34.76.76.76h8.17v4.75Zm-6.175-7.79a.95.95 0 1 0 1.9 0 .95.95 0 0 0-1.9 0Z"/>
-    </svg>
-  ),
-  admin: (props) => (
-    <svg width="23" height="20" fill="none" {...props}>
-    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15.546 18.364v-1.818a3.636 3.636 0 0 0-3.637-3.637H4.636A3.637 3.637 0 0 0 1 16.546v1.818M8.273 9.273a3.636 3.636 0 1 0 0-7.273 3.636 3.636 0 0 0 0 7.273ZM21 18.364v-1.819a3.636 3.636 0 0 0-2.727-3.518M14.637 2.118a3.636 3.636 0 0 1 0 7.046"/>
-  </svg>
-  ),
-  user: (props) => (
-    <svg width="20" height="22" fill="none" {...props}>
-      <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M18.778 21v-2.223a4.444 4.444 0 0 0-4.445-4.444H5.444A4.444 4.444 0 0 0 1 18.777V21M9.889 9.889a4.444 4.444 0 1 0 0-8.89 4.444 4.444 0 0 0 0 8.89Z"/>
-    </svg>
-  ),
+  wallet: Wallet,
+  users: Users,
+  user: User,
   settings: (props) => (
     <svg width="22" height="22" fill="none" {...props}>
       <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M11 13.727a2.727 2.727 0 1 0 0-5.455 2.727 2.727 0 0 0 0 5.455Z"/>
@@ -64,7 +64,8 @@ const Icons = {
     <svg width="20" height="20" fill="none" {...props}>
     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M4.343 15.656 15.657 4.343M4.343 4.344l11.314 11.314"/>
   </svg>
-  )
+  ),
+  cart: ShoppingCart
 }
 
 export default Icons
