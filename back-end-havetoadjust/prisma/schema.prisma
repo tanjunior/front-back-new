@@ -42,7 +42,7 @@ model User {
   orders            Order[]
   shippingAddresses ShippingAddress[]
   paymentMethods    PaymentMethod[]
-  shoppingCart      ShoppingCart[]
+  shoppingCart      ShoppingCart?
 }
 
 // Model for products
@@ -56,17 +56,26 @@ model Product {
   price        Float
   stock        Int
   orderDetails OrderDetail[]
-  shoppingCart ShoppingCart[]
+  shoppingCartItem ShoppingCartItem[]
 }
 
 // Model for shopping carts
 model ShoppingCart {
   id        Int     @id @default(autoincrement())
-  userId    Int
+  userId    Int     @unique
+  user      User    @relation(fields: [userId], references: [id])
+  shoppingCartItems ShoppingCartItem[]
+}
+
+// Model for shopping carts
+model ShoppingCartItem {
   productId Int
   quantity  Int
-  user      User    @relation(fields: [userId], references: [id])
+  shoppingCartId Int
+  shoppingCart ShoppingCart @relation(fields: [shoppingCartId], references: [id])
   product   Product @relation(fields: [productId], references: [id])
+
+  @@id([productId, shoppingCartId])
 }
 
 // Model for orders

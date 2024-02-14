@@ -5,6 +5,12 @@ const prisma = require('../db')
 const createUser = async (data) => {
   return prisma.user.create({
     data,
+  }).then(user => {
+    prisma.shoppingCart.create({
+      data: {
+        userId: user.id,
+      }
+    })
   });
 };
 
@@ -18,7 +24,7 @@ const getUserById = async (id) => {
   return prisma.user.findUnique({
     where: {
       id,
-    },
+    }
   });
 };
 
@@ -28,7 +34,7 @@ const updateUserById = async (id, data) => {
     where: {
       id,
     },
-    data,
+    data
   });
 };
 

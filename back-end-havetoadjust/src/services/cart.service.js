@@ -3,28 +3,52 @@ const prisma = require('../db')
 
 // Create a new cart
 const createCart = async (data) => {
-  return prisma.cart.create({
+  return prisma.shoppingCart.create({
     data,
   });
 };
 
 // Get all carts
 const getAllCarts = async () => {
-  return prisma.cart.findMany();
+  return prisma.shoppingCart.findMany();
 };
 
 // Get a cart by ID
 const getCartById = async (id) => {
-  return prisma.cart.findUnique({
+  return prisma.shoppingCart.findUnique({
     where: {
       id,
+    },
+    select: {
+      shoppingCartItems: {
+        select: {
+          quantity: true,
+          product: {
+            select: {
+              id: true,
+              name: true,
+              price: true,
+              productImg: true,
+            }
+          }
+        },
+      },
     },
   });
 };
 
+const getCartByUserId = async (userId) => {
+  const shoppingCart = await prisma.shoppingCart.findFirst({
+    where: {
+      userId: userId,
+    },
+  });
+  return shoppingCart;
+};
+
 // Update a cart by ID
 const updateCartById = async (id, data) => {
-  return prisma.cart.update({
+  return prisma.shoppingCart.update({
     where: {
       id,
     },
@@ -32,9 +56,25 @@ const updateCartById = async (id, data) => {
   });
 };
 
+const addCartItemByCartId = async (data) => {
+  const {productId, shoppingCartId, quantity} = data
+  const item = await prisma.shoppingCartItem.upsert({
+    where: {
+      productId_shoppingCartId : { productId, shoppingCartId}
+    },
+    update: {
+      quantity: {
+        increment: quantity,
+      }
+    },
+    create: data,
+  });
+  return item
+};
+
 // Delete a cart by ID
 const deleteCartById = async (id) => {
-  return prisma.cart.delete({
+  return prisma.shoppingCart.delete({
     where: {
       id,
     },
@@ -47,4 +87,6 @@ module.exports = {
   getCartById,
   updateCartById,
   deleteCartById,
+  getCartByUserId,
+  addCartItemByCartId
 };
