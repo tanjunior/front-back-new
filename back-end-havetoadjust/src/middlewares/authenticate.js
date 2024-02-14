@@ -14,7 +14,16 @@ module.exports = async (req, res, next) => {
     const payload = jwt.verify(token,process.env.JWT_SECRET)
     // console.log(payload)
     
-    const user = await db.user.findFirstOrThrow({where : {id: payload.id}})
+    const user = await db.user.findFirstOrThrow({
+      where : {id: payload.id},
+      include: {
+        shoppingCart: {
+          select: {
+            id: true,
+          },
+        }
+      }
+    })
     delete user.password
     // console.log(user)
     req.user = user  
