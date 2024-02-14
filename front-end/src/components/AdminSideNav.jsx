@@ -7,7 +7,7 @@ import Icons from "./ui/Icons";
 
 export default function AdminSideNav() {
   const navigate = useNavigate()
-  const {logout} = useAuth
+  const {logout} = useAuth()
 
   function hdlLogout() {
     try {
@@ -26,7 +26,6 @@ export default function AdminSideNav() {
         <h2 className='uppercase text-[#3858D6] opacity-50 text-xs'>menu</h2>
         <NavButton title="Dashboard" path="/" activePath={pathname}><Icons.dashboard/></NavButton>
         <NavButton title="Products" path="/products" activePath={pathname}><Icons.product /></NavButton>
-        <NavButton title="Categories" path="/categories" activePath={pathname}><Icons.category /></NavButton>
         <NavButton title="Orders" path="/orders" activePath={pathname}><Icons.stack /></NavButton>
         <NavButton title="Transactions" path="/transactions" activePath={pathname}><Icons.wallet /></NavButton>
       </div>
