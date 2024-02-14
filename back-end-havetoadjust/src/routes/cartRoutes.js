@@ -41,26 +41,9 @@ router.get("/get/:id", async (req, res) => {
   }
 });
 
-// Get a cart by UserID
-router.get("/user/:id", async (req, res) => {
-  const userId = parseInt(req.params.userId);
-
-  try {
-    const cart = await cartService.getCartByUserId(userId);
-
-    if (!cart) {
-      res.status(404).json({ error: "Cart not found" });
-      return;
-    }
-
-    res.json(cart);
-  } catch (error) {
-    res.status(500).json({ error: "Error getting cart" });
-  }
-});
-
 // add item to a cart
-router.put("/add", async (req, res) => {
+router.post("/add", async (req, res) => {
+  console.log(req.body);
   try {
     const cartItem = await cartService.addCartItemByCartId(req.body);
     res.json(cartItem);
