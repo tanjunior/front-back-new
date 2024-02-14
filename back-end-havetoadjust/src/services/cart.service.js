@@ -22,6 +22,15 @@ const getCartById = async (id) => {
   });
 };
 
+const getCartByUserId = async (userId) => {
+  const shoppingCart = await prisma.shoppingCart.findFirst({
+    where: {
+      userId: userId,
+    },
+  });
+  return shoppingCart;
+};
+
 // Update a cart by ID
 const updateCartById = async (id, data) => {
   return prisma.shoppingCart.update({
@@ -30,6 +39,21 @@ const updateCartById = async (id, data) => {
     },
     data,
   });
+};
+
+const addCartItemByCartId = async (data) => {
+  const item =  prisma.shoppingCartItem.upsert({
+    where: {
+      productId_shoppingCartId : { productId: data.productId, shoppingCartId: data.shoppingCartId}
+    },
+    update: {
+      quantity: {
+        increment: data.quantity
+      }
+    },
+    create: data,
+  });
+  return item
 };
 
 // Delete a cart by ID
@@ -47,4 +71,6 @@ module.exports = {
   getCartById,
   updateCartById,
   deleteCartById,
+  getCartByUserId,
+  addCartItemByCartId
 };
