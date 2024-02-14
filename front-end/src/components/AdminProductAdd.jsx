@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form"
 import Icons from "./ui/Icons";
@@ -7,18 +7,18 @@ import { useCallback, useState } from "react";
 import { useMutation } from "@tanstack/react-query";import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
+import { toast } from "sonner"
 
 
 export default function AdminProductAdd() {
   const [productImg, setProductImg] = useState([])
+  const navigate = useNavigate()
   
   const onDrop = useCallback(acceptedFiles => {
     // console.log(acceptedFiles)
@@ -26,7 +26,6 @@ export default function AdminProductAdd() {
   }, [])
 
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
-  const uploaderProps = {...getInputProps(), multiple: true}
 
   const {mutate} = useMutation({
     mutationFn: async (formData) => {
@@ -37,10 +36,11 @@ export default function AdminProductAdd() {
       
       if (response.error) {
         console.log(response.error)
-        return alert("upload fail")
+        return toast("upload fail " + response.error)
       }
       reset()
       setProductImg([])
+      toast("Product added successfully")
     },
   })
 
@@ -79,7 +79,7 @@ export default function AdminProductAdd() {
             <span className="text-primary">Add Product</span>
           </div>
           <div className="flex gap-x-2">
-            <Button size="sm" variant="outlineAdmin"><Icons.cross />ยกเลิก</Button>
+            <Button size="sm" variant="outlineAdmin" onClick={() => navigate("/products")}><Icons.cross />ยกเลิก</Button>
             <Button size="sm" type="submit"><Icons.add />เพิ่ม</Button>
           </div>
         </div>
@@ -122,7 +122,7 @@ export default function AdminProductAdd() {
             <CardContent>
               <div {...getRootProps()}>
                 <Label htmlFor="" className="font-thin text-nowrap">รูปสินค้า</Label>
-                <input {...uploaderProps} multiple={false} />
+                <input {...getInputProps} multiple={false} />
                 {
                   productImg.length > 0 ? <span>{productImg.length}</span> : isDragActive ?
                     <div className="w-full h-40 bg-[#F9F9FC] items-center justify-center flex flex-col border-[#E0E2E7] border rounded-md">
