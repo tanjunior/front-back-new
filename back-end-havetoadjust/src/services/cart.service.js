@@ -57,13 +57,14 @@ const updateCartById = async (id, data) => {
 };
 
 const addCartItemByCartId = async (data) => {
-  const item =  prisma.shoppingCartItem.upsert({
+  const {productId, shoppingCartId, quantity} = data
+  const item = await prisma.shoppingCartItem.upsert({
     where: {
-      productId_shoppingCartId : { productId: data.productId, shoppingCartId: data.shoppingCartId}
+      productId_shoppingCartId : { productId, shoppingCartId}
     },
     update: {
       quantity: {
-        increment: data.quantity
+        increment: quantity,
       }
     },
     create: data,
