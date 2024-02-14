@@ -41,6 +41,35 @@ router.get("/get/:id", async (req, res) => {
   }
 });
 
+// Get a cart by UserID
+router.get("/user/:id", async (req, res) => {
+  const userId = parseInt(req.params.userId);
+
+  try {
+    const cart = await cartService.getCartByUserId(userId);
+
+    if (!cart) {
+      res.status(404).json({ error: "Cart not found" });
+      return;
+    }
+
+    res.json(cart);
+  } catch (error) {
+    res.status(500).json({ error: "Error getting cart" });
+  }
+});
+
+// add item to a cart
+router.put("/add", async (req, res) => {
+  try {
+    const cartItem = await cartService.addCartItemByCartId(req.body);
+    res.json(cartItem);
+  } catch (error) {
+    res.status(500).json({ error: "Error adding item to cart", message: error.message});
+  }
+});
+
+
 // Update a cart by ID
 router.put("/update/:id", async (req, res) => {
   const cartId = parseInt(req.params.id, 10);
