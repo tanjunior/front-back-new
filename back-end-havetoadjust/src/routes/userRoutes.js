@@ -92,46 +92,4 @@ router.delete("/users/:id", async (req, res) => {
   }
 });
 
-router.post("/signup", async (req, res) => {
-  const { username, password, email, phoneNumber, userType } = req.body;
-
-  // Hash the password before saving to the database
-  const hashedPassword = await authService.hashPassword(password);
-
-  // Save user details to the database
-  const user = await userService.createUser({
-    username,
-    password: hashedPassword,
-    email,
-    phoneNumber,
-    userType,
-  });
-
-  // Generate a JWT token
-  const token = authService.generateToken(user.id);
-
-  res.json({ user, token });
-});
-
-router.post("/login", async (req, res) => {
-  const { username, password } = req.body;
-
-  // Fetch user details from the database based on the username
-  const user = await userService.getUserByUsername(username);
-
-  // Compare the provided password with the hashed password in the database
-  const passwordMatch = await authService.comparePasswords(
-    password,
-    user.password
-  );
-
-  if (passwordMatch) {
-    // Generate a JWT token
-    const token = authService.generateToken(user.id);
-    res.json({ user, token });
-  } else {
-    res.status(401).json({ message: "Invalid credentials" });
-  }
-});
-
 module.exports = router;
