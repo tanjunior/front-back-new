@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken')
-const prisma = require('../db')
+const prisma = require('../db');
+const { createUser, getUserByUsername } = require("../services/user.service");
 
 exports.register = async (req, res, next) => {
   const { username, password, confirmPassword, email, phoneNumber } = req.body;
@@ -23,7 +24,7 @@ exports.register = async (req, res, next) => {
       userType: 'CUSTOMER'
     };
 
-    const rs = await prisma.user.create({ data  })
+    const rs = await createUser(data);
     // console.log(rs)
 
     res.json({ msg: 'Register successful' })
@@ -40,7 +41,7 @@ exports.login = async (req, res, next) => {
       throw new Error('username or password must not blank')
     }
     // find username in db.user
-    const user = await prisma.user.findFirstOrThrow({ where : { username }})
+    const user = await getUserByUsername(username)
     // check password
     const pwOk = await bcrypt.compare(password, user.password)
     if(!pwOk) {
