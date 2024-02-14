@@ -4,17 +4,17 @@ const router = express.Router();
 const cartService = require("../services/cart.service");
 
 // Create a new cart
-router.post("/carts", async (req, res) => {
+router.post("/create", async (req, res) => {
   try {
     const newCart = await cartService.createCart(req.body);
     res.json(newCart);
   } catch (error) {
-    res.status(500).json({ error: "Error creating cart" });
+    res.status(500).json({ error: "Error creating cart", message: error.message });
   }
 });
 
 // Get all carts
-router.get("/carts", async (req, res) => {
+router.get("/all", async (req, res) => {
   try {
     const carts = await cartService.getAllCarts();
     res.json(carts);
@@ -24,7 +24,7 @@ router.get("/carts", async (req, res) => {
 });
 
 // Get a cart by ID
-router.get("/carts/:id", async (req, res) => {
+router.get("/get/:id", async (req, res) => {
   const cartId = parseInt(req.params.id, 10);
 
   try {
@@ -42,7 +42,7 @@ router.get("/carts/:id", async (req, res) => {
 });
 
 // Update a cart by ID
-router.put("/carts/:id", async (req, res) => {
+router.put("/update/:id", async (req, res) => {
   const cartId = parseInt(req.params.id, 10);
 
   try {
@@ -60,7 +60,7 @@ router.put("/carts/:id", async (req, res) => {
 });
 
 // Delete a cart by ID
-router.delete("/carts/:id", async (req, res) => {
+router.delete("/delete/:id", async (req, res) => {
   const cartId = parseInt(req.params.id, 10);
 
   try {
