@@ -43,8 +43,10 @@ export default function ProductPage() {
           <h1 className='text-xl'>{product.name} {product.capacity} {product.color}</h1>
           <div className='grid grid-cols-2'>
             <div className='text-[#5F6C72]'>ID: <span className='text-[#191C1F] font-medium'>{product.id}</span></div>
+
             <div className='text-[#5F6C72]'>STOCK: <span className='text-[#25B800] font-medium'>{product.stock}</span></div>
             <div className='text-[#5F6C72]'>PRODUCT: <span className='text-[#191C1F] font-medium'>{product.name}</span></div>
+
           </div>
           <Separator />
           <div className='flex flex-col'>
@@ -54,8 +56,10 @@ export default function ProductPage() {
                 <SelectValue placeholder="เลือกสี" />
               </SelectTrigger>
               <SelectContent>
+
                 <SelectItem value="Black">Black</SelectItem>
                 <SelectItem value="White">White</SelectItem>
+
               </SelectContent>
             </Select>
             <Label>ความจุ</Label>
@@ -64,8 +68,10 @@ export default function ProductPage() {
                 <SelectValue placeholder="เลือกความจุ" />
               </SelectTrigger>
               <SelectContent>
+
                 <SelectItem value="64 GB">64 GB Storage</SelectItem>
                 <SelectItem value="128 GB">128 GB Storage</SelectItem>
+
               </SelectContent>
             </Select>
           </div>
