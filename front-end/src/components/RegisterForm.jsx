@@ -22,7 +22,7 @@ export default function RegisterForm() {
       if(input.password !== input.confirmPassword) {
         return alert('กรุณาตรวจสอบการยืนยันรหัสผ่าน')
       }
-      const rs = await axios.post('http://localhost:3001/auth/register', {...input, phoneNumber: "0828373964"})
+      const rs = await axios.post('http://localhost:3001/auth/register', {...input})
       console.log(rs)
       if(rs.status === 200) {
         alert('ลงทะเบียนสำเร็จ')

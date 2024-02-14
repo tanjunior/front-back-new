@@ -38,7 +38,7 @@ export default function HomePage() {
   })
 
   return (
-    <div className='flex flex-col items-center justify-center w-full h-full gap-4 gap-y-12 mt-28'>
+    <div className='flex flex-col items-center justify-center gap-x-4 gap-y-12'>
       <Input type="text" className='rounded-md border border-[#E4E7E9] w-full'/>
 
       <div className='grid grid-cols-3 gap-8 px-44'>
@@ -61,9 +61,13 @@ export default function HomePage() {
                     e.stopPropagation()
                     mutate({ productId: product.id, quantity: 1 }, {
                       onSuccess: (data) => {
-                        setCart(prev => prev.map((item) => {
-                          if (item.product.id === product.id) {item.quantity = data.quantity} return item
-                        }))
+                        if (cart.find((item) => item.product.id === product.id)) {
+                          setCart(prev => prev.map((item) => {
+                            if (item.product.id === product.id) {item.quantity = data.quantity} return item
+                          }))
+                        } else {
+                          setCart(prev => [...prev, {product: { id: product.id, name: product.name, price: product.price, productImg: product.productImg }, quantity: data.quantity}])
+                        }
                         toast(`${product.name} was added to cart`, {
                           action: {
                             label: 'Undo',
