@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken')
-const prisma = require('../db');
 const { createUser, getUserByUsername } = require("../services/user.service");
+const { createCart } = require("../services/cart.service");
 
 exports.register = async (req, res, next) => {
   const { username, password, confirmPassword, email, phoneNumber } = req.body;
@@ -25,6 +25,7 @@ exports.register = async (req, res, next) => {
     };
 
     const rs = await createUser(data);
+    await createCart({userId: rs.id})
     // console.log(rs)
 
     res.json({ msg: 'Register successful' })
