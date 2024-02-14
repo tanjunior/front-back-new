@@ -3,7 +3,7 @@ const prisma = require('../db')
 
 // Create a new cart
 const createCart = async (data) => {
-  return prisma.shoppingCart.create({
+  return await prisma.shoppingCart.create({
     data,
   });
 };
