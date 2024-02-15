@@ -4,7 +4,9 @@ const router = express.Router();
 const orderService = require("../services/order.service");
 
 // Create a new order
-router.post("/orders", async (req, res) => {
+router.post("/new", async (req, res) => {
+  const data = req.body
+  // console.log(req.body);
   try {
     const newOrder = await orderService.createOrder(req.body);
     res.json(newOrder);
@@ -14,7 +16,7 @@ router.post("/orders", async (req, res) => {
 });
 
 // Get all orders
-router.get("/orders", async (req, res) => {
+router.get("/all", async (req, res) => {
   try {
     const orders = await orderService.getAllOrders();
     res.json(orders);
@@ -24,7 +26,7 @@ router.get("/orders", async (req, res) => {
 });
 
 // Get a order by ID
-router.get("/orders/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
   const orderId = parseInt(req.params.id, 10);
 
   try {
@@ -42,7 +44,7 @@ router.get("/orders/:id", async (req, res) => {
 });
 
 // Update a order by ID
-router.put("/orders/:id", async (req, res) => {
+router.put("/update/:id", async (req, res) => {
   const orderId = parseInt(req.params.id, 10);
 
   try {
@@ -60,7 +62,7 @@ router.put("/orders/:id", async (req, res) => {
 });
 
 // Delete a order by ID
-router.delete("/orders/:id", async (req, res) => {
+router.delete("/delete/:id", async (req, res) => {
   const orderId = parseInt(req.params.id, 10);
 
   try {
