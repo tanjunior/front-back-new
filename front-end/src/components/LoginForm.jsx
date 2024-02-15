@@ -15,7 +15,7 @@ export default function LoginForm() {
   }
 
   const hdlSubmit = async e => {
-    console.log(input)
+    // console.log(input)
     try {
       e.preventDefault()
       // validation

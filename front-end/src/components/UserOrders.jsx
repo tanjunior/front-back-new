@@ -10,7 +10,7 @@ export default function UserOrders() {
     queryFn: async () => {
       const response = await fetch(`http://localhost:3001/api/orders/user/${user.id}`)
       const data = await response.json()
-      console.log(data)
+      // console.log(data)
       return data
     },
   })
