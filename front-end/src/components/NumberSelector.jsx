@@ -1,9 +1,14 @@
-import { useState, forwardRef } from 'react'
+import { useState, forwardRef, useEffect } from 'react'
 import Icons from './ui/Icons'
 import { cn } from '@/lib/utils'
 
-const NumberSelector = forwardRef(function NumberSelector({quantity, className}, ref) {
+const NumberSelector = forwardRef(function NumberSelector({quantity, className, getValue}, ref) {
   const [value, setValue] = useState(quantity)
+
+  useEffect(() => {
+    getValue(value)
+  }, [value])
+  
   
   return (
     <div className='flex flex-row items-center justify-center p-2 border rounded-md select-none'>
