@@ -68,7 +68,7 @@ export default function CartPage() {
 
   return (
     <div className='flex items-center justify-center flex-grow w-8/12 mx-auto'>
-      <div className="flex flex-row gap-x-6">
+      <div className="flex flex-row w-full gap-x-6">
         <Card className="w-full">
           <CardHeader>
             <CardTitle>ตะกร้าสินค้า</CardTitle>
