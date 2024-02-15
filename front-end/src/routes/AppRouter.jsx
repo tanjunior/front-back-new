@@ -24,10 +24,11 @@ const guestRouter = createBrowserRouter([
     element: <MainLayout />,
     children: [
       { index: true, element: <Landing /> },
-      { path: 'home', element: <HomePage /> },
+      { path: '/home', element: <HomePage /> },
       { path: 'login', element: <LoginPage />},
       { path: 'register', element: <RegisterPage />},
       { path: 'about', element: <AboutPage />},
+      { path: 'product/:id', element: <ProductPage />},
     ]
   }
 ])
@@ -37,7 +38,8 @@ const userRouter = createBrowserRouter([
     path: '/',
     element: <MainLayout />,
     children: [
-      { index: true, element: <HomePage /> },
+      { index: true, element: <Navigate to='/home' /> },
+      { path: '/home', element: <HomePage /> },
       { path: 'login', element: <Navigate to='/' />},
       { path: 'register', element: <Navigate to='/' />},
       { path: 'about', element: <AboutPage />},

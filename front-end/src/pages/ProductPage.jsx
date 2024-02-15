@@ -56,7 +56,7 @@ export default function ProductPage() {
   if (isLoading) return <div>Loading</div>
   
   return (
-    <div className='flex flex-col items-center justify-center px-20 gap-y-6'>
+    <div className='flex flex-col items-center justify-center flex-grow px-20 gap-y-6'>
       <div className='grid grid-cols-2 gap-x-16'>
         <img src={`http://localhost:3001/images/${product.productImg}`} alt={product.name} className='py-16 px-28 border border-[#E4E7E9]' />
         <div className='flex flex-col w-full gap-y-6'>

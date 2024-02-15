@@ -20,7 +20,7 @@ export default function AdminSideNav() {
   const {pathname} = useLocation()
   
   return (
-    <nav className='sticky left-0 flex flex-col w-3/12 h-screen px-4 gap-y-6'>
+    <nav className='sticky left-0 flex flex-col w-3/12 h-full px-4 gap-y-6'>
       <Logo />
       <div className="flex flex-col">
         <h2 className='uppercase text-[#3858D6] opacity-50 text-xs'>menu</h2>

@@ -7,7 +7,7 @@ export default function AdminLayout() {
   const title = pathname === '/' ? "dashboard" : pathname.split('/')[1]
 
   return (
-    <div className='w-full flex flex-row bg-[#E4E7E9] px-4 py-6 gap-x-2'>
+    <div className='flex flex-row flex-1 bg-[#E4E7E9] px-4 py-6 gap-x-2'>
       <AdminSideNav />
       <Separator orientation="vertical" className="bg-black" />
       <div className="flex flex-col w-full">
