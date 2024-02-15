@@ -17,6 +17,7 @@ import OrderDetails from '@/pages/OrderDetails'
 import AccountLayout from '@/layout/AccountLayout'
 import UserDashBoard from '@/components/UserDashboard'
 import UserOrders from '@/components/UserOrders'
+import UserProfile from '@/components/UserProfile'
 
 const guestRouter = createBrowserRouter([
   {
@@ -52,7 +53,7 @@ const userRouter = createBrowserRouter([
         children: [
           { index: true, element: <UserDashBoard />},
           { path: '/account/orders', element: <UserOrders />},
-          { path: 'account/profile', element: <div>Profile</div>},
+          { path: '/account/profile', element: <UserProfile />},
         ]
       }
     ]

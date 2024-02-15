@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken')
-const { createUser, getUserByUsername } = require("../services/user.service");
+const { createUser, getUserByUsername, getUserById, updateUserById } = require("../services/user.service");
 const { createCart } = require("../services/cart.service");
 
 exports.register = async (req, res, next) => {
@@ -35,6 +35,7 @@ exports.register = async (req, res, next) => {
 };
 
 exports.login = async (req, res, next) => {
+  console.log(req.body)
   const {username, password} = req.body
   try {
     // validation
@@ -56,9 +57,34 @@ exports.login = async (req, res, next) => {
     // console.log(token)
     res.json({token : token})
   }catch(err) {
+    console.log(err)
     next(err)
   }
 };
+
+//change password
+exports.changePassword = async (req,res,next) => {
+  const {currentPassword, newPassword, confirmPassword, id} = req.body
+  try {
+    if(!(currentPassword && newPassword && confirmPassword)) {
+      throw new Error('fulfill all inputs')
+    }
+    if(newPassword !== confirmPassword) {
+      throw new Error('confirm password not match')
+    }
+
+    const user = await getUserById(id)
+    const pwOk = await bcrypt.compare(currentPassword, user.password)
+    if(!pwOk) {
+      throw new Error('invalid password')
+    }
+    const hashedPassword = await bcrypt.hash(newPassword, 8)
+    await updateUserById(id, {password: hashedPassword})
+    res.json({msg: 'password changed'})
+  }catch(err) {
+    next(err)
+  }
+}
 
 exports.getme = (req,res,next) => {
   res.json(req.user)
