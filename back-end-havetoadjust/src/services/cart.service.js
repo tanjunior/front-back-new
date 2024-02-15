@@ -74,6 +74,16 @@ const addCartItemByCartId = async (data) => {
   return item
 };
 
+//removeShoppingCartItem
+const removeShoppingCartItem = async (data) => {
+  const {productId, shoppingCartId} = data
+  return await prisma.shoppingCartItem.delete({
+    where: {
+      productId_shoppingCartId : { productId, shoppingCartId}
+    }
+  });
+};
+
 // Delete a cart by ID
 const deleteCartById = async (id) => {
   return prisma.shoppingCart.delete({
@@ -90,5 +100,6 @@ module.exports = {
   updateCartById,
   deleteCartById,
   getCartByUserId,
-  addCartItemByCartId
+  addCartItemByCartId,
+  removeShoppingCartItem
 };
