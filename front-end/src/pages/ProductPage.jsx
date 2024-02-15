@@ -1,7 +1,8 @@
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useMutation } from '@tanstack/react-query'
 import { useParams } from 'react-router-dom'
 import { Button } from '../components/ui/button'
 import Icons from '../components/ui/Icons'
+import { toast } from "sonner"
 import {
   Carousel,
   CarouselContent,
@@ -19,8 +20,15 @@ import {
 } from "@/components/ui/select"
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
+import { useEffect, useRef } from 'react'
+import useAuth from '@/hooks/useAuth'
+import useCart from '@/hooks/useCart'
+import NumberSelector from '@/components/NumberSelector'
 
 export default function ProductPage() {
+  const { id } = useParams()
+  const { user} = useAuth()
+  const { cart, setCart } = useCart()
   const { data: product, isError, isLoading } = useQuery({
     queryKey: ['products'],
     queryFn: async () => {
@@ -29,14 +37,26 @@ export default function ProductPage() {
       return data
     },
   })
-  
-  const id = useParams().id
+
+  const {mutate} = useMutation({
+    mutationFn: async (data) => {
+      return fetch(`http://localhost:3001/api/carts/add`, {
+        method: "POST",
+        body: JSON.stringify({...data, shoppingCartId: user.shoppingCart.id}),
+        headers: {
+          "Content-Type": "application/json",
+        }
+      }).then(async(res) => await res.json())
+    }
+  })
+
+  const quantityRef = useRef(null)  
 
   if (isError) return <div>Error</div>
   if (isLoading) return <div>Loading</div>
   
   return (
-    <div className='flex flex-col items-center justify-center h-full px-20 pt-32 gap-y-6'>
+    <div className='flex flex-col items-center justify-center px-20 gap-y-6'>
       <div className='grid grid-cols-2 gap-x-16'>
         <img src={`http://localhost:3001/images/${product.productImg}`} alt={product.name} className='py-16 px-28 border border-[#E4E7E9]' />
         <div className='flex flex-col w-full gap-y-6'>
@@ -87,8 +107,30 @@ export default function ProductPage() {
         </Carousel>
         <div className='flex flex-col gap-y-2'>
           <div className='flex flex-row gap-2'>
-            <Input type="number" />
-            <Button variant={"outline"} className="w-full border-primary text-primary">เพิ่มไปยังตะกร้า</Button>
+            <NumberSelector className="w-1/5 text-center" ref={quantityRef} quantity={1} />
+            <Button variant={"outline"} className="w-full border-primary text-primary" onClick={() => {
+              mutate({
+                productId: product.id,
+                quantity: parseInt(quantityRef.current.value)
+              },
+              {
+                onSuccess: (data) => {
+                  if (cart.find((item) => item.product.id === product.id)) {
+                    setCart(prev => prev.map((item) => {
+                      if (item.product.id === product.id) {item.quantity = data.quantity} return item
+                    }))
+                  } else {
+                    setCart(prev => [...prev, {product: { id: product.id, name: product.name, price: product.price, productImg: product.productImg }, quantity: data.quantity}])
+                  }
+                  toast(`${product.name} was added to cart`, {
+                    action: {
+                      label: 'Undo',
+                      onClick: () => console.log('Undo')
+                    }
+                  })
+                }
+              })
+            }}>เพิ่มไปยังตะกร้า</Button>
           </div>
           <Button className="w-full">สั่งซื้อ</Button>
         </div>
@@ -98,7 +140,7 @@ export default function ProductPage() {
           <div className='border-b-[3px] border-orange-400'>คำอธิบายสินค้า</div>
         </div>
         <div className='border border-[#E4E7E9] px-44 flex justify-center gap-x-32 py-6 items-start'>
-          <div className='grid grid-rows-7 text-[#5F6C72] gap-x-2 w-full h-full gap-y-1'>
+          <div className='grid grid-rows-7 text-[#5F6C72] gap-x-2 w-full h-full gap-y-1 text-nowrap'>
             <h3 className='font-medium text-[#191C1F] col-span-2'>Description</h3>
             <div>Screen size:</div>
             <div>6.1 Inch</div>
@@ -114,7 +156,7 @@ export default function ProductPage() {
             <div>Lightning</div>
           </div>
 
-          <div className='grid grid-rows-5 gap-x-2 text-[#191C1F] w-full gap-y-2 items-center'>
+          <div className='grid grid-rows-6 gap-x-2 text-[#191C1F] w-full gap-y-2 items-center text-nowrap'>
             
             <h3 className='col-span-2 font-medium'>Feature</h3>
             <Icons.user className="text-primary w-min"/>
