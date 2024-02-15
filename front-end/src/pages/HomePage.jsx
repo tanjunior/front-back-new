@@ -53,7 +53,7 @@ export default function HomePage() {
                   </CardHeader>
                   <CardContent>
                   <div>{product.name} ({product.capacity}) - {product.color}</div>
-                  <div className='pl-2 text-primary'>{product.price}</div>
+                  <div className='pl-2 text-primary'>{product.price} บาท</div>
                   </CardContent>
                   <CardFooter className="flex justify-end">
                     <Icons.cart className="z-10 w-10 h-10" onClick={(e)=> {
@@ -68,10 +68,10 @@ export default function HomePage() {
                           } else {
                             setCart(prev => [...prev, {product: { id: product.id, name: product.name, price: product.price, productImg: product.productImg }, quantity: data.quantity}])
                           }
-                          toast(`${product.name} was added to cart`, {
+                          toast(`${product.name} ถูกเพิ่มไปยังตะกร้า`, {
                             action: {
-                              label: 'Undo',
-                              onClick: () => console.log('Undo')
+                              label: 'เรียกกลับ',
+                              onClick: () => console.log('เรียกกลับ')
                             }
                           })
                         }
@@ -84,7 +84,7 @@ export default function HomePage() {
                 
                 
               </Link>
-            )) : <div>No products found</div>
+            )) : <div>ไม่พบสินค้า</div>
           }
         </div>
       </div>

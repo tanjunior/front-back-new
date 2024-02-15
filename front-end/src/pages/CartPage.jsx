@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 import {
   flexRender,
   getCoreRowModel,
@@ -6,18 +6,18 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table"
-import useCart from '@/hooks/useCart'
-import { cartColumns as columns } from '@/lib/CartColumns'
-import { Separator } from '@/components/ui/separator'
-import { Button } from '@/components/ui/button'
+} from "@tanstack/react-table";
+import useCart from "@/hooks/useCart";
+import { cartColumns as columns } from "@/lib/CartColumns";
+import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -25,16 +25,16 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
-import { Link } from "react-router-dom"
+} from "@/components/ui/table";
+import { Link } from "react-router-dom";
 
 export default function CartPage() {
-  const { cart: data } = useCart()
-  const [sorting, setSorting] = useState([])
-  const [columnFilters, setColumnFilters] = useState([])
-  const [columnVisibility, setColumnVisibility] = useState({})
-  const [rowSelection, setRowSelection] = useState({})
-  const [total, setTotal] = useState(0)
+  const { cart: data } = useCart();
+  const [sorting, setSorting] = useState([]);
+  const [columnFilters, setColumnFilters] = useState([]);
+  const [columnVisibility, setColumnVisibility] = useState({});
+  const [rowSelection, setRowSelection] = useState({});
+  const [total, setTotal] = useState(0);
 
   const table = useReactTable({
     data,
@@ -53,21 +53,25 @@ export default function CartPage() {
       columnVisibility,
       rowSelection,
     },
-  })
+  });
 
   useEffect(() => {
-    const selected = table.getSelectedRowModel().flatRows
-    const productTotal = selected.reduce((accumulator, currentValue) => accumulator + currentValue.original.product.price*currentValue.original.quantity, 0)
-    setTotal(productTotal)
-  }, [rowSelection])
-  
+    const selected = table.getSelectedRowModel().flatRows;
+    const productTotal = selected.reduce(
+      (accumulator, currentValue) =>
+        accumulator +
+        currentValue.original.product.price * currentValue.original.quantity,
+      0
+    );
+    setTotal(productTotal);
+  }, [rowSelection]);
 
   return (
     <div className='flex items-center justify-center flex-grow w-8/12 mx-auto'>
       <div className="flex flex-row gap-x-6">
         <Card className="w-full">
           <CardHeader>
-            <CardTitle>sldkfjsdlkjflsj</CardTitle>
+            <CardTitle>ตะกร้าสินค้า</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="border rounded-md">
@@ -112,7 +116,7 @@ export default function CartPage() {
                 ) : (
                   <TableRow>
                     <TableCell colSpan={columns.length} className="h-24 text-center">
-                      No results.
+                      ไม่พบผลลัพท์
                     </TableCell>
                   </TableRow>
                 )}
@@ -120,39 +124,38 @@ export default function CartPage() {
             </Table>
           </div>
           <div className="flex-1 w-full text-sm text-muted-foreground flex-nowrap text-nowrap">
-            {table.getFilteredSelectedRowModel().rows.length} of{" "} {table.getFilteredRowModel().rows.length} row(s) selected.
+            {table.getFilteredSelectedRowModel().rows.length} จาก{" "} {table.getFilteredRowModel().rows.length} รายการที่เลือก
           </div>
           </CardContent>
         </Card>
         
         <Card className="flex flex-col w-1/3">
           <CardHeader>
-            <CardTitle>sldkfjsdlkjflsj</CardTitle>
+            <CardTitle>สรุปการสั่งซื้อ</CardTitle>
           </CardHeader>
           <CardContent className="grid grid-cols-2">
-            <div className='font-normal'>sk;ldjfslkdjf</div>
-            <div className='font-medium place-self-end'>{total}</div>
-            <div className='font-normal'>Delivery</div>
-            <div className='font-medium place-self-end'>Free</div>
+            <div className='font-normal'>ยอดรวม</div>
+            <div className='font-medium place-self-end'>{total} บาท</div>
+            <div className='font-normal'>ค่าจัดส่ง</div>
+            <div className='font-medium place-self-end'>ฟรี</div>
           </CardContent>
           <CardFooter className="flex-col flex-1 mt-auto gap-y-4">
             <Separator />
             <div className='flex flex-row justify-between w-full'>
-              <div className='font-medium'>Total</div>
-              <div className='font-semibold place-self-end'>{total}</div>
+              <div className='font-medium'>ยอดรวมสุทธิ</div>
+              <div className='font-semibold place-self-end'>{total} บาท</div>
             </div>
             
             <Button className="w-full" asChild>
               <Link
                 to={{ pathname: "/checkout" }}
                 state={{items: table.getSelectedRowModel().flatRows.map((row) => row.original), total}}
-              >Check out</Link>
+              >ดำเนินการสั่งซื้อ</Link>
             </Button>
           </CardFooter>
         </Card>
 
       </div>
     </div>
-
-  )
+  );
 }
