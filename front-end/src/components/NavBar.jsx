@@ -55,7 +55,7 @@ export default function NavBar() {
               </SheetTrigger>
               <SheetContent>
                 <SheetHeader>
-                  <SheetTitle>Shopping Cart</SheetTitle>
+                  <SheetTitle>ตะกร้าสินค้า</SheetTitle>
                   {
                     cart?.length > 0 ? cart.map((item) => {
                       return (
@@ -71,7 +71,7 @@ export default function NavBar() {
                 </SheetHeader>
                 <SheetFooter>
                   
-                    <Button asChild onClick={() => navigate('/cart')}><SheetClose>Go to Cart</SheetClose></Button>
+                    <Button asChild onClick={() => navigate('/cart')}><SheetClose>ไปยังตะกร้า</SheetClose></Button>
                   
                 </SheetFooter>
               </SheetContent>
@@ -80,9 +80,9 @@ export default function NavBar() {
               <DropdownMenuTrigger><Icons.user className='w-8 h-8'/></DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuLabel>
-                <Link to="/account">My Account</Link></DropdownMenuLabel>
+                <Link to="/account">บัญชีของฉัน</Link></DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Logout</DropdownMenuItem>
+                <DropdownMenuItem>ออกจากระบบ</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
 

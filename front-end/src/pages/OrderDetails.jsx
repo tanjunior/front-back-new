@@ -48,7 +48,7 @@ export default function OrderDetails() {
           </div>
           <h1>{order.orderDetails && order.orderDetails?.reduce((acc, cur) => acc + cur.price * cur.quantity, 0)}</h1>
         </div>
-        <div>what is this</div>
+        <div>Order is expected to arrive on (Date Time)</div>
         <div className="py-4 space-y-6 px-44">
           <Progress value={25}/>
           <div className="flex flex-row items-center justify-between">
@@ -58,7 +58,7 @@ export default function OrderDetails() {
             <Icons.product className="w-12 h-12" />
           </div>
         </div>
-        <div>what is this</div>
+        <div>Product(Number of products)</div>
         <Table>
           <TableHeader className="bg-accent">
             <TableRow>
@@ -89,21 +89,21 @@ export default function OrderDetails() {
       </CardContent>
       <CardFooter className="flex flex-row items-center justify-center p-6 gap-x-6">
         <div className="flex flex-col">
-          <div>asdasdasdasd</div>
-          <div>asdasdasdasd</div>
-          <div>asdasdasdasd</div>
-          <div>asdasdasdasd</div>
-          <div>asdasdasdasd</div>
-          <div>asdasdasdasd</div>
+          <div>in progress</div>
+          <div>in progress</div>
+          <div>in progress</div>
+          <div>in progress</div>
+          <div>in progress</div>
+          <div>in progress</div>
         </div>
         <Separator orientation="vertical"/>
         <div className="flex flex-col">
-          <div>asdasdasdasd</div>
-          <div>asdasdasdasd</div>
-          <div>asdasdasdasd</div>
-          <div>asdasdasdasd</div>
-          <div>asdasdasdasd</div>
-          <div>asdasdasdasd</div>
+          <div>in progress</div>
+          <div>in progress</div>
+          <div>in progress</div>
+          <div>in progress</div>
+          <div>in progress</div>
+          <div>in progress</div>
         </div>
       </CardFooter>
     </Card>

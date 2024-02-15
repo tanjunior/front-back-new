@@ -122,10 +122,10 @@ export default function ProductPage() {
                   } else {
                     setCart(prev => [...prev, {product: { id: product.id, name: product.name, price: product.price, productImg: product.productImg }, quantity: data.quantity}])
                   }
-                  toast(`${product.name} was added to cart`, {
+                  toast(`${product.name} ถูกเพิ่มไปยังตะกร้า`, {
                     action: {
-                      label: 'Undo',
-                      onClick: () => console.log('Undo')
+                      label: 'เรียกกลับ',
+                      onClick: () => console.log('เรียกกลับ')
                     }
                   })
                 }
