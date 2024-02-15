@@ -24,6 +24,7 @@ function CartContextProvider(props) {
         setLoading(true)
         const data = await fetchCart()
         // console.log(data.shoppingCartItems)
+        // console.log(data)
         setCart(data.shoppingCartItems)
         
       } catch(err) {
