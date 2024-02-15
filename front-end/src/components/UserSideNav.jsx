@@ -23,8 +23,9 @@ export default function UserSideNav() {
   return (
     <nav className='flex flex-col w-3/12 border shadow-xl h-min justify-evenly'>
       <NavButton title="Dashboard" path="/account" activePath={pathname}><Icons.dashboard/></NavButton>
-      <NavButton title="Profile" path="/account/profile" activePath={pathname}><Icons.product /></NavButton>
+      <NavButton title="Profile" path="/account/profile" activePath={pathname}><Icons.smile /></NavButton>
       <NavButton title="Orders" path="/account/orders" activePath={pathname}><Icons.stack /></NavButton>
+      <NavButton title="Address" path="/account/address" activePath={pathname}><Icons.notebook /></NavButton>
       <Link className={cn(navButtonClass, "w-full text-[#8B8E99] hover:text-primary")} to="#" onClick={hdlLogout}>
         <Icons.logout /> logout
       </Link>

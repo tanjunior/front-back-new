@@ -9,6 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { Link, useNavigate } from "react-router-dom"
 
 export const columns = [
   {
@@ -39,21 +40,21 @@ export const columns = [
   },
   {
     accessorKey: "name",
+    header: "Name",
+  },
+  {
+    accessorKey: "stock",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Product
+          Stock
           <ArrowUpDown className="w-4 h-4 ml-2" />
         </Button>
       )
     },
-  },
-  {
-    accessorKey: "stock",
-    header: "Stock",
   },
   {
     accessorKey: "capacity",
@@ -78,7 +79,8 @@ export const columns = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const payment = row.original
+      const productId = row.original.id
+      const navigate = useNavigate()
 
       return (
         <DropdownMenu>
@@ -89,14 +91,15 @@ export const columns = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
+            <Link 
+              to={`/products/${productId}`}
+              state={row.original}
             >
-              Copy payment ID
-            </DropdownMenuItem>
+              <DropdownMenuItem>
+              Edit
+              </DropdownMenuItem>
+            </Link>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Edit</DropdownMenuItem>
             <DropdownMenuItem className="text-destructive">Delete</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

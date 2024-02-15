@@ -19,6 +19,8 @@ import UserDashBoard from '@/components/UserDashboard'
 import UserOrders from '@/components/UserOrders'
 import UserProfile from '@/components/UserProfile'
 import ErrorBoundary from '@/pages/ErrorBoundary'
+import AdminProductEdit from '@/components/AdminProductEdit'
+import UserAddress from '@/components/UserAddress'
 
 const guestRouter = createBrowserRouter([
   {
@@ -57,6 +59,7 @@ const userRouter = createBrowserRouter([
           { index: true, element: <UserDashBoard />},
           { path: '/account/orders', element: <UserOrders />},
           { path: '/account/profile', element: <UserProfile />},
+          { path: '/account/address', element: <UserAddress />},
         ]
       }
     ]
@@ -74,7 +77,8 @@ const adminRouter = createBrowserRouter([
       {
         children: [
           { path: "products", element: <AdminProductList /> },
-          { path: "products/add", element: <AdminProductAdd /> }
+          { path: "products/add", element: <AdminProductAdd /> },
+          { path: "products/:id", element: <AdminProductEdit /> }
         ]
       },
     ]

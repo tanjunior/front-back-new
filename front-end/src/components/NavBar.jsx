@@ -45,7 +45,6 @@ export default function NavBar() {
       </div>
       { user
         ? <div className='flex flex-row items-center justify-center gap-x-6'>
-            <Link className='text-[#8B8E99] font-semibold self-center' to='#' onClick={hdlLogout}>ออกจากระบบ</Link>
             <Sheet>
               <SheetTrigger>
                 <div className='relative'>
@@ -76,15 +75,8 @@ export default function NavBar() {
                 </SheetFooter>
               </SheetContent>
             </Sheet>
-            <DropdownMenu>
-              <DropdownMenuTrigger><Icons.user className='w-8 h-8'/></DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuLabel>
-                <Link to="/account">บัญชีของฉัน</Link></DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>ออกจากระบบ</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <Link to="/account"><Icons.user className='w-8 h-8'/></Link>
+            
 
             
           </div>

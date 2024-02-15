@@ -64,12 +64,10 @@ router.get("/get/:id", async (req, res) => {
 });
 
 // Update a product by ID
-router.put("/update/:id", async (req, res) => {
-  const productId = parseInt(req.params.id, 10);
-
+router.put("/update", async (req, res) => {
   try {
     const updatedProduct = await productService.updateProductById(
-      productId,
+      req.body.id,
       req.body
     );
 

@@ -30,7 +30,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/carts', cartRoutes);
-app.use('/api/ship_addresses', shipAddressRoutes);
+app.use('/api/addresses', shipAddressRoutes);
 app.use('/api/products', productRoutes);
 app.use('/auth', authRoutes)
 app.use('/contact', contactRoutes)

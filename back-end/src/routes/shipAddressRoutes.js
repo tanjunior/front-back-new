@@ -4,7 +4,7 @@ const router = express.Router();
 const shipAddressService = require("../services/ship_address.service");
 
 // Create a new shipAddress
-router.post("/ship_addresss", async (req, res) => {
+router.post("/new", async (req, res) => {
   try {
     const newShipAddress = await shipAddressService.createShipAddress(req.body);
     res.json(newShipAddress);
@@ -14,7 +14,7 @@ router.post("/ship_addresss", async (req, res) => {
 });
 
 // Get all shipAddresss
-router.get("/ship_addresss", async (req, res) => {
+router.get("/all", async (req, res) => {
   try {
     const shipAddresss = await shipAddressService.getAllShipAddresss();
     res.json(shipAddresss);
@@ -23,13 +23,22 @@ router.get("/ship_addresss", async (req, res) => {
   }
 });
 
+// get all shipAddresss by user id
+router.get("/allbyuserid", async (req, res) => {
+  try {
+    const shipAddresss = await shipAddressService.getAllShipAddresssByUserId(req.body);
+    res.json(shipAddresss);
+  } catch (error) {
+    res.status(500).json({ error: "Error getting shipAddresss", message: error.message });
+  }
+});
+
 // Get a shipAddress by ID
-router.get("/ship_addresss/:id", async (req, res) => {
-  const shipAddressId = parseInt(req.params.id, 10);
+router.get("/get", async (req, res) => {
 
   try {
     const shipAddress = await shipAddressService.getShipAddressById(
-      shipAddressId
+      req.body
     );
 
     if (!shipAddress) {
@@ -44,12 +53,11 @@ router.get("/ship_addresss/:id", async (req, res) => {
 });
 
 // Update a shipAddress by ID
-router.put("/ship_addresss/:id", async (req, res) => {
-  const shipAddressId = parseInt(req.params.id, 10);
+router.put("/update/", async (req, res) => {
 
   try {
     const updatedShipAddress = await shipAddressService.updateShipAddressById(
-      shipAddressId,
+      req.body.id,
       req.body
     );
 
@@ -65,12 +73,11 @@ router.put("/ship_addresss/:id", async (req, res) => {
 });
 
 // Delete a shipAddress by ID
-router.delete("/ship_addresss/:id", async (req, res) => {
-  const shipAddressId = parseInt(req.params.id, 10);
+router.delete("/delete", async (req, res) => {
 
   try {
     const deletedShipAddress = await shipAddressService.deleteShipAddressById(
-      shipAddressId
+      req.body
     );
 
     if (!deletedShipAddress) {
