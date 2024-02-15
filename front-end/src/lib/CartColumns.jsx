@@ -1,5 +1,5 @@
 import CartQuantity from "@/components/CartQuantity"
-import { Button } from "@/components/ui/button"
+import CartRemoveButton from "@/components/CartRemoveButton"
 import { Checkbox } from "@/components/ui/checkbox"
 
 export const cartColumns = [
@@ -63,11 +63,9 @@ export const cartColumns = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const id = row.id
+      const {id: productId} = row.original.product
 
-      return (
-        <Button variant="destructive">Remove</Button>
-      )
+      return <CartRemoveButton productId={productId} />
     },
   },
 ]
