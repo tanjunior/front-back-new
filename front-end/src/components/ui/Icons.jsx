@@ -4,13 +4,19 @@ import {
   Wallet,
   User,
   ShoppingCart,
-  Users
+  Users,
+  QrCode,
+  Plus,
+  Minus
 } from "lucide-react"
 
 
 const Icons = {
+  plus: Plus,
+  minus: Minus,
   sun: SunMedium,
   moon: Moon,
+  qrcode: QrCode,
   logout: (props) => (
     <svg width="22" height="22" fill="none" viewBox="0 0 22 22" {...props}>
       <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M7.667 21H3.222A2.222 2.222 0 0 1 1 18.778V3.222A2.222 2.222 0 0 1 3.222 1h4.445M15.444 16.555 21 11l-5.556-5.556M21 11H7.666"/>
@@ -25,7 +31,7 @@ const Icons = {
     </svg>
   ),
   product: (props) => (
-    <svg width="23" height="22" fill="none" {...props}>
+    <svg width="23" height="22" viewBox="0 0 23 22"  fill="none" {...props}>
       <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16.448 8.37 7.482 3.2M20.93 14.944v-7.97a1.991 1.991 0 0 0-.996-1.723l-6.973-3.984a1.992 1.992 0 0 0-1.992 0L3.996 5.25A1.992 1.992 0 0 0 3 6.975v7.969a1.992 1.992 0 0 0 .996 1.723l6.973 3.984a1.993 1.993 0 0 0 1.992 0l6.973-3.984a1.991 1.991 0 0 0 .996-1.723Z"/>
       <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m3.268 5.938 8.696 5.03 8.696-5.03M11.965 21V10.959"/>
     </svg>
@@ -64,6 +70,11 @@ const Icons = {
     <svg width="20" height="20" fill="none" {...props}>
     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M4.343 15.656 15.657 4.343M4.343 4.344l11.314 11.314"/>
   </svg>
+  ),
+  cod: (props) => (
+    <svg width="23" height="20" fill="none" viewBox="0 0 23 20" {...props}>
+      <path fill="currentColor" d="m10.588 5.637 2.12.558a.336.336 0 0 1 .26.317c0 .18-.16.328-.357.328h-1.39c-.15 0-.299-.03-.438-.086-.204-.086-.44-.066-.598.078l-.742.684a.456.456 0 0 0-.148.268.446.446 0 0 0 .212.45c.411.247.871.4 1.348.45v.691c0 .344.306.625.679.625h.678c.373 0 .679-.281.679-.625v-.688c1.286-.14 2.26-1.21 2.09-2.46-.123-.899-.877-1.614-1.819-1.864l-2.12-.558a.336.336 0 0 1-.259-.317c0-.18.16-.328.357-.328h1.39c.15 0 .3.03.439.086.204.086.44.067.597-.078l.743-.684a.442.442 0 0 0 .145-.266.447.447 0 0 0-.21-.452 3.274 3.274 0 0 0-1.35-.449V.625c0-.344-.305-.625-.678-.625h-.678c-.373 0-.679.281-.679.625v.688c-1.284.14-2.26 1.21-2.09 2.46.123.899.88 1.614 1.82 1.864Zm11.493 7.18c-.461-.419-1.18-.391-1.664 0l-3.61 2.886a2.485 2.485 0 0 1-1.562.547h-4.62a.624.624 0 1 1 0-1.25h3.058c.621 0 1.2-.426 1.299-1.04a1.25 1.25 0 0 0-1.232-1.46H7.5a4.596 4.596 0 0 0-2.895 1.027L2.79 15H.625a.625.625 0 0 0-.625.625v3.75A.625.625 0 0 0 .625 20h13.936a2.5 2.5 0 0 0 1.563-.547l5.907-4.726a1.25 1.25 0 0 0 .05-1.91Z"/>
+    </svg>
   ),
   cart: ShoppingCart
 }

@@ -72,7 +72,7 @@ model ShoppingCartItem {
   productId Int
   quantity  Int
   shoppingCartId Int
-  shoppingCart ShoppingCart @relation(fields: [shoppingCartId], references: [id])
+  shoppingCart ShoppingCart @relation(fields: [shoppingCartId], references: [id], onDelete: Cascade)
   product   Product @relation(fields: [productId], references: [id])
 
   @@id([productId, shoppingCartId])
@@ -83,10 +83,10 @@ model Order {
   id           Int           @id @default(autoincrement())
   userId       Int
   orderDate    DateTime      @default(now())
-  status       OrderStatus
+  status       OrderStatus?  @default(value: PENDING)
   user         User          @relation(fields: [userId], references: [id])
   orderDetails OrderDetail[]
-  payments     Payment[]
+  payments     Payment?
 }
 
 // Model for order details
@@ -96,14 +96,14 @@ model OrderDetail {
   productId Int
   quantity  Int
   price     Float
-  order     Order   @relation(fields: [orderId], references: [id])
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
   product   Product @relation(fields: [productId], references: [id])
 }
 
 // Model for payments
 model Payment {
   id          Int           @id @default(autoincrement())
-  orderId     Int
+  orderId     Int           @unique
   paymentDate DateTime      @default(now())
   amount      Float
   method      String

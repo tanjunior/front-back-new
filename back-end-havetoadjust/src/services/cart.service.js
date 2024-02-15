@@ -29,6 +29,8 @@ const getCartById = async (id) => {
               name: true,
               price: true,
               productImg: true,
+              capacity: true,
+              color: true
             }
           }
         },
