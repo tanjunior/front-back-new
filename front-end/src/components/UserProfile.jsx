@@ -49,8 +49,8 @@ export default function UserProfile() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: user.username,
-      firstName: user.firstName,
-      lastName: user.lastName,
+      firstName: user.firstName || "",
+      lastName: user.lastName || "",
       email: user.email,
       phoneNumber: user.phoneNumber
     },

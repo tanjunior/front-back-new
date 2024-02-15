@@ -18,11 +18,13 @@ import AccountLayout from '@/layout/AccountLayout'
 import UserDashBoard from '@/components/UserDashboard'
 import UserOrders from '@/components/UserOrders'
 import UserProfile from '@/components/UserProfile'
+import ErrorBoundary from '@/pages/ErrorBoundary'
 
 const guestRouter = createBrowserRouter([
   {
     path: '/',
     element: <MainLayout />,
+    errorElement: <ErrorBoundary />,
     children: [
       { index: true, element: <Landing /> },
       { path: '/home', element: <HomePage /> },
@@ -38,6 +40,7 @@ const userRouter = createBrowserRouter([
   {
     path: '/',
     element: <MainLayout />,
+    errorElement: <ErrorBoundary />,
     children: [
       { index: true, element: <Navigate to='/home' /> },
       { path: '/home', element: <HomePage /> },
@@ -63,6 +66,7 @@ const userRouter = createBrowserRouter([
 const adminRouter = createBrowserRouter([
   {
     path: '/',
+    errorElement: <ErrorBoundary />,
     element: <AdminLayout />,
     children: [
       { index: true, element: <AdminDashboard /> },
