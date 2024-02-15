@@ -52,6 +52,23 @@ router.post("/add", async (req, res) => {
   }
 });
 
+// remove item from a cart
+router.delete("/remove", async (req, res) => {
+  console.log(req.body);
+  try {
+    const removedCartItem = await cartService.removeShoppingCartItem(req.body);
+
+    if (!removedCartItem) {
+      res.status(404).json({ error: "Cart item not found" });
+      return;
+    }
+
+    res.json(removedCartItem);
+  } catch (error) {
+    res.status(500).json({ error: "Error removing item from cart", message: error.message});
+  }
+});
+
 
 // Update a cart by ID
 router.put("/update/:id", async (req, res) => {

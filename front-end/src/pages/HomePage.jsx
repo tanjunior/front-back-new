@@ -41,7 +41,7 @@ export default function HomePage() {
     <div className='flex items-center justify-center flex-grow w-8/12 mx-auto'>
       <div className='flex flex-col gap-x-4 gap-y-12'>
         <Input type="text" className='rounded-md border border-[#E4E7E9] w-full'/>
-        <div className='grid grid-cols-3 gap-8'>
+        <div className='grid grid-cols-4 gap-8'>
           {
             isLoading ? <div>Loading...</div> : (products.length > 0) ? products.map((product) => (
               

@@ -35,7 +35,7 @@ const getUserByUsername = async (username) => {
 const updateUserById = async (id, data) => {
   return prisma.user.update({
     where: {
-      id,
+      id
     },
     data
   });
