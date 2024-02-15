@@ -1,15 +1,16 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import NumberSelector from './NumberSelector'
 
 export default function CartQuantity(props) {
+  const [quantity, setQuantity] = useState(props.quantity)
   const ref = useRef(null)
 
   useEffect(() => {
-    console.log(ref)
-  }, [ref])
+    // console.log(quantity)
+  }, [quantity])
   
 
   return (
-    <NumberSelector ref={ref} {...props} />
+    <NumberSelector ref={ref} {...props} getValue={setQuantity}/>
   )
 }
