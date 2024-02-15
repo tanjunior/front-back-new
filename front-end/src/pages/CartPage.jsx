@@ -67,13 +67,14 @@ export default function CartPage() {
   }, [rowSelection]);
 
   return (
-    <div className="flex flex-row justify-center w-full h-full gap-x-6">
-      <Card className="w-full">
-        <CardHeader>
-          <CardTitle>ตะกร้าสินค้า</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="border rounded-md">
+    <div className='flex items-center justify-center flex-grow w-8/12 mx-auto'>
+      <div className="flex flex-row gap-x-6">
+        <Card className="w-full">
+          <CardHeader>
+            <CardTitle>ตะกร้าสินค้า</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="border rounded-md">
             <Table>
               <TableHeader>
                 {table.getHeaderGroups().map((headerGroup) => (
@@ -88,7 +89,7 @@ export default function CartPage() {
                                 header.getContext()
                               )}
                         </TableHead>
-                      );
+                      )
                     })}
                   </TableRow>
                 ))}
@@ -103,17 +104,10 @@ export default function CartPage() {
                       {row.getVisibleCells().map((cell) => (
                         <TableCell key={cell.id}>
                           <div className="flex flex-row items-center">
-                            {cell.id.includes("name") && (
-                              <img
-                                className="max-h-16"
-                                src={`http://localhost:3001/images/${row.original.productImg}`}
-                                alt=""
-                              />
-                            )}
-                            {flexRender(
-                              cell.column.columnDef.cell,
-                              cell.getContext()
-                            )}
+                            { cell.id.includes('name') && <img className="max-h-16" src={`http://localhost:3001/images/${row.original.productImg}`} alt="" />}
+                            {
+                              flexRender(cell.column.columnDef.cell, cell.getContext())
+                            }
                           </div>
                         </TableCell>
                       ))}
@@ -121,10 +115,7 @@ export default function CartPage() {
                   ))
                 ) : (
                   <TableRow>
-                    <TableCell
-                      colSpan={columns.length}
-                      className="h-24 text-center"
-                    >
+                    <TableCell colSpan={columns.length} className="h-24 text-center">
                       ไม่พบผลลัพท์
                     </TableCell>
                   </TableRow>
@@ -133,44 +124,38 @@ export default function CartPage() {
             </Table>
           </div>
           <div className="flex-1 w-full text-sm text-muted-foreground flex-nowrap text-nowrap">
-            {table.getFilteredSelectedRowModel().rows.length} จาก{" "}
-            {table.getFilteredRowModel().rows.length} รายการที่เลือก
+            {table.getFilteredSelectedRowModel().rows.length} จาก{" "} {table.getFilteredRowModel().rows.length} รายการที่เลือก
           </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+        
+        <Card className="flex flex-col w-1/3">
+          <CardHeader>
+            <CardTitle>สรุปการสั่งซื้อ</CardTitle>
+          </CardHeader>
+          <CardContent className="grid grid-cols-2">
+            <div className='font-normal'>ยอดรวม</div>
+            <div className='font-medium place-self-end'>{total} บาท</div>
+            <div className='font-normal'>ค่าจัดส่ง</div>
+            <div className='font-medium place-self-end'>ฟรี</div>
+          </CardContent>
+          <CardFooter className="flex-col flex-1 mt-auto gap-y-4">
+            <Separator />
+            <div className='flex flex-row justify-between w-full'>
+              <div className='font-medium'>ยอดรวมสุทธิ</div>
+              <div className='font-semibold place-self-end'>{total} บาท</div>
+            </div>
+            
+            <Button className="w-full" asChild>
+              <Link
+                to={{ pathname: "/checkout" }}
+                state={{items: table.getSelectedRowModel().flatRows.map((row) => row.original), total}}
+              >ดำเนินการสั่งซื้อ</Link>
+            </Button>
+          </CardFooter>
+        </Card>
 
-      <Card className="flex flex-col w-1/3">
-        <CardHeader>
-          <CardTitle>สรุปการสั่งซื้อ</CardTitle>
-        </CardHeader>
-        <CardContent className="grid grid-cols-2">
-          <div className="font-normal">ยอดรวม</div>
-          <div className="font-medium place-self-end">{total} บาท</div>
-          <div className="font-normal">ค่าจัดส่ง</div>
-          <div className="font-medium place-self-end">ฟรี</div>
-        </CardContent>
-        <CardFooter className="flex-col flex-1 mt-auto gap-y-4">
-          <Separator />
-          <div className="flex flex-row justify-between w-full">
-            <div className="font-medium">ยอดรวมสุทธิ</div>
-            <div className="font-semibold place-self-end">{total} บาท</div>
-          </div>
-
-          <Button className="w-full" asChild>
-            <Link
-              to={{ pathname: "/checkout" }}
-              state={{
-                items: table
-                  .getSelectedRowModel()
-                  .flatRows.map((row) => row.original),
-                total,
-              }}
-            >
-              ดำเนินการสั่งซื้อ
-            </Link>
-          </Button>
-        </CardFooter>
-      </Card>
+      </div>
     </div>
   );
 }
