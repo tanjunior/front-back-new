@@ -83,11 +83,10 @@ router.put("/update", async (req, res) => {
 });
 
 // Delete a product by ID
-router.delete("/delete/:id", async (req, res) => {
-  const productId = parseInt(req.params.id, 10);
+router.delete("/delete", async (req, res) => {
 
   try {
-    const deletedProduct = await productService.deleteProductById(productId);
+    const deletedProduct = await productService.deleteProductById(req.body);
 
     if (!deletedProduct) {
       res.status(404).json({ error: "Product not found" });
@@ -96,7 +95,7 @@ router.delete("/delete/:id", async (req, res) => {
 
     res.json(deletedProduct);
   } catch (error) {
-    res.status(500).json({ error: "Error deleting product" });
+    res.status(500).json({ error: "Error deleting product", message: error.message });
   }
 });
 

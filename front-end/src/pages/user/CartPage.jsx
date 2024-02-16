@@ -146,9 +146,10 @@ export default function CartPage() {
               <div className='font-semibold place-self-end'>{total} บาท</div>
             </div>
             
-            <Button className="w-full" asChild>
+            <Button className="w-full" variant="disabled" asChild>
               <Link
-                to={{ pathname: "/checkout" }}
+                disabled
+                to={table.getSelectedRowModel().flatRows.length > 0 ? "/checkout" : "#" }
                 state={{items: table.getSelectedRowModel().flatRows.map((row) => row.original), total}}
               >ดำเนินการสั่งซื้อ</Link>
             </Button>

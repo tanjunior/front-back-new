@@ -36,7 +36,7 @@ const updateProductById = async (id, data) => {
 };
 
 // Delete a product by ID
-const deleteProductById = async (id) => {
+const deleteProductById = async ({id}) => {
   return prisma.product.delete({
     where: {
       id,
