@@ -240,7 +240,7 @@ export default function AddressForm({ title, data }) {
               </FormItem>
             )}
           />
-          <Button type="submit">Submit</Button>
+          <Button type="submit">บันทึกการเปลี่ยนแปลง</Button>
         </form>
       </Form>
     </DialogContent>

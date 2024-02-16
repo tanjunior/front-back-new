@@ -23,19 +23,19 @@ export default function UserCard() {
 
 
   if (isError) {
-    return <div>Error</div>
+    return <div>เกิดข้อผิดพลาด</div>
   }
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return <div>กำลังโหลด...</div>
   }
   
   return (
     <div className='flex flex-col justify-center flex-1 gap-y-6'>
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle>Cards</CardTitle>
-          <CardForm title="Add new card"/>
+          <CardTitle>บัตรเครดิต</CardTitle>
+          <CardForm title="เพิ่มบัตรเครดิต"/>
         </CardHeader>
         <CardContent className="flex flex-col gap-y-6">
           { cards.length > 0
@@ -46,14 +46,14 @@ export default function UserCard() {
                   {/* <CardForm title="Edit card" data={card} /> */}
                   <Button variant="destructive" onClick={() => axios.post("http://localhost:3001/api/cards/delete", card).then(res => {
                     if (res.status === 200) {
-                      toast.success("Deleted")
+                      toast.success("ลบบัตรเครดิตสำเร็จ")
                       queryClient.invalidateQueries({ queryKey: ['cards'] })
                     }
-                  })}>Delete</Button>
+                  })}>ลบบัตรเครดิต</Button>
                 </div>
               </div>
             )) 
-            : "No cards, add one!" }
+            : "ยังไม่มีบัตร เพิ่มเลย!" }
         </CardContent>
       </Card>
 

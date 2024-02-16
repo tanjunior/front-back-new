@@ -37,7 +37,7 @@ const passwordFormSchema = z.object({
   confirmPassword: z.string().min(8)
 }).refine((data) => data.newPassword === data.confirmPassword, {
   path: ['confirmPassword'],
-  message: 'Passwords does not match'
+  message: 'รหัสผ่านไม่ตรงกัน'
 })
 
 export default function UserProfile() {
@@ -98,7 +98,7 @@ export default function UserProfile() {
     <div className='flex flex-col justify-center flex-1 gap-y-6'>
       <Card>
         <CardHeader>
-          <CardTitle>Profile</CardTitle>
+          <CardTitle>โปรไฟล์</CardTitle>
         </CardHeader>
         <CardContent className="flex gap-x-6">
           <Avatar className="w-48 h-48">
@@ -113,7 +113,7 @@ export default function UserProfile() {
                 name="firstName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>First Name</FormLabel>
+                    <FormLabel>ชื่อ</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -127,7 +127,7 @@ export default function UserProfile() {
                 name="lastName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Last Name</FormLabel>
+                    <FormLabel>นามสกุล</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -141,7 +141,7 @@ export default function UserProfile() {
                 name="username"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Username</FormLabel>
+                    <FormLabel>ชื่อผู้ใช้</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -155,7 +155,7 @@ export default function UserProfile() {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel>อีเมล</FormLabel>
                     <FormControl>
                       <Input type="email" {...field} />
                     </FormControl>
@@ -169,7 +169,7 @@ export default function UserProfile() {
                 name="phoneNumber"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Phone Number</FormLabel>
+                    <FormLabel>หมายเลขโทรศัพท์</FormLabel>
                     <FormControl>
                       <Input type="number" {...field} />
                     </FormControl>
@@ -177,7 +177,7 @@ export default function UserProfile() {
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="col-span-2">Submit</Button>
+              <Button type="submit" className="col-span-2">บันทึการเปลี่ยนแปลง</Button>
             </form>
           </Form>
         </CardContent>
@@ -185,7 +185,7 @@ export default function UserProfile() {
 
       <Card>
         <CardHeader>
-          <CardTitle>translate</CardTitle>
+          <CardTitle>เปลี่ยนรหัสผ่าน</CardTitle>
         </CardHeader>
         <CardContent>
           <Form {...passwordForm}>
@@ -195,7 +195,7 @@ export default function UserProfile() {
                 name="currentPassword"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Current Password</FormLabel>
+                    <FormLabel>รหัสผ่านปัจจุบัน</FormLabel>
                     <FormControl>
                       <Input type="password" {...field} />
                     </FormControl>
@@ -209,7 +209,7 @@ export default function UserProfile() {
                 name="newPassword"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>New Password</FormLabel>
+                    <FormLabel>รหัสผ่านใหม่</FormLabel>
                     <FormControl>
                       <Input type="password" {...field} />
                     </FormControl>
@@ -224,7 +224,7 @@ export default function UserProfile() {
                 disabled={!passwordForm.watch("newPassword")}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>ConfirmPassword</FormLabel>
+                    <FormLabel>ยืนยันรหัสผ่าน</FormLabel>
                     <FormControl>
                       <Input type="password" {...field} />
                     </FormControl>
@@ -232,7 +232,7 @@ export default function UserProfile() {
                   </FormItem>
                 )}
               />
-              <Button type="submit">Submit</Button>
+              <Button type="submit">บันทึการเปลี่ยนแปลง</Button>
             </form>
           </Form>
         </CardContent>

@@ -24,19 +24,19 @@ export default function UserAddress() {
 
 
   if (isError) {
-    return <div>Error</div>
+    return <div>เกิดข้อผิดพลาด</div>
   }
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return <div>กำลังโหลด...</div>
   }
   
   return (
     <div className='flex flex-col justify-center flex-1 gap-y-6'>
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle>Address</CardTitle>
-          <AddressForm title="Add new address"/>
+          <CardTitle>ที่อยู่</CardTitle>
+          <AddressForm title="เพิ่มที่อยู่ใหม่"/>
         </CardHeader>
         <CardContent className="flex flex-col gap-y-6">
           { addresses.length > 0
@@ -44,13 +44,13 @@ export default function UserAddress() {
               <div key={address.id} className="flex items-center justify-between">
                 <p>{address.address}, {thaiAddressIdToString(address.subdistrict, "subdistrict")}, {thaiAddressIdToString(address.district, "district")}, {thaiAddressIdToString(address.province, "province")}, {address.postalCode}</p>
                 <div className="flex items-center gap-x-2">
-                  <AddressForm title="Edit address" data={address} />
+                  <AddressForm title="แก้ไขที่อยู่" data={address} />
                   <Button variant="destructive" onClick={() => axios.post("http://localhost:3001/api/addresses/delete", address).then(res => {
                     if (res.status === 200) {
-                      toast.success("Deleted")
+                      toast.success("ลบที่อยู่สำเร็จ")
                       queryClient.invalidateQueries({ queryKey: ['addresses'] })
                     }
-                  })}>Delete</Button>
+                  })}>ลบที่อยู่</Button>
                 </div>
               </div>
             )) 

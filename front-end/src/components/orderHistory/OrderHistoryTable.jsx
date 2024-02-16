@@ -93,7 +93,7 @@ export function OrderHistoryTable({ columns, data }) {
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-24 text-center">
-                  No results.
+                  ไม่พบผลลัพท์
                 </TableCell>
               </TableRow>
             )}

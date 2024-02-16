@@ -9,9 +9,8 @@ export default function AdminProductList() {
           {">"}
           <span className="text-primary">Product List</span>
         </div>
-        <NavLink to="/products/add" className="px-12 py-2 text-white rounded-md bg-primary">add</NavLink>
+        <NavLink to="/products/add" className="px-12 py-2 text-white rounded-md bg-primary">Add</NavLink>
       </div>
-      
       AdminProductsList
     </div>
   )
