@@ -127,12 +127,7 @@ export function DataTable({ columns, data }) {
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
-                      <div className="flex flex-row items-center">
-                        { cell.id.includes('name') && <img className="max-h-16" src={`http://localhost:3001/images/${row.original.productImg}`} alt="" />}
-                        {
-                          flexRender(cell.column.columnDef.cell, cell.getContext())
-                        }
-                      </div>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                   ))}
                 </TableRow>

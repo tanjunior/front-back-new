@@ -5,11 +5,12 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
+import axios from "axios"
+import { toast } from "sonner"
 
 export const columns = [
   {
@@ -41,6 +42,12 @@ export const columns = [
   {
     accessorKey: "name",
     header: "Name",
+    cell: ({ row }) => {
+      return <div className="flex items-center">
+        <img className="max-h-16" src={`http://localhost:3001/images/${row.original.productImg}`} alt="" />
+        {row.original.name}
+      </div> 
+    }
   },
   {
     accessorKey: "stock",
@@ -80,7 +87,6 @@ export const columns = [
     id: "actions",
     cell: ({ row }) => {
       const productId = row.original.id
-      const navigate = useNavigate()
 
       return (
         <DropdownMenu>
@@ -100,7 +106,12 @@ export const columns = [
               </DropdownMenuItem>
             </Link>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="text-destructive">Delete</DropdownMenuItem>
+            <DropdownMenuItem
+              className="text-destructive"
+              onClick={() => axios.delete("http://localhost:3001/api/products/delete",
+                {data: {id: productId}}).then(res => res.status === 200 && toast("deleted"))
+              }
+            >Delete</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )
