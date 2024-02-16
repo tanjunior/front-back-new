@@ -9,6 +9,7 @@ const productRoutes = require('./src/routes/productRoutes');
 const authRoutes = require('./src/routes/authRoutes');
 const contactRoutes = require('./src/routes/contactRoutes');
 const userRoutes = require('./src/routes/userRoutes');
+const cardRoutes = require('./src/routes/cardRoutes');
 const cors = require('cors')
 
 const app = express();
@@ -31,6 +32,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/carts', cartRoutes);
 app.use('/api/addresses', shipAddressRoutes);
+app.use('/api/cards', cardRoutes);
 app.use('/api/products', productRoutes);
 app.use('/auth', authRoutes)
 app.use('/contact', contactRoutes)
