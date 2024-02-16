@@ -41,7 +41,7 @@ export default function AdminSideNav() {
         <h2 className='uppercase text-[#3858D6] opacity-50 text-xs'>others</h2>
         <NavButton title="Settings" path="/settings" activePath={pathname}><Icons.settings /></NavButton>
         <Link className='p-2 rounded-md w-full text-[#8B8E99] hover:bg-[#3858D6] flex gap-x-2' to="#" onClick={hdlLogout}>
-          <Icons.logout /> logout
+          <Icons.logout /> Logout
         </Link>
       </div>
     </nav>
