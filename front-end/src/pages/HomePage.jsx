@@ -10,13 +10,13 @@ import {
 import { Input } from '@/components/ui/input'
 import { toast } from "sonner"
 import useAuth from '@/hooks/useAuth'
-import useCart from '@/hooks/useCart'
+import { useQueryClient } from "@tanstack/react-query"
 
 export default function HomePage() {
   const { user } = useAuth()
-  const { cart, setCart } = useCart()
+  const queryClient = useQueryClient()
 
-  const { data: products, isError, isLoading } = useQuery({
+  const { data: products, isLoading } = useQuery({
     queryKey: ['products'],
     queryFn: async () => {
       const response = await fetch('http://localhost:3001/api/products/all')
@@ -60,14 +60,8 @@ export default function HomePage() {
                       e.preventDefault()
                       e.stopPropagation()
                       mutate({ productId: product.id, quantity: 1 }, {
-                        onSuccess: (data) => {
-                          if (cart.find((item) => item.product.id === product.id)) {
-                            setCart(prev => prev.map((item) => {
-                              if (item.product.id === product.id) {item.quantity = data.quantity} return item
-                            }))
-                          } else {
-                            setCart(prev => [...prev, {product: { id: product.id, name: product.name, price: product.price, productImg: product.productImg }, quantity: data.quantity}])
-                          }
+                        onSuccess: () => {
+                          queryClient.invalidateQueries({ queryKey: ['shoppingCartItems'] })
                           toast(`${product.name} ถูกเพิ่มไปยังตะกร้า`, {
                             action: {
                               label: 'เรียกกลับ',
