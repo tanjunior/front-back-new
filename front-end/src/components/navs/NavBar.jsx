@@ -21,7 +21,7 @@ export default function NavBar() {
   const { cart } = useCart()
 
   return (
-    <div className='sticky top-0 flex flex-row px-32 py-4 bg-[#F5F5F7] justify-between items-center shadow-xl'>
+    <div className='sticky top-0 z-50 flex flex-row px-32 py-4 bg-[#F5F5F7] justify-between items-center shadow-xl'>
       <Link to="/"><Logo /></Link>
       
       <div className='flex items-center gap-x-5'>
