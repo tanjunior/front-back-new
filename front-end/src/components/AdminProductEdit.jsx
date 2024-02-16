@@ -1,4 +1,4 @@
-import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form"
 import Icons from "./ui/Icons";
@@ -128,7 +128,7 @@ export default function AdminProductEdit() {
               <CardTitle>รูปภาพ</CardTitle>
             </CardHeader>
             <CardContent>
-              <img src={`localhost:3001/images/${product.productImg}`} />
+              <img src={`http://localhost:3001/images/${product.productImg}`} />
             </CardContent>
           </Card>
 
