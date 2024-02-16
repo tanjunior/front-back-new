@@ -3,9 +3,13 @@ const prisma = require('../db')
 
 
 // Create a new ship address
-const createShipAddress = async (data) => {
-  return prisma.shippingAddress.create({
-    data,
+const createOrEditShipAddress = async (data) => {
+  return prisma.shippingAddress.upsert({
+    where: {
+      id: data.id || 0
+    },
+    update: data,
+    create: data
   });
 };
 
@@ -43,8 +47,8 @@ const updateShipAddressById = async (id, data) => {
 };
 
 // Delete a ship address by ID
-const deleteShipAddressById = async (id) => {
-  return prisma.shippingAddress.delete({
+const deleteShipAddressById = async ({id}) => {
+  return await prisma.shippingAddress.delete({
     where: {
       id,
     },
@@ -52,7 +56,7 @@ const deleteShipAddressById = async (id) => {
 };
 
 module.exports = {
-  createShipAddress,
+  createOrEditShipAddress,
   getAllShipAddresss,
   getShipAddressById,
   updateShipAddressById,

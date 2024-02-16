@@ -6,10 +6,11 @@ const shipAddressService = require("../services/ship_address.service");
 // Create a new shipAddress
 router.post("/new", async (req, res) => {
   try {
-    const newShipAddress = await shipAddressService.createShipAddress(req.body);
+    const newShipAddress = await shipAddressService.createOrEditShipAddress(req.body);
     res.json(newShipAddress);
   } catch (error) {
-    res.status(500).json({ error: "Error creating shipAddress" });
+    console.log(error)
+    res.status(500).json({ error: "Error creating shipAddress", message: error.message});
   }
 });
 
@@ -53,7 +54,7 @@ router.get("/get", async (req, res) => {
 });
 
 // Update a shipAddress by ID
-router.put("/update/", async (req, res) => {
+router.put("/update", async (req, res) => {
 
   try {
     const updatedShipAddress = await shipAddressService.updateShipAddressById(
@@ -73,21 +74,15 @@ router.put("/update/", async (req, res) => {
 });
 
 // Delete a shipAddress by ID
-router.delete("/delete", async (req, res) => {
-
+router.post("/delete", async (req, res) => {
   try {
     const deletedShipAddress = await shipAddressService.deleteShipAddressById(
       req.body
     );
 
-    if (!deletedShipAddress) {
-      res.status(404).json({ error: "ShipAddress not found" });
-      return;
-    }
-
     res.json(deletedShipAddress);
   } catch (error) {
-    res.status(500).json({ error: "Error deleting shipAddress" });
+    res.status(500).json({ error: "Error deleting shipAddress", message: error.message });
   }
 });
 
