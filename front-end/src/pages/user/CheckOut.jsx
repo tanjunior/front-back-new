@@ -42,7 +42,6 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog"
 
 
@@ -51,15 +50,15 @@ import CardForm from "@/components/forms/CardForm";
 import { useState } from "react";
 
 const formSchema = z.object({
-  firstname: z.string().min(3, { message: "กรุณาระบุชื่อผู้รับ" }),
-  lastname: z.string().min(3, { message: "กรุณาระบุนามสกุลผู้รับ" }),
+  firstName: z.string().min(3, { message: "กรุณาระบุชื่อผู้รับ" }),
+  lastName: z.string().min(3, { message: "กรุณาระบุนามสกุลผู้รับ" }),
   email: z.string().min(10, { message: "กรุณาระบุอีเมล" }).email(),
   phoneNumber: z
     .string()
     .max(10, "รหัสไปรษณีย์ต้องเป็นตัวเลข 10 ตัวเลข")
     .min(10, { message: "หมายเลขโทรศัพท์ต้องมี 10 ตัวเลข" }),
   paymentMethod: z.string().min(1, "กรุณาเลือกวิธีการชำระเงิน"),
-  address: z.string().min(1, "กรุณาเลือกที่อยู่"),
+  shippingAddressId: z.string().min(1, "กรุณาเลือกที่อยู่"),
   card: z.string()
 });
 
@@ -90,42 +89,37 @@ export default function CheckOutPage() {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      firstname: user.firstName || "",
-      lastname: user.lastName || "",
+      firstName: user.firstName || "",
+      lastName: user.lastName || "",
       email: user.email,
       phoneNumber: user.phoneNumber,
       paymentMethod: "",
       saveAddress: false,
-      address: addressesIsLoading ? "" : addresses[0]?.id.toString(),
+      shippingAddressId: addressesIsLoading ? "" : addresses[0]?.id.toString(),
       card: ""
     }
   });
 
   // 2. Define a submit handler.
-  async function onSubmit(values, e) {
+  async function onSubmit(values) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    values.userId = user.id;
-    values.items = state.items;
-    console.log(values)
-    if (values.paymentMethod === "promptpay" || values.paymentMethod === "qrcode") setOpen(true)
-    else {
-      try {
-        const res = await axios.post(
-          `http://localhost:3001/api/orders/new`,
-          values
-        );
 
-        if (res.status === 200) {
-          // console.log(res.data)
-          setOpen(true);
-          navigate("/order/" + res.data.id);
-        }
-      } catch (error) {
-        console.log(error.message);
+    try {
+      const res = await axios.post(
+        `http://localhost:3001/api/orders/new`,
+        {...values, items: state.items, userId: user.id, shoppingCartId: user.shoppingCart.id},
+      );
+
+      if (res.status === 200) {
+        // console.log(res.data)
+        
+        if (values.paymentMethod === "promptpay" || values.paymentMethod === "qrcode") setOpen(true)
+        else navigate("/order/" + res.data.id)
       }
+    } catch (error) {
+      console.log(error.message);
     }
-
   }
 
   if (addressesIsLoading || cardsIsLoading) return <div>Loading...</div>;
@@ -154,7 +148,7 @@ export default function CheckOutPage() {
                 <div className="p-6 border rounded-md">
                   <FormField
                     control={form.control}
-                    name="firstname"
+                    name="firstName"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>ชื่อ</FormLabel>
@@ -167,7 +161,7 @@ export default function CheckOutPage() {
                   />
                   <FormField
                     control={form.control}
-                    name="lastname"
+                    name="lastName"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>นามสกุล</FormLabel>
@@ -214,7 +208,7 @@ export default function CheckOutPage() {
 
                 <FormField
                   control={form.control}
-                  name="address"
+                  name="shippingAddressId"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="flex items-center justify-between">Address<AddressForm title={"Add new address"} /></FormLabel>

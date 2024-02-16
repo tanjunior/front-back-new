@@ -20,16 +20,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import thaiProvince from "@/lib/thai_province.json"
-import thaiDistrict from "@/lib/thai_district.json"
-import thaiSubdistrict from "@/lib/thai_subdistrict.json"
 import { Input } from "@/components/ui/input"
 import useAuth from "@/hooks/useAuth"
 import { toast } from "sonner"

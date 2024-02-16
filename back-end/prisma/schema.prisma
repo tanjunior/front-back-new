@@ -84,14 +84,14 @@ model ShoppingCartItem {
 // Model for orders
 model Order {
   id           Int           @id @default(autoincrement())
-  userId       Int
   orderDate    DateTime      @default(now())
   status       OrderStatus?  @default(value: PENDING)
-  user         User          @relation(fields: [userId], references: [id])
   orderDetails OrderDetail[]
-  shippingAddressId Int
-  shippingAddress ShippingAddress @relation(fields: [shippingAddressId], references: [id])
   payments     Payment?
+  userId       Int
+  shippingAddressId Int
+  user         User          @relation(fields: [userId], references: [id])
+  shippingAddress ShippingAddress @relation(fields: [shippingAddressId], references: [id])
 }
 
 // Model for order details
