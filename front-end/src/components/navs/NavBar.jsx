@@ -1,6 +1,6 @@
 import {Link, useNavigate} from 'react-router-dom'
 import useAuth from '@/hooks/useAuth'
-import Logo from './Logo'
+import Logo from '@/components/Logo'
 import {
   Sheet,
   SheetContent,
@@ -10,30 +10,15 @@ import {
   SheetFooter,
   SheetClose
 } from "@/components/ui/sheet"
-import Icons from './ui/Icons'
+import Icons from '@/components/ui/Icons'
 import useCart from '@/hooks/useCart'
 import { Badge } from "@/components/ui/badge"
-import { Button } from './ui/button'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-
-
+import { Button } from '@/components/ui/button'
 
 export default function NavBar() {
   const navigate = useNavigate()
-  const {user, logout} = useAuth()
+  const { user } = useAuth()
   const { cart } = useCart()
-
-  const hdlLogout = () => {
-    logout()
-    navigate('/')
-  }
 
   return (
     <div className='sticky top-0 flex flex-row px-32 py-4 bg-[#F5F5F7] justify-between items-center shadow-xl'>

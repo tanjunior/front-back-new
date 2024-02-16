@@ -1,51 +1,20 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
 import { Button } from "@/components/ui/button"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-  CardFooter
 } from "@/components/ui/card"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
 
-
-import { Input } from "@/components/ui/input"
-import useAuth from "@/hooks/useAuth"
 import axios from "axios"
-import { useNavigate } from "react-router-dom"
-import { useQuery } from "@tanstack/react-query"
-
-const formSchema = z.object({
-  username: z.string().min(1),
-  firstName: z.string().min(1),
-  lastName: z.string().min(1),
-  email: z.string().email(),
-  phoneNumber: z.string().min(1).max(10),
-})
+import { useQuery, useQueryClient } from "@tanstack/react-query"
+import AddressForm from "./forms/AddressForm"
+import { toast } from "sonner"
+import thaiAddressIdToString from "@/lib/thaiAddressIdToString"
 
 
 export default function UserAddress() {
-  const { user, logout } = useAuth()
-  const navigate = useNavigate()
-
+  const queryClient = useQueryClient()
   const {data: addresses, isLoading, isError } = useQuery({
     queryKey: ['addresses'],
     queryFn: () => axios.get('http://localhost:3001/api/addresses/allbyuserid').then((res) => {
@@ -53,36 +22,6 @@ export default function UserAddress() {
     })
   })
 
-
-
-
-
-  // 1. Define your form.
-  const form = useForm({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      username: user.username,
-      firstName: user.firstName || "",
-      lastName: user.lastName || "",
-      email: user.email,
-      phoneNumber: user.phoneNumber
-    },
-  })
-
-
-  // 2. Define a submit handler.
-  function onSubmit(values) {
-    axios.put('http://localhost:3001/api/users/update', {...values, id: user.id}, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`
-      }
-    }).then((res) => {
-      logout()
-      navigate('/')
-    }).catch((err) => {
-      console.log(err.message)
-    })
-  }
 
   if (isError) {
     return <div>Error</div>
@@ -97,96 +36,26 @@ export default function UserAddress() {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle>Address</CardTitle>
-          <Dialog>
-            <DialogTrigger className="p-2 border rounded-md border-primary">Add new address</DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Add new address</DialogTitle>
-              </DialogHeader>
-                <Form {...form}>
-                  <form onSubmit={form.handleSubmit(onSubmit)} className="grid w-full grid-cols-2 gap-4">
-                    <FormField
-                      control={form.control}
-                      name="firstName"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>First Name</FormLabel>
-                          <FormControl>
-                            <Input {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <FormField
-                      control={form.control}
-                      name="lastName"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Last Name</FormLabel>
-                          <FormControl>
-                            <Input {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <FormField
-                      control={form.control}
-                      name="username"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Username</FormLabel>
-                          <FormControl>
-                            <Input {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name="email"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Email</FormLabel>
-                          <FormControl>
-                            <Input type="email" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <FormField
-                      control={form.control}
-                      name="phoneNumber"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Phone Number</FormLabel>
-                          <FormControl>
-                            <Input type="number" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <Button type="submit" className="col-span-2">Submit</Button>
-                  </form>
-                </Form>
-            </DialogContent>
-          </Dialog>
-
+          <AddressForm title="Add new address"/>
         </CardHeader>
-        <CardContent>
-          { addresses.length > 0 ? addresses.map((address) => <div key={address.id}>{address.id}</div>) : "No addresses, add one!" }
+        <CardContent className="flex flex-col gap-y-6">
+          { addresses.length > 0
+            ? addresses.map((address) => (
+              <div key={address.id} className="flex items-center justify-between">
+                <p>{address.address}, {thaiAddressIdToString(address.subdistrict, "subdistrict")}, {thaiAddressIdToString(address.district, "district")}, {thaiAddressIdToString(address.province, "province")}, {address.postalCode}</p>
+                <div className="flex items-center gap-x-2">
+                  <AddressForm title="Edit address" data={address} />
+                  <Button variant="destructive" onClick={() => axios.post("http://localhost:3001/api/addresses/delete", address).then(res => {
+                    if (res.status === 200) {
+                      toast.success("Deleted")
+                      queryClient.invalidateQueries({ queryKey: ['addresses'] })
+                    }
+                  })}>Delete</Button>
+                </div>
+              </div>
+            )) 
+            : "No addresses, add one!" }
         </CardContent>
-        <CardFooter>
-          
-        </CardFooter>
       </Card>
 
     </div>

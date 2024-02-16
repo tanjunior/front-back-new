@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {useState} from "react";
-import useAuth from '../hooks/useAuth'
+import useAuth from '../../hooks/useAuth'
 import {Link} from 'react-router-dom'
 
 export default function LoginForm() {

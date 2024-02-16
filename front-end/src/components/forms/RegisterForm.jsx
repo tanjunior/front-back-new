@@ -18,6 +18,8 @@ import {
 
 const passwordFormSchema = z.object({
   username: z.string().min(1),
+  firstName: z.string().min(1),
+  lastName: z.string().min(1),
   email: z.string().email(),
   password: z.string().min(8),
   confirmPassword: z.string().min(8),
@@ -33,6 +35,8 @@ export default function RegisterForm() {
     resolver: zodResolver(passwordFormSchema),
     defaultValues: {
       username: "",
+      firstName: "",
+      lastName: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -66,6 +70,34 @@ export default function RegisterForm() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>ชื่อผู้ใช้</FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={passwordForm.control}
+            name="firstName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>translate</FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={passwordForm.control}
+            name="lastName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>translate</FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>

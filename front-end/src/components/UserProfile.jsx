@@ -72,8 +72,10 @@ export default function UserProfile() {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
     }).then((res) => {
-      logout()
-      navigate('/')
+      if (res.status === 200) {
+        logout()
+        navigate('/')
+      }
     }).catch((err) => {
       console.log(err.message)
     })
@@ -184,8 +186,7 @@ export default function UserProfile() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Card Title</CardTitle>
-          <CardDescription>Card Description</CardDescription>
+          <CardTitle>translate</CardTitle>
         </CardHeader>
         <CardContent>
           <Form {...passwordForm}>

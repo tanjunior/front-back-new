@@ -10,11 +10,13 @@ import {
   Minus,
   Save,
   NotebookTabs,
-  Smile
+  Smile,
+  CreditCard
 } from "lucide-react"
 
 
 const Icons = {
+  creditCard: CreditCard,
   smile: Smile,
   notebook: NotebookTabs,
   save: Save,
