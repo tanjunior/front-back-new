@@ -1,9 +1,8 @@
-/* eslint-disable react/prop-types */
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
-import { cn } from "@/lib/utils";
+import { cn } from "../lib/utils";
 import { cva } from "class-variance-authority"
-import useAuth from "@/hooks/useAuth";
-import Icons from "@/components/ui/Icons";
+import useAuth from "../hooks/useAuth";
+import Icons from "./ui/Icons";
 
 const navButtonClass = "px-4 py-6 flex gap-x-2"
 
@@ -24,10 +23,8 @@ export default function UserSideNav() {
   return (
     <nav className='flex flex-col w-3/12 border shadow-xl h-min justify-evenly'>
       <NavButton title="แดชบอร์ด" path="/account" activePath={pathname}><Icons.dashboard/></NavButton>
-      <NavButton title="โปรไฟล์" path="/account/profile" activePath={pathname}><Icons.smile /></NavButton>
+      <NavButton title="โปรไฟล์" path="/account/profile" activePath={pathname}><Icons.product /></NavButton>
       <NavButton title="คำสั่งซื้อ" path="/account/orders" activePath={pathname}><Icons.stack /></NavButton>
-      <NavButton title="ที่อยู่" path="/account/address" activePath={pathname}><Icons.notebook /></NavButton>
-      <NavButton title="บัตรเครดิต" path="/account/card" activePath={pathname}><Icons.creditCard /></NavButton>
       <Link className={cn(navButtonClass, "w-full text-[#8B8E99] hover:text-primary")} to="#" onClick={hdlLogout}>
         <Icons.logout /> ออกจากระบบ
       </Link>

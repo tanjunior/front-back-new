@@ -18,7 +18,7 @@ export default function CartRemoveButton(props) {
       }).then(async(res) => await res.json())
     },
     onSuccess: () => {
-      toast("Item removed from cart")
+      toast("สินค้าถูกลบออกจากตะกร้า")
       setCart(prev => prev.filter(item => item.product.id !== props.productId))
     }
   })
@@ -26,6 +26,6 @@ export default function CartRemoveButton(props) {
   return (
     <Button variant="destructive" onClick={() => {
       mutate()
-    }}>Remove</Button>
+    }}>ลบ</Button>
   )
 }

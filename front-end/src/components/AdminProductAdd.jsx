@@ -26,7 +26,7 @@ const productFormSchema = z.object({
   stock: z.number().min(0)
 }).refine((data) => data.password === data.confirmPassword, {
   path: ['confirmPassword'],
-  message: 'Passwords does not match'
+  message: 'รหัสผ่านไม่ตรงกัน'
 })
 
 
@@ -50,11 +50,11 @@ export default function AdminProductAdd() {
       
       if (response.error) {
         console.log(response.error)
-        return toast("upload fail " + response.error)
+        return toast("อัพโหลดผิดพลาด " + response.error)
       }
       reset()
       setProductImg([])
-      toast("Product added successfully")
+      toast("เพิ่มสินค้าสำเร็จ")
     },
   })
 
@@ -98,13 +98,13 @@ export default function AdminProductAdd() {
           <div>
             <NavLink to="/">Dashboard</NavLink>
             {" > "}
-            <NavLink to="/products">List</NavLink>
+            <NavLink to="/products">Product List</NavLink>
             {" > "}
             <span className="text-primary">Add Product</span>
           </div>
           <div className="flex gap-x-2">
-            <Button size="sm" variant="outlineAdmin" onClick={() => navigate("/products")}><Icons.cross />ยกเลิก</Button>
-            <Button size="sm" type="submit"><Icons.add />เพิ่ม</Button>
+            <Button size="sm" variant="outlineAdmin" onClick={() => navigate("/products")}><Icons.cross />Cancel</Button>
+            <Button size="sm" type="submit"><Icons.add />Add Product</Button>
           </div>
         </div>
         
@@ -153,7 +153,7 @@ export default function AdminProductAdd() {
                       Drop it here
                     </div> :
                     <div className="w-full h-40 bg-[#F9F9FC] items-center justify-center flex flex-col border-[#E0E2E7] border rounded-md">
-                      Drag some files, or click here select files
+                      ลากไฟล์มาวางที่นี่ หรือ คลิ๊กเพื่อเลือกไฟล์
                     </div>
                 }
               </div>

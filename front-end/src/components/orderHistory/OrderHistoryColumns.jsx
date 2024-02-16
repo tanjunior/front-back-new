@@ -43,7 +43,7 @@ export const OrderHistoryColumns = [
     cell: ({ row }) => {
       const order = row.original
 
-      return <Link to={`/order/${order.id}`}>Details</Link>
+      return <Link to={`/order/${order.id}`}>รายละเอียด</Link>
       
     },
   },

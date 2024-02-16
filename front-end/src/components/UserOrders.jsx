@@ -15,12 +15,12 @@ export default function UserOrders() {
     },
   })
 
-  if (isError) return <div>Error</div>
-  if (isLoading) return <div>Loading...</div>
+  if (isError) return <div>เกิดข้อผิดพลาด</div>
+  if (isLoading) return <div>กำลังโหลด...</div>
 
   return (
     <div className='flex flex-col flex-1'>
-      <h1>Orders</h1>
+      <h1>คำสั่งซื้อ</h1>
       
       <OrderHistoryTable columns={OrderHistoryColumns} data={products}/>
 

@@ -37,14 +37,14 @@ import axios from "axios"
 import { useState } from "react"
 
 const cardFormSchema = z.object({
-  name: z.string().min(3, { message: "translate" }),
+  name: z.string().min(3, { message: "กรุณากรอกข้อมูล" }),
   number: z
     .string()
-    .max(16, "translate")
-    .min(16, "translate"),
-  year: z.string().min(4, "translate").max(4),
-  month: z.string().min(2, "translate").max(2),
-  cvv: z.string().min(3, "translate").max(3),
+    .max(16, "กรุณากรอกข้อมูล")
+    .min(16, "กรุณากรอกข้อมูล"),
+  year: z.string().min(4, "กรุณากรอกข้อมูล").max(4),
+  month: z.string().min(2, "กรุณากรอกข้อมูล").max(2),
+  cvv: z.string().min(3, "กรุณากรอกข้อมูล").max(3),
 });
 
 export default function CardForm({ title }) {
@@ -125,7 +125,7 @@ export default function CardForm({ title }) {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>translate</FormLabel>
+                <FormLabel>ชื่อที่แสดงบนบัตร</FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
@@ -139,7 +139,7 @@ export default function CardForm({ title }) {
             name="number"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>translate</FormLabel>
+                <FormLabel>หมายเลขบัตร</FormLabel>
                 <FormControl>
                   <Input type="number" maxLength={16} {...field} />
                 </FormControl>
@@ -153,7 +153,7 @@ export default function CardForm({ title }) {
             name="year"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>translate</FormLabel>
+                <FormLabel>ปีที่หมดอายุ</FormLabel>
                 <FormControl>
                   <Input type="number" maxLength={4} {...field} />
                 </FormControl>
@@ -167,7 +167,7 @@ export default function CardForm({ title }) {
             name="month"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>translate</FormLabel>
+                <FormLabel>เดือนที่หมดอายุ</FormLabel>
                 <FormControl>
                   <Input type="number" maxLength={2} {...field} />
                 </FormControl>
@@ -181,7 +181,7 @@ export default function CardForm({ title }) {
             name="cvv"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>translate</FormLabel>
+                <FormLabel>หมายเลข 3 ตัวด้านหลังบัตร</FormLabel>
                 <FormControl>
                   <Input type="number" maxLength={3} {...field} />
                 </FormControl>
@@ -189,7 +189,7 @@ export default function CardForm({ title }) {
               </FormItem>
             )}
           />
-          <Button type="submit">Submit</Button>
+          <Button type="submit">บันทึก</Button>
         </form>
       </Form>
     </DialogContent>
