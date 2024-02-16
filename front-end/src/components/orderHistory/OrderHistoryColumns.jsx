@@ -41,7 +41,7 @@ export const OrderHistoryColumns = [
     cell: ({ row }) => {
       const order = row.original
 
-      return <Link to={`/order/${order.id}`}>Track</Link>
+      return <Link to={`/order/${order.id}`}>ติดตามคำสั่งซื้อ</Link>
       
     },
   },

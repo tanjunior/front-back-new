@@ -75,7 +75,7 @@ export default function LoginForm() {
 
       
         <div className='flex flex-row justify-center w-full gap-16'>
-          <div>ยังไม่มีบัญชี ?</div>
+          <div>ยังไม่มีบัญชี?</div>
           <Link className='font-bold text-primary' to="/register">ลงทะเบียนได้ที่นี่</Link>
         </div>
     </div>

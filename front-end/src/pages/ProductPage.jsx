@@ -52,8 +52,8 @@ export default function ProductPage() {
     }
   })
 
-  if (isError) return <div>Error</div>
-  if (isLoading) return <div>Loading</div>
+  if (isError) return <div>พบข้อผิดพลาด</div>
+  if (isLoading) return <div>กำลังโหลด</div>
   
   return (
     <div className='flex items-center justify-center flex-grow w-8/12 mx-auto'>

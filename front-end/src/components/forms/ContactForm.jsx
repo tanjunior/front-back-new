@@ -16,13 +16,9 @@ import {
 import { Button } from '@/components/ui/button';
 
 const formSchema = z.object({
-  name: z.string().min(1, { message: "translate" }),
-  phoneNumber: z
-    .string()
-    .max(10, "translate")
-    .min(10, "translate"),
-  message: z.string().min(1, "translate"),
-  email: z.string().email(),
+  name: z.string().min(1, { message: "เราจะได้รับข้อความจากคุณอะไรเอ่ย" }),
+  message: z.string().min(1, "เขียนอะไรสักอย่างถึงเรา"),
+  email: z.string().min(1, {message: "ระบุอีเมลเพื่อให้เราติดต่อกลับด้วยน้า"}).email(),
 });
 
 
@@ -31,10 +27,9 @@ export default function ContactForm() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      number: "",
-      year: "",
-      month: "",
-      cvv: "",
+      email: "",
+      phoneNumber: "",
+      message: "",
     }
   })
 
@@ -44,7 +39,7 @@ export default function ContactForm() {
         const rs = await axios.post('http://localhost:3001/contact', values)
         console.log(rs)
         if(rs.status === 200) {
-          toast.success('ส่งข้อความสำเร็จ')
+          toast.success('ส่งข้อความสำเร็จ. ขอบคุณที่ส่งข้อความถึงเรา')
         }
       } catch (error) {
         console.log(error.message);
@@ -96,20 +91,7 @@ export default function ContactForm() {
           />
           <FormField
             control={form.control}
-            name="phoneNumber"
-            render={({ field }) => (
-              <FormItem className="col-span-2">
-                <FormLabel>โทรศัพท์</FormLabel>
-                <FormControl>
-                  <Input type="tel" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="phoneNumber"
+            name="message"
             render={({ field }) => (
               <FormItem className="col-span-2">
                 <FormLabel>ข้อความ</FormLabel>

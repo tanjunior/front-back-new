@@ -42,8 +42,7 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
-
+} from "@/components/ui/dialog";
 
 import thaiAddressIdToString from "@/lib/thaiAddressIdToString";
 import CardForm from "@/components/forms/CardForm";
@@ -55,15 +54,23 @@ const formSchema = z.object({
   email: z.string().min(10, { message: "กรุณาระบุอีเมล" }).email(),
   phoneNumber: z
     .string()
-    .max(10, "รหัสไปรษณีย์ต้องเป็นตัวเลข 10 ตัวเลข")
-    .min(10, { message: "หมายเลขโทรศัพท์ต้องมี 10 ตัวเลข" }),
+    .max(10, "หมายเลขโทรศัพท์ต้องมี 10 ตัวเลข :)")
+    .min(10, { message: "กรุณาระบุหมายเลขโทรศัพท์" }),
   paymentMethod: z.string().min(1, "กรุณาเลือกวิธีการชำระเงิน"),
   shippingAddressId: z.string().min(1, "กรุณาเลือกที่อยู่"),
-  card: z.string()
+  card: z.string(),
 });
 
 function fullAddress(address) {
-  return `${address.address}, ${thaiAddressIdToString(address.subdistrict, "subdistrict")}, ${thaiAddressIdToString(address.district, "district")}, ${thaiAddressIdToString(address.province, "province")}, ${address.postalCode}`;
+  return `${address.address}, ${thaiAddressIdToString(
+    address.subdistrict,
+    "subdistrict"
+  )}, ${thaiAddressIdToString(
+    address.district,
+    "district"
+  )}, ${thaiAddressIdToString(address.province, "province")}, ${
+    address.postalCode
+  }`;
 }
 
 export default function CheckOutPage() {
@@ -71,19 +78,23 @@ export default function CheckOutPage() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const {data: addresses, isLoading: addressesIsLoading } = useQuery({
-    queryKey: ['addresses'],
-    queryFn: () => axios.get('http://localhost:3001/api/addresses/allbyuserid').then((res) => {
-      return res.data
-    })
-  })
+  const { data: addresses, isLoading: addressesIsLoading } = useQuery({
+    queryKey: ["addresses"],
+    queryFn: () =>
+      axios
+        .get("http://localhost:3001/api/addresses/allbyuserid")
+        .then((res) => {
+          return res.data;
+        }),
+  });
 
-  const {data: cards, isLoading: cardsIsLoading } = useQuery({
-    queryKey: ['cards'],
-    queryFn: () => axios.get('http://localhost:3001/api/cards/allbyuserid').then((res) => {
-      return res.data
-    })
-  })
+  const { data: cards, isLoading: cardsIsLoading } = useQuery({
+    queryKey: ["cards"],
+    queryFn: () =>
+      axios.get("http://localhost:3001/api/cards/allbyuserid").then((res) => {
+        return res.data;
+      }),
+  });
 
   // 1. Define your form.
   const form = useForm({
@@ -96,8 +107,8 @@ export default function CheckOutPage() {
       paymentMethod: "",
       saveAddress: false,
       shippingAddressId: addressesIsLoading ? "" : addresses[0]?.id.toString(),
-      card: ""
-    }
+      card: "",
+    },
   });
 
   // 2. Define a submit handler.
@@ -106,23 +117,29 @@ export default function CheckOutPage() {
     // ✅ This will be type-safe and validated.
 
     try {
-      const res = await axios.post(
-        `http://localhost:3001/api/orders/new`,
-        {...values, items: state.items, userId: user.id, shoppingCartId: user.shoppingCart.id},
-      );
+      const res = await axios.post(`http://localhost:3001/api/orders/new`, {
+        ...values,
+        items: state.items,
+        userId: user.id,
+        shoppingCartId: user.shoppingCart.id,
+      });
 
       if (res.status === 200) {
         // console.log(res.data)
-        
-        if (values.paymentMethod === "promptpay" || values.paymentMethod === "qrcode") setOpen(true)
-        else navigate("/order/" + res.data.id)
+
+        if (
+          values.paymentMethod === "promptpay" ||
+          values.paymentMethod === "qrcode"
+        )
+          setOpen(true);
+        else navigate("/order/" + res.data.id);
       }
     } catch (error) {
       console.log(error.message);
     }
   }
 
-  if (addressesIsLoading || cardsIsLoading) return <div>Loading...</div>;
+  if (addressesIsLoading || cardsIsLoading) return <div>กำลังโหลด...</div>;
 
   return (
     <div className="flex items-center justify-center flex-grow w-8/12 mx-auto">
@@ -144,7 +161,6 @@ export default function CheckOutPage() {
                 id="myForm"
                 className="flex flex-col gap-8"
               >
-
                 <div className="p-6 border rounded-md">
                   <FormField
                     control={form.control}
@@ -211,25 +227,31 @@ export default function CheckOutPage() {
                   name="shippingAddressId"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="flex items-center justify-between">Address<AddressForm title={"Add new address"} /></FormLabel>
-                      
+                      <FormLabel className="flex items-center justify-between">
+                        ที่อยู่
+                        <AddressForm title={"เพิ่มที่อยู่ใหม่"} />
+                      </FormLabel>
+
                       <FormControl>
-                        <Select 
+                        <Select
                           onValueChange={field.onChange}
                           defaultValue={field.value}
                         >
                           <SelectTrigger>
-                            <SelectValue placeholder="My Addresses" />
+                            <SelectValue placeholder="เลือกที่อยู่" />
                           </SelectTrigger>
                           <SelectContent>
-                            {
-                              addresses.map((address) => {
-                                // console.log(address)
-                                return <SelectItem key={address.id} value={address.id.toString()}>
+                            {addresses.map((address) => {
+                              // console.log(address)
+                              return (
+                                <SelectItem
+                                  key={address.id}
+                                  value={address.id.toString()}
+                                >
                                   {fullAddress(address)}
                                 </SelectItem>
-                              })
-                            }
+                              );
+                            })}
                           </SelectContent>
                         </Select>
                       </FormControl>
@@ -237,7 +259,7 @@ export default function CheckOutPage() {
                     </FormItem>
                   )}
                 />
-                
+
                 <div className="col-span-4 p-4 space-y-6 border rounded-md border-md">
                   <FormField
                     control={form.control}
@@ -294,7 +316,7 @@ export default function CheckOutPage() {
                                 className="flex flex-col items-center justify-center p-2 border rounded-md gap-y-4 has-[:checked]:border-primary"
                               >
                                 <Icons.creditCard className="w-12 h-12 text-primary" />
-                                card
+                                บัตรเครดิต
                                 <RadioGroupItem
                                   value="card"
                                   id="option-four"
@@ -309,16 +331,19 @@ export default function CheckOutPage() {
                     }}
                   />
 
-                  { form.watch("paymentMethod") == "card" &&
+                  {form.watch("paymentMethod") == "card" && (
                     <FormField
                       control={form.control}
                       name="card"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="flex items-center justify-between">Card<CardForm title={"Add new card"} /></FormLabel>
-                          
+                          <FormLabel className="flex items-center justify-between">
+                          บัตรเครดิต
+                            <CardForm title={"Add new card"} />
+                          </FormLabel>
+
                           <FormControl>
-                            <Select 
+                            <Select
                               onValueChange={field.onChange}
                               defaultValue={field.value}
                             >
@@ -326,13 +351,20 @@ export default function CheckOutPage() {
                                 <SelectValue placeholder="My Cards" />
                               </SelectTrigger>
                               <SelectContent>
-                                {
-                                  cards.map((card) => {
-                                    return <SelectItem key={card.id} value={card.id.toString()}>
-                                      {card.name} **** **** **** {card.number.slice(card.number.length - 4)} {card.month}/{card.year}
+                                {cards.map((card) => {
+                                  return (
+                                    <SelectItem
+                                      key={card.id}
+                                      value={card.id.toString()}
+                                    >
+                                      {card.name} **** **** ****{" "}
+                                      {card.number.slice(
+                                        card.number.length - 4
+                                      )}{" "}
+                                      {card.month}/{card.year}
                                     </SelectItem>
-                                  })
-                                }
+                                  );
+                                })}
                               </SelectContent>
                             </Select>
                           </FormControl>
@@ -340,7 +372,7 @@ export default function CheckOutPage() {
                         </FormItem>
                       )}
                     />
-                  }
+                  )}
                 </div>
               </form>
             </Form>
@@ -375,7 +407,7 @@ export default function CheckOutPage() {
             <div className="font-medium place-self-end">{state.total} บาท</div>
             <div className="font-normal">ค่าจัดส่ง</div>
             <div className="font-medium place-self-end">ฟรี</div>
-            <div className="font-normal">ค่าภาษี Vat 7%</div>
+            <div className="font-normal">ค่าภาษี Vat 7% ของราคาสินค้า</div>
             <div className="font-medium place-self-end">
               {(state.total / 100) * 7} บาท
             </div>
@@ -393,21 +425,16 @@ export default function CheckOutPage() {
             </Button>
           </CardFooter>
         </Card>
-
       </div>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Payment</DialogTitle>
-            <DialogDescription>
-              {form.watch("paymentMethod")}
-            </DialogDescription>
+            <DialogTitle>วิธีชำระเงิน</DialogTitle>
+            <DialogDescription>{form.watch("paymentMethod")}</DialogDescription>
           </DialogHeader>
           QR CODE HERE
         </DialogContent>
       </Dialog>
-
-
     </div>
   );
 }

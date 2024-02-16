@@ -86,7 +86,7 @@ export default function CardForm({ title }) {
     }
   }
 
-  if (cardForm.formState.isLoading) return <div>Loading...</div>
+  if (cardForm.formState.isLoading) return <div>กำลังโหลด...</div>
 
   return (
     
