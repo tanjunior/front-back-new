@@ -10,12 +10,19 @@ import { useMutation } from "@tanstack/react-query";import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { toast } from "sonner"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
 
 const productFormSchema = z.object({
   name: z.string().min(1),
@@ -24,22 +31,19 @@ const productFormSchema = z.object({
   capacity: z.string().min(1),
   price: z.number().min(1),
   stock: z.number().min(0)
-}).refine((data) => data.password === data.confirmPassword, {
-  path: ['confirmPassword'],
-  message: 'รหัสผ่านไม่ตรงกัน'
 })
-
 
 export default function AdminProductAdd() {
   const [productImg, setProductImg] = useState([])
   const navigate = useNavigate()
   
   const onDrop = useCallback(acceptedFiles => {
-    // console.log(acceptedFiles)
     setProductImg(acceptedFiles)
   }, [])
 
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
+  const imageInputProps = getInputProps()
+  imageInputProps.multiple = false
 
   const {mutate} = useMutation({
     mutationFn: async (formData) => {
@@ -52,19 +56,13 @@ export default function AdminProductAdd() {
         console.log(response.error)
         return toast("อัพโหลดผิดพลาด " + response.error)
       }
-      reset()
+      form.reset()
       setProductImg([])
       toast("เพิ่มสินค้าสำเร็จ")
     },
   })
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    // watch,
-    // formState: { errors },
-  } = useForm({
+  const form = useForm({
     resolver: zodResolver(productFormSchema),
     defaultValues: {
       name: "",
@@ -82,7 +80,7 @@ export default function AdminProductAdd() {
       formData.append(key, data[key])
     }
 
-
+    if (productImg.length === 0) return form.setError("productImg", {message: "กรุณาเลือกรูปภาพสินค้า"})
     // productImg.forEach(image => {
     //   formData.append('files', image, image.name)
     // });
@@ -92,8 +90,8 @@ export default function AdminProductAdd() {
   }
   
   return (
-    <div>
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
+    <Form {...form}>
+      <form className="flex flex-col gap-4" onSubmit={form.handleSubmit(onSubmit)}>
         <div className="flex flex-row items-start justify-between">
           <div>
             <NavLink to="/">Dashboard</NavLink>
@@ -114,10 +112,32 @@ export default function AdminProductAdd() {
               <CardTitle>ข้อมูลทั่วไป</CardTitle>
             </CardHeader>
             <CardContent>
-              <Label className="font-thin">ชื่อสินค้า</Label>
-              <Input type="text" placeholder="พิมพ์ชื่อสินค้าที่นี่" {...register("name")}/>
-              <Label htmlFor="" className="font-thin">คำอธิบายสินค้า</Label>
-              <Textarea name="" id="" cols="30" rows="6" placeholder="พิมพ์รายละเอียดสินค้าที่นี่" {...register("description")} />
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem className="col-span-2">
+                    <FormLabel>ชื่อสินค้า</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem className="col-span-2">
+                    <FormLabel>คำอธิบายสินค้า</FormLabel>
+                    <FormControl>
+                      <Textarea rows="6" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </CardContent>
           </Card>
 
@@ -126,15 +146,35 @@ export default function AdminProductAdd() {
               <CardTitle>ข้อมูลจำเพาะ</CardTitle>
             </CardHeader>
             <CardContent>
+              
+              
               <div className="flex flex-row items-center gap-x-2">
-                <div className="w-full">
-                  <Label className="font-thin">สี</Label>
-                  <Input type="text" placeholder="ระบุสี" {...register("color")} />
-                </div>
-                <div className="w-full">
-                  <Label htmlFor="" className="font-thin text-nowrap">ความจุ</Label>
-                  <Input type="text" placeholder="ระบุความจุ" {...register("capacity")} />
-                </div>
+                <FormField
+                  control={form.control}
+                  name="color"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormLabel>สี</FormLabel>
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="capacity"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormLabel>ความจุ</FormLabel>
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </div>
             </CardContent>
           </Card>
@@ -144,19 +184,31 @@ export default function AdminProductAdd() {
               <CardTitle>รูปภาพ</CardTitle>
             </CardHeader>
             <CardContent>
-              <div {...getRootProps()}>
-                <Label htmlFor="" className="font-thin text-nowrap">รูปสินค้า</Label>
-                <input {...getInputProps} multiple={false} />
-                {
-                  productImg.length > 0 ? <span>{productImg.length}</span> : isDragActive ?
-                    <div className="w-full h-40 bg-[#F9F9FC] items-center justify-center flex flex-col border-[#E0E2E7] border rounded-md">
-                      Drop it here
-                    </div> :
-                    <div className="w-full h-40 bg-[#F9F9FC] items-center justify-center flex flex-col border-[#E0E2E7] border rounded-md">
-                      ลากไฟล์มาวางที่นี่ หรือ คลิ๊กเพื่อเลือกไฟล์
-                    </div>
-                }
-              </div>
+              <FormField
+                control={form.control}
+                name="productImg"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>รูปสินค้า</FormLabel>
+                    <FormControl>
+                      <div {...getRootProps()}>
+                        <input {...field} {...imageInputProps} className="hidden"/>
+                        {
+                          productImg.length > 0 ? <img src={URL.createObjectURL(productImg[0])} /> : isDragActive ?
+                            <div className="w-full h-40 bg-[#F9F9FC] items-center justify-center flex flex-col border-[#E0E2E7] border rounded-md">
+                              Drop it here
+                            </div> :
+                            <div className="w-full h-40 bg-[#F9F9FC] items-center justify-center flex flex-col border-[#E0E2E7] border rounded-md">
+                              ลากไฟล์มาวางที่นี่ หรือ คลิ๊กเพื่อเลือกไฟล์
+                            </div>
+                        }
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
             </CardContent>
           </Card>
 
@@ -166,19 +218,37 @@ export default function AdminProductAdd() {
             </CardHeader>
             <CardContent>
               <div className="flex flex-row items-center gap-x-2">
-                <div className="w-full">
-                  <Label className="font-thin">ราคา</Label>
-                  <Input type="number" placeholder="฿ ระบุราคา . ." className="bg-[#F9F9FC] border-[#E0E2E7] border rounded-md" {...register("price")}/>
-                </div>
-                <div className="w-full">
-                  <Label htmlFor="" className="font-thin text-nowrap">จำนวน</Label>
-                  <Input type="number" placeholder="ระบุจำนวนสินค้าที่นี่ . ." className="bg-[#F9F9FC] border-[#E0E2E7] border rounded-md" {...register("stock")}/>
-                </div>
+                <FormField
+                  control={form.control}
+                  name="price"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormLabel>ราคา</FormLabel>
+                      <FormControl>
+                        <Input type="number" {...field} onChange={e => field.onChange(parseInt(e.target.value))} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="stock"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormLabel>จำนวน</FormLabel>
+                      <FormControl>
+                        <Input type="number" {...field} onChange={e => field.onChange(parseInt(e.target.value))}/>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </div>
             </CardContent>
           </Card>
         </div>
       </form>
-    </div>
+    </Form>
   )
 }
