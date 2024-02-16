@@ -1,9 +1,7 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form"
 import Icons from "./ui/Icons";
-import {useDropzone} from 'react-dropzone'
-import { useCallback, useState } from "react";
 import { useMutation } from "@tanstack/react-query";import {
   Card,
   CardContent,
@@ -17,33 +15,25 @@ import { toast } from "sonner"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 
-const productFormSchema = z.object({
-  name: z.string().min(1),
-  description: z.string(),
-  color: z.string().min(1),
-  capacity: z.string().min(1),
-  price: z.number().min(1),
-  stock: z.number().min(0)
-}).refine((data) => data.password === data.confirmPassword, {
-  path: ['confirmPassword'],
-  message: 'Passwords does not match'
-})
-
-
-export default function AdminProductAdd() {
-  const [productImg, setProductImg] = useState([])
+export default function AdminProductEdit() {
+  const { state: product } = useLocation();
   const navigate = useNavigate()
-  
-  const onDrop = useCallback(acceptedFiles => {
-    // console.log(acceptedFiles)
-    setProductImg(acceptedFiles)
-  }, [])
 
-  const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
+  const productFormSchema = z.object({
+    name: z.string().min(1),
+    description: z.string(),
+    color: z.string().min(1),
+    capacity: z.string().min(1),
+    price: z.number().min(1),
+    stock: z.number().min(0)
+  }).refine((data) => data.password === data.confirmPassword, {
+    path: ['confirmPassword'],
+    message: 'Passwords does not match'
+  })
 
   const {mutate} = useMutation({
     mutationFn: async (formData) => {
-      const response = await fetch('http://localhost:3001/api/products/add', {
+      const response = await fetch('http://localhost:3001/api/products/update', {
         method: "POST",
         body: formData,
       }).then(async(res) => await res.json())
@@ -53,7 +43,6 @@ export default function AdminProductAdd() {
         return toast("upload fail " + response.error)
       }
       reset()
-      setProductImg([])
       toast("Product added successfully")
     },
   })
@@ -67,12 +56,13 @@ export default function AdminProductAdd() {
   } = useForm({
     resolver: zodResolver(productFormSchema),
     defaultValues: {
-      name: "",
-      description: "",
-      color: "",
-      capacity: "",
-      stock: "",
-      price: "",
+      name: product.name,
+      description: product.description || "",
+      color: product.color,
+      capacity: product.capacity,
+      productImage: product.productImage,
+      stock: product.stock,
+      price: product.price,
     },
   })
 
@@ -81,12 +71,6 @@ export default function AdminProductAdd() {
     for (const key in data) {
       formData.append(key, data[key])
     }
-
-
-    // productImg.forEach(image => {
-    //   formData.append('files', image, image.name)
-    // });
-    formData.append('productImg', productImg[0])
 
     mutate(formData)
   }
@@ -100,11 +84,11 @@ export default function AdminProductAdd() {
             {" > "}
             <NavLink to="/products">List</NavLink>
             {" > "}
-            <span className="text-primary">Add Product</span>
+            <span className="text-primary">Edit Product</span>
           </div>
           <div className="flex gap-x-2">
             <Button size="sm" variant="outlineAdmin" onClick={() => navigate("/products")}><Icons.cross />ยกเลิก</Button>
-            <Button size="sm" type="submit"><Icons.add />เพิ่ม</Button>
+            <Button size="sm" type="submit"><Icons.save />save</Button>
           </div>
         </div>
         
@@ -144,19 +128,7 @@ export default function AdminProductAdd() {
               <CardTitle>รูปภาพ</CardTitle>
             </CardHeader>
             <CardContent>
-              <div {...getRootProps()}>
-                <Label htmlFor="" className="font-thin text-nowrap">รูปสินค้า</Label>
-                <input {...getInputProps} multiple={false} />
-                {
-                  productImg.length > 0 ? <span>{productImg.length}</span> : isDragActive ?
-                    <div className="w-full h-40 bg-[#F9F9FC] items-center justify-center flex flex-col border-[#E0E2E7] border rounded-md">
-                      Drop it here
-                    </div> :
-                    <div className="w-full h-40 bg-[#F9F9FC] items-center justify-center flex flex-col border-[#E0E2E7] border rounded-md">
-                      Drag some files, or click here select files
-                    </div>
-                }
-              </div>
+              <img src={`localhost:3001/images/${product.productImg}`} />
             </CardContent>
           </Card>
 

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import {useState} from "react";
+import { toast } from 'sonner';
 
 export default function ContactForm() {
   const [input, setInput] = useState({
@@ -19,7 +20,7 @@ export default function ContactForm() {
       const rs = await axios.post('http://localhost:3001/contact', input)
       console.log(rs)
       if(rs.status === 200) {
-        alert('Message sent!')
+        toast.success('Message sent!')
       }
     }catch(err) {
       console.log( err.message)

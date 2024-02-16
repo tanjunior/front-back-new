@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
-import { cn } from "../lib/utils";
+import { cn } from "@/lib/utils";
 import { cva } from "class-variance-authority"
-import Logo from "./Logo";
-import useAuth from "../hooks/useAuth";
-import Icons from "./ui/Icons";
+import Logo from "@/components/Logo";
+import useAuth from "@/hooks/useAuth";
+import Icons from "@/components/ui/Icons";
 
 export default function AdminSideNav() {
   const navigate = useNavigate()

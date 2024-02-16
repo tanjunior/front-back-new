@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {useState} from "react";
-import useAuth from '../hooks/useAuth'
+import useAuth from '../../hooks/useAuth'
 import {Link} from 'react-router-dom'
 
 export default function LoginForm() {
@@ -15,7 +15,7 @@ export default function LoginForm() {
   }
 
   const hdlSubmit = async e => {
-    console.log(input)
+    // console.log(input)
     try {
       e.preventDefault()
       // validation

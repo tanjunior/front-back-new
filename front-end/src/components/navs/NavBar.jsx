@@ -1,6 +1,6 @@
 import {Link, useNavigate} from 'react-router-dom'
 import useAuth from '@/hooks/useAuth'
-import Logo from './Logo'
+import Logo from '@/components/Logo'
 import {
   Sheet,
   SheetContent,
@@ -10,30 +10,15 @@ import {
   SheetFooter,
   SheetClose
 } from "@/components/ui/sheet"
-import Icons from './ui/Icons'
+import Icons from '@/components/ui/Icons'
 import useCart from '@/hooks/useCart'
 import { Badge } from "@/components/ui/badge"
-import { Button } from './ui/button'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-
-
+import { Button } from '@/components/ui/button'
 
 export default function NavBar() {
   const navigate = useNavigate()
-  const {user, logout} = useAuth()
+  const { user } = useAuth()
   const { cart } = useCart()
-
-  const hdlLogout = () => {
-    logout()
-    navigate('/')
-  }
 
   return (
     <div className='sticky top-0 flex flex-row px-32 py-4 bg-[#F5F5F7] justify-between items-center shadow-xl'>
@@ -45,7 +30,6 @@ export default function NavBar() {
       </div>
       { user
         ? <div className='flex flex-row items-center justify-center gap-x-6'>
-            <Link className='text-[#8B8E99] font-semibold self-center' to='#' onClick={hdlLogout}>ออกจากระบบ</Link>
             <Sheet>
               <SheetTrigger>
                 <div className='relative'>
@@ -76,15 +60,8 @@ export default function NavBar() {
                 </SheetFooter>
               </SheetContent>
             </Sheet>
-            <DropdownMenu>
-              <DropdownMenuTrigger><Icons.user className='w-8 h-8'/></DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuLabel>
-                <Link to="/account">บัญชีของฉัน</Link></DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>ออกจากระบบ</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <Link to="/account"><Icons.user className='w-8 h-8'/></Link>
+            
 
             
           </div>

@@ -1,28 +1,37 @@
 import {createBrowserRouter, RouterProvider, Navigate} from 'react-router-dom'
-import useAuth from '../hooks/useAuth'
-import Landing from '../pages/Landing'
-import HomePage from '../pages/HomePage'
-import LoginPage from '../pages/LoginPage'
-import RegisterPage from '../pages/RegisterPage'
-import AboutPage from '../pages/AboutPage'
-import AdminProductList from '../components/productTable/AdminProductList'
-import AdminProductAdd from '../components/AdminProductAdd'
-import ProductPage from '../pages/ProductPage'
-import AdminLayout from '@/layout/AdminLayout'
-import AdminDashboard from '@/components/AdminDashboard'
-import MainLayout from '@/layout/MainLayout'
-import CartPage from '@/pages/CartPage'
-import CheckOutPage from '@/pages/CheckOut'
-import OrderDetails from '@/pages/OrderDetails'
+import useAuth from '@/hooks/useAuth'
 import AccountLayout from '@/layout/AccountLayout'
+import MainLayout from '@/layout/MainLayout'
+import AdminLayout from '@/layout/AdminLayout'
+
+
+import ProductPage from '@/pages/ProductPage'
+import ErrorBoundary from '@/pages/ErrorBoundary'
+import Landing from '@/pages/Landing'
+import AboutPage from '@/pages/AboutPage'
+import HomePage from '@/pages/HomePage'
+import LoginPage from '@/pages/LoginPage'
+import RegisterPage from '@/pages/RegisterPage'
+import CheckOutPage from '@/pages/user/CheckOut'
+import OrderDetails from '@/pages/user/OrderDetails'
+import CartPage from '@/pages/user/CartPage'
+
 import UserDashBoard from '@/components/UserDashboard'
 import UserOrders from '@/components/UserOrders'
 import UserProfile from '@/components/UserProfile'
+import AdminProductEdit from '@/components/AdminProductEdit'
+import UserAddress from '@/components/UserAddress'
+import AdminProductList from '@/components/productTable/AdminProductList'
+import AdminProductAdd from '@/components/AdminProductAdd'
+import AdminDashboard from '@/components/AdminDashboard'
+import UserCard from '@/components/UserCard'
+
 
 const guestRouter = createBrowserRouter([
   {
     path: '/',
     element: <MainLayout />,
+    errorElement: <ErrorBoundary />,
     children: [
       { index: true, element: <Landing /> },
       { path: '/home', element: <HomePage /> },
@@ -38,6 +47,7 @@ const userRouter = createBrowserRouter([
   {
     path: '/',
     element: <MainLayout />,
+    errorElement: <ErrorBoundary />,
     children: [
       { index: true, element: <Navigate to='/home' /> },
       { path: '/home', element: <HomePage /> },
@@ -46,7 +56,7 @@ const userRouter = createBrowserRouter([
       { path: 'about', element: <AboutPage />},
       { path: 'product/:id', element: <ProductPage />},
       { path: 'cart', element: <CartPage />},
-      { path: 'checkout', element: <CheckOutPage />},
+      { path: '/checkout', element: <CheckOutPage />},
       { path: 'order/:id', element: <OrderDetails />},
       { path: 'account',
         element: <AccountLayout />,
@@ -54,6 +64,8 @@ const userRouter = createBrowserRouter([
           { index: true, element: <UserDashBoard />},
           { path: '/account/orders', element: <UserOrders />},
           { path: '/account/profile', element: <UserProfile />},
+          { path: '/account/address', element: <UserAddress />},
+          { path: '/account/card', element: <UserCard />},
         ]
       }
     ]
@@ -63,6 +75,7 @@ const userRouter = createBrowserRouter([
 const adminRouter = createBrowserRouter([
   {
     path: '/',
+    errorElement: <ErrorBoundary />,
     element: <AdminLayout />,
     children: [
       { index: true, element: <AdminDashboard /> },
@@ -70,7 +83,8 @@ const adminRouter = createBrowserRouter([
       {
         children: [
           { path: "products", element: <AdminProductList /> },
-          { path: "products/add", element: <AdminProductAdd /> }
+          { path: "products/add", element: <AdminProductAdd /> },
+          { path: "products/:id", element: <AdminProductEdit /> }
         ]
       },
     ]
