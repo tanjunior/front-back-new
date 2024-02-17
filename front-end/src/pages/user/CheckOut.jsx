@@ -2,10 +2,10 @@ import { z } from "zod";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import useAuth from "@/hooks/useAuth";
-
+import {QRCodeSVG} from 'qrcode.react';
 import promptpay from "@/assets/promptpay.png";
 import AddressForm from "@/components/forms/AddressForm";
 import Icons from "@/components/ui/Icons";
@@ -61,6 +61,7 @@ const formSchema = z.object({
 });
 
 export default function CheckOutPage() {
+  const [paymentId, setPaymentId] = useState("");
   const { state } = useLocation();
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -82,6 +83,10 @@ export default function CheckOutPage() {
         return res.data;
       }),
   });
+
+  const {mutate} = useMutation({
+    mutationFn: (status) => axios.put("http://localhost:3001/api/payments/update", {id: paymentId, status}).then(res => res.data),
+  })
 
   // 1. Define your form.
   const form = useForm({
@@ -112,13 +117,14 @@ export default function CheckOutPage() {
       });
 
       if (res.status === 200) {
-        // console.log(res.data)
+        console.log(res.data)
+
+        setPaymentId(res.data.paymentId)
 
         if (
           values.paymentMethod === "promptpay" ||
           values.paymentMethod === "qrcode"
-        )
-          setOpen(true);
+        ) setOpen(true);
         else navigate("/order/" + res.data.id);
       }
     } catch (error) {
@@ -419,7 +425,9 @@ export default function CheckOutPage() {
             <DialogTitle>วิธีชำระเงิน</DialogTitle>
             <DialogDescription>{form.watch("paymentMethod")}</DialogDescription>
           </DialogHeader>
-          QR CODE HERE
+          <QRCodeSVG className="w-full" onClick={() => mutate("COMPLETED", {
+            onSuccess: (data) => navigate("/order/" + data.orderId)
+          })} value={paymentId}/>
         </DialogContent>
       </Dialog>
     </div>
