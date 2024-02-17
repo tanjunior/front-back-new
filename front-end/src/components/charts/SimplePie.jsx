@@ -16,7 +16,7 @@ const outerdata = [
 ];
 
 
-export default function UbPieChart(props) {
+export default function UbPieChart() {
   return (
       <div>
         <PieChart width={400} height={400}>
