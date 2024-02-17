@@ -64,7 +64,7 @@ export default function CartPage() {
       0
     );
     setTotal(productTotal);
-  }, [rowSelection]);
+  }, [rowSelection, data]);
 
   return (
     <div className="flex items-center justify-center flex-grow w-8/12 mx-auto">
