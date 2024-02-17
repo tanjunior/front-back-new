@@ -156,16 +156,14 @@ export default function CartPage() {
               <div className="font-medium">ยอดรวมสุทธิ</div>
               <div className="font-semibold place-self-end">{total} บาท</div>
             </div>
-
             <Button
               className="w-full"
-              variant={
-                table.getSelectedRowModel().flatRows.length > 0 && "disabled"
-              }
               asChild
+              variant={data.length > 0 ? "default" : "disabled"}
             >
               <Link
                 to="/checkout"
+                // to={{ pathname: "/checkout" }}
                 state={{
                   items: table
                     .getSelectedRowModel()
@@ -176,6 +174,8 @@ export default function CartPage() {
                 ดำเนินการสั่งซื้อ
               </Link>
             </Button>
+                
+            
           </CardFooter>
         </Card>
       </div>
