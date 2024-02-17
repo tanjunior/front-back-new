@@ -1,3 +1,6 @@
+import SimpleBar from "@/components/charts/SimpleBar"
+import SimplePie from "@/components/charts/SimplePie"
+import OrderTable from "@/components/tables/OrderTable"
 import {
   Card,
   CardContent,
@@ -23,7 +26,7 @@ export default function AdminDashboard() {
             <CardDescription className="text-2xl text-black font-regular">200,000 <span className="text-green-500">5% than last mount</span></CardDescription>
           </CardHeader>
           <CardContent>
-            graph
+            <SimpleBar />
           </CardContent>
         </Card>
         <Card>
@@ -33,7 +36,7 @@ export default function AdminDashboard() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            graph
+            <SimplePie />
           </CardContent>
         </Card>
         <Card className="col-span-3">
@@ -43,7 +46,7 @@ export default function AdminDashboard() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            list
+            <OrderTable />
           </CardContent>
         </Card>
       </div>
