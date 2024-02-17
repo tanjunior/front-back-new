@@ -43,10 +43,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-
-import thaiAddressIdToString from "@/lib/thaiAddressIdToString";
 import CardForm from "@/components/forms/CardForm";
 import { useState } from "react";
+import thaiAddress from "@/lib/thaiAddress";
 
 const formSchema = z.object({
   firstName: z.string().min(1, { message: "กรุณาระบุชื่อผู้รับ" }),
@@ -60,18 +59,6 @@ const formSchema = z.object({
   shippingAddressId: z.string().min(1, "กรุณาเลือกที่อยู่"),
   card: z.string(),
 });
-
-function fullAddress(address) {
-  return `${address.address}, ${thaiAddressIdToString(
-    address.subdistrict,
-    "subdistrict"
-  )}, ${thaiAddressIdToString(
-    address.district,
-    "district"
-  )}, ${thaiAddressIdToString(address.province, "province")}, ${
-    address.postalCode
-  }`;
-}
 
 export default function CheckOutPage() {
   const { state } = useLocation();
@@ -248,7 +235,7 @@ export default function CheckOutPage() {
                                   key={address.id}
                                   value={address.id.toString()}
                                 >
-                                  {fullAddress(address)}
+                                  {thaiAddress(address)}
                                 </SelectItem>
                               );
                             })}
