@@ -9,7 +9,7 @@ import {
 import axios from "axios"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner"
-import CardForm from "./forms/CardForm"
+import CardForm from "../../components/forms/CardForm"
 
 
 export default function UserCard() {
