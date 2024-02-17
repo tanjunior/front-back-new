@@ -31,7 +31,7 @@ const getAllOrders = async () => {
           product: true
         }
       },
-      payments: true,
+      payment: true,
       shippingAddress: true,
       user: {
         select: {
