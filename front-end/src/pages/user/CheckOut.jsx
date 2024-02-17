@@ -49,9 +49,9 @@ import CardForm from "@/components/forms/CardForm";
 import { useState } from "react";
 
 const formSchema = z.object({
-  firstName: z.string().min(3, { message: "กรุณาระบุชื่อผู้รับ" }),
-  lastName: z.string().min(3, { message: "กรุณาระบุนามสกุลผู้รับ" }),
-  email: z.string().min(10, { message: "กรุณาระบุอีเมล" }).email(),
+  firstName: z.string().min(1, { message: "กรุณาระบุชื่อผู้รับ" }),
+  lastName: z.string().min(1, { message: "กรุณาระบุนามสกุลผู้รับ" }),
+  email: z.string().min(1, { message: "กรุณาระบุอีเมล" }).email(),
   phoneNumber: z
     .string()
     .max(10, "หมายเลขโทรศัพท์ต้องมี 10 ตัวเลข :)")
