@@ -25,13 +25,18 @@ const upload = multer({ storage }).single('productImg')
 // Create a new product
 router.post("/add", upload, async (req, res) => {
   const data = req.body
-  data.productImg = createFilename(req, req.file)
+
+  if (req.file != undefined) {
+    data.productImg = createFilename(req, req.file)
+  }
+  
   try {
     const newProduct = await productService.createProduct(data);
     
     res.status(201).json(newProduct);
   } catch (error) {
-    res.status(500).json({ error: error + "Error creating product" });
+    console.log(error.message)
+    res.status(500).json({ error: "Error creating product", message: error.message });
   }
 });
 

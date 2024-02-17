@@ -4,7 +4,6 @@ import AccountLayout from '@/layout/AccountLayout'
 import MainLayout from '@/layout/MainLayout'
 import AdminLayout from '@/layout/AdminLayout'
 
-
 import ProductPage from '@/pages/ProductPage'
 import ErrorBoundary from '@/pages/ErrorBoundary'
 import Landing from '@/pages/Landing'
@@ -12,17 +11,19 @@ import AboutPage from '@/pages/AboutPage'
 import HomePage from '@/pages/HomePage'
 import LoginPage from '@/pages/LoginPage'
 import RegisterPage from '@/pages/RegisterPage'
+
 import CheckOutPage from '@/pages/user/CheckOut'
 import OrderDetails from '@/pages/user/OrderDetails'
 import CartPage from '@/pages/user/CartPage'
 
 import UserDashBoard from '@/components/UserDashboard'
-import UserOrders from '@/components/UserOrders'
+import UserOrders from '@/components/tables/OrderHistoryTable'
 import UserProfile from '@/components/UserProfile'
-import AdminProductEdit from '@/components/AdminProductEdit'
 import UserAddress from '@/components/UserAddress'
-import AdminProductList from '@/components/productTable/AdminProductList'
-import AdminProductAdd from '@/components/AdminProductAdd'
+
+import ProductTable from '@/components/tables/ProductTable'
+import UserTable from '@/components/tables/UserTable'
+import ProductForm from '@/components/forms/ProductForm'
 import AdminDashboard from '@/components/AdminDashboard'
 import UserCard from '@/components/UserCard'
 
@@ -82,11 +83,13 @@ const adminRouter = createBrowserRouter([
       { path: 'login', element: <Navigate to='/' />},
       {
         children: [
-          { path: "products", element: <AdminProductList /> },
-          { path: "products/add", element: <AdminProductAdd /> },
-          { path: "products/:id", element: <AdminProductEdit /> }
+          { path: "products", element: <ProductTable /> },
+          { path: "products/add", element: <ProductForm title="Add" /> },
+          { path: "products/:id", element: <ProductForm title="Edit"/> },
         ]
       },
+      { path: "/admin", element: <UserTable userType='admin'/> },
+      { path: "/customer", element: <UserTable /> },
     ]
   }
 ])

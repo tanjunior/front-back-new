@@ -1,7 +1,7 @@
-import { OrderHistoryTable } from './orderHistory/OrderHistoryTable'
-import { OrderHistoryColumns } from './orderHistory/OrderHistoryColumns'
+import { OrderHistoryColumns } from './OrderHistoryColumns'
 import useAuth from '@/hooks/useAuth'
 import { useQuery } from '@tanstack/react-query'
+import { DataTable } from './DataTable'
 
 export default function UserOrders() {
   const { user } = useAuth()
@@ -22,7 +22,7 @@ export default function UserOrders() {
     <div className='flex flex-col flex-1'>
       <h1>คำสั่งซื้อ</h1>
       
-      <OrderHistoryTable columns={OrderHistoryColumns} data={products}/>
+      <DataTable columns={OrderHistoryColumns} data={products}/>
 
     </div>
   )

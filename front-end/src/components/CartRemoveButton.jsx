@@ -19,7 +19,7 @@ export default function CartRemoveButton(props) {
     },
     onSuccess: () => {
       toast("สินค้าถูกลบออกจากตะกร้า")
-      setCart(prev => prev.filter(item => item.product.id !== props.productId))
+      queryClient.invalidateQueries('carts')
     }
   })
 

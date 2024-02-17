@@ -11,6 +11,7 @@ import {
 import { Link } from "react-router-dom"
 import axios from "axios"
 import { toast } from "sonner"
+import { useQueryClient } from "@tanstack/react-query"
 
 export const columns = [
   {
@@ -87,6 +88,7 @@ export const columns = [
     id: "actions",
     cell: ({ row }) => {
       const productId = row.original.id
+      const queryClient = useQueryClient() // can't invalidate because I can't use a hook in here
 
       return (
         <DropdownMenu>
@@ -108,9 +110,15 @@ export const columns = [
             <DropdownMenuSeparator />
             <DropdownMenuItem
               className="text-destructive"
-              onClick={() => axios.delete("http://localhost:3001/api/products/delete",
-                {data: {id: productId}}).then(res => res.status === 200 && toast("deleted"))
-              }
+              onClick={() => axios.delete(
+                "http://localhost:3001/api/products/delete",
+                {data: {id: productId}}
+              ).then(res => {
+                if (res.status === 200) {
+                  toast("deleted")
+                  queryClient.invalidateQueries("products")
+                }
+              })}
             >Delete</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

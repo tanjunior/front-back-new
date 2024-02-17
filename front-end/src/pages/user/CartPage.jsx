@@ -64,7 +64,7 @@ export default function CartPage() {
       0
     );
     setTotal(productTotal);
-  }, [rowSelection]);
+  }, [rowSelection, data]);
 
   return (
     <div className="flex items-center justify-center flex-grow w-8/12 mx-auto">
@@ -156,16 +156,14 @@ export default function CartPage() {
               <div className="font-medium">ยอดรวมสุทธิ</div>
               <div className="font-semibold place-self-end">{total} บาท</div>
             </div>
-
             <Button
               className="w-full"
-              variant={
-                table.getSelectedRowModel().flatRows.length > 0 && "disabled"
-              }
               asChild
+              variant={table.getSelectedRowModel().flatRows.length > 0 ? "default" : "disabled"}
             >
               <Link
-                to="/checkout"
+                to={table.getSelectedRowModel().flatRows.length > 0 && "/checkout"}
+                // to={{ pathname: "/checkout" }}
                 state={{
                   items: table
                     .getSelectedRowModel()
@@ -176,6 +174,8 @@ export default function CartPage() {
                 ดำเนินการสั่งซื้อ
               </Link>
             </Button>
+                
+            
           </CardFooter>
         </Card>
       </div>

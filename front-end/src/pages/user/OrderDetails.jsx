@@ -12,7 +12,6 @@ import Icons from "@/components/ui/Icons";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,

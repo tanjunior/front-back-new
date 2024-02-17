@@ -1,9 +1,9 @@
 import { NavLink } from "react-router-dom";
-import { DataTable } from "./DataTable";
-import { columns } from "./Columns";
+import { columns } from "./ProductColumns";
 import { useQuery } from "@tanstack/react-query";
+import { DataTable } from "./DataTable";
 
-export default function AdminProductList() {
+export default function ProductTable() {
   const { data: products, isError, isLoading } = useQuery({
     queryKey: ['products'],
     queryFn: async () => {

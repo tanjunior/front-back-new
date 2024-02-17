@@ -41,7 +41,7 @@ export default function NavBar() {
                 <SheetHeader>
                   <SheetTitle>ตะกร้าสินค้า</SheetTitle>
                   {
-                    cart?.length > 0 ? cart.map((item) => {
+                    cart.length > 0 ? cart.map((item) => {
                       return (
                         <div className='flex flex-row items-center justify-between gap-4' key={item.product.id}>
                           <img src={`http://localhost:3001/images/${item.product.productImg}`} alt="" className='w-20 h-20' />
@@ -54,8 +54,8 @@ export default function NavBar() {
                   }
                 </SheetHeader>
                 <SheetFooter>
-                  
-                    <Button asChild onClick={() => navigate('/cart')}><SheetClose>ไปยังตะกร้า</SheetClose></Button>
+                    
+                    {cart.length > 0 && <Button asChild className="w-full" onClick={() => navigate('/cart')}><SheetClose>ไปยังตะกร้า</SheetClose></Button>}
                   
                 </SheetFooter>
               </SheetContent>
