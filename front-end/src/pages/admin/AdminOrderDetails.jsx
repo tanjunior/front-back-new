@@ -144,7 +144,7 @@ export default function AdminOrderDetails() {
         </div>
       </div>
       
-      {/* <pre>{JSON.stringify({...order}, null, 2)}</pre> */}
+      <pre>{JSON.stringify({...order}, null, 2)}</pre>
     </div>
   )
 }
