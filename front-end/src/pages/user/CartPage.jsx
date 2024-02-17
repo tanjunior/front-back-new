@@ -159,7 +159,7 @@ export default function CartPage() {
             <Button
               className="w-full"
               asChild
-              variant={data.length > 0 ? "default" : "disabled"}
+              variant={(data.length > 0 && table.getSelectedRowModel().flatRows.length > 0) ? "default" : "disabled"}
             >
               <Link
                 to="/checkout"
