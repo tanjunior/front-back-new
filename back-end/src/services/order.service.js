@@ -38,6 +38,7 @@ const getAllOrders = async () => {
           avatar: true,
           email: true,
           firstName: true,
+          lastName: true,
           phoneNumber: true,
           username: true,
         }
