@@ -82,11 +82,13 @@ export default function ProductForm({title}) {
       formData.append(key, data[key])
     }
 
-    if (productImg.length === 0) return form.setError("productImg", {message: "กรุณาเลือกรูปภาพสินค้า"})
+    if (productImg.length === 0 && !product) return form.setError("productImg", {message: "กรุณาเลือกรูปภาพสินค้า"})
     // productImg.forEach(image => {
     //   formData.append('files', image, image.name)
     // });
-    formData.append('productImg', productImg[0])
+
+    formData.append('productImg', productImg.length > 0 ? productImg[0] : product.productImg)
+    if (product) formData.append('id', product.id)
 
     mutate(formData)
   }
@@ -205,7 +207,7 @@ export default function ProductForm({title}) {
                           product?.productImg && <img src={`http://localhost:3001/images/${product?.productImg}`} />
                         }
                         {
-                          (productImg.length <= 0 || !product) && <div className="w-full h-40 bg-[#F9F9FC] items-center justify-center flex flex-col border-[#E0E2E7] border rounded-md">
+                          (productImg.length <= 0 && !product) && <div className="w-full h-40 bg-[#F9F9FC] items-center justify-center flex flex-col border-[#E0E2E7] border rounded-md">
                             {isDragActive? "Drop it here" : "ลากไฟล์มาวางที่นี่ หรือ คลิ๊กเพื่อเลือกไฟล์"}
                           </div>
                         }
