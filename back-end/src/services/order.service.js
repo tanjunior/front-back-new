@@ -26,7 +26,22 @@ const createManyOrderDetail = async (data) => {
 const getAllOrders = async () => {
   return prisma.order.findMany({
     include: {
-      orderDetails: true
+      orderDetails: {
+        include: {
+          product: true
+        }
+      },
+      payments: true,
+      shippingAddress: true,
+      user: {
+        select: {
+          avatar: true,
+          email: true,
+          firstName: true,
+          phoneNumber: true,
+          username: true,
+        }
+      }
     }
   });
 };
