@@ -27,6 +27,7 @@ import OrderTable from '@/components/tables/OrderTable'
 import ProductTable from '@/components/tables/ProductTable'
 import UserTable from '@/components/tables/UserTable'
 import UserOrders from '@/components/tables/OrderHistoryTable'
+import PaymentTable from '@/components/tables/PaymentTable'
 
 import ProductForm from '@/components/forms/ProductForm'
 
@@ -99,6 +100,7 @@ const adminRouter = createBrowserRouter([
       },
       { path: "/admin", element: <UserTable userType='admin'/> },
       { path: "/customer", element: <UserTable /> },
+      { path: "/transactions", element: <PaymentTable /> },
     ]
   }
 ])
