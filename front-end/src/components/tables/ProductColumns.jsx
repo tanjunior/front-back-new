@@ -81,7 +81,7 @@ export const columns = [
         style: "currency",
         currency: "THB",
       }).format(amount)
-      return <div className="font-medium text-right">{formatted}</div>
+      return <div className="font-medium">{formatted}</div>
     },
   },
   {
