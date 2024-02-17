@@ -35,7 +35,7 @@ export default function UserTable({userType = "user"}) {
         </Button>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>translate</DialogTitle>
+            <DialogTitle>เพิ่มบัญชีแอดมิน</DialogTitle>
           </DialogHeader>
           <RegisterForm />
         </DialogContent>
