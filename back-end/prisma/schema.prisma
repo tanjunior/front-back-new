@@ -87,7 +87,8 @@ model Order {
   orderDate    DateTime      @default(now())
   status       OrderStatus?  @default(value: PENDING)
   orderDetails OrderDetail[]
-  payments     Payment?
+  payment      Payment?
+  deliveryFee  Float @default(0)
   userId       Int
   shippingAddressId Int
   user         User          @relation(fields: [userId], references: [id])
