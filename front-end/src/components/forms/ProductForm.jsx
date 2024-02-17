@@ -1,7 +1,8 @@
-import { NavLink, useNavigate } from "react-router-dom";
+/* eslint-disable react/prop-types */
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form"
-import Icons from "./ui/Icons";
+import Icons from "../ui/Icons";
 import {useDropzone} from 'react-dropzone'
 import { useCallback, useState } from "react";
 import { useMutation } from "@tanstack/react-query";import {
@@ -10,8 +11,8 @@ import { useMutation } from "@tanstack/react-query";import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Input } from "./ui/input";
-import { Textarea } from "./ui/textarea";
+import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
 import { toast } from "sonner"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -33,7 +34,8 @@ const productFormSchema = z.object({
   stock: z.number().min(0)
 })
 
-export default function AdminProductAdd() {
+export default function ProductForm({title}) {
+  const { state: product } = useLocation();
   const [productImg, setProductImg] = useState([])
   const navigate = useNavigate()
   
@@ -65,12 +67,12 @@ export default function AdminProductAdd() {
   const form = useForm({
     resolver: zodResolver(productFormSchema),
     defaultValues: {
-      name: "",
-      description: "",
-      color: "",
-      capacity: "",
-      stock: "",
-      price: "",
+      name: product?.name || "",
+      description: product?.description || "",
+      color: product?.color || "",
+      capacity: product?.capacity || "",
+      stock: product?.stock || "",
+      price: product?.price || "",
     },
   })
 
@@ -98,11 +100,16 @@ export default function AdminProductAdd() {
             {" > "}
             <NavLink to="/products">Product List</NavLink>
             {" > "}
-            <span className="text-primary">Add Product</span>
+            <span className="text-primary">{title} Product</span>
           </div>
           <div className="flex gap-x-2">
             <Button size="sm" variant="outlineAdmin" onClick={() => navigate("/products")}><Icons.cross />Cancel</Button>
-            <Button size="sm" type="submit"><Icons.add />Add Product</Button>
+            <Button size="sm" type="submit">
+              {title === "Add" 
+                ? <div className="flex gap-x-2"><Icons.add />Add</div>
+                : <div className="flex gap-x-2"><Icons.save />Save</div>
+              }
+            </Button>
           </div>
         </div>
         
@@ -194,13 +201,13 @@ export default function AdminProductAdd() {
                       <div {...getRootProps()}>
                         <input {...field} {...imageInputProps} className="hidden"/>
                         {
-                          productImg.length > 0 ? <img src={URL.createObjectURL(productImg[0])} /> : isDragActive ?
-                            <div className="w-full h-40 bg-[#F9F9FC] items-center justify-center flex flex-col border-[#E0E2E7] border rounded-md">
-                              Drop it here
-                            </div> :
-                            <div className="w-full h-40 bg-[#F9F9FC] items-center justify-center flex flex-col border-[#E0E2E7] border rounded-md">
-                              ลากไฟล์มาวางที่นี่ หรือ คลิ๊กเพื่อเลือกไฟล์
-                            </div>
+                          productImg.length > 0 ? <img src={URL.createObjectURL(productImg[0])}  className="mx-auto"/> :
+                          product?.productImg && <img src={`http://localhost:3001/images/${product?.productImg}`} />
+                        }
+                        {
+                          (productImg.length <= 0 || !product) && <div className="w-full h-40 bg-[#F9F9FC] items-center justify-center flex flex-col border-[#E0E2E7] border rounded-md">
+                            {isDragActive? "Drop it here" : "ลากไฟล์มาวางที่นี่ หรือ คลิ๊กเพื่อเลือกไฟล์"}
+                          </div>
                         }
                       </div>
                     </FormControl>

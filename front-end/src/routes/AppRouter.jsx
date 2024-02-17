@@ -19,10 +19,9 @@ import CartPage from '@/pages/user/CartPage'
 import UserDashBoard from '@/components/UserDashboard'
 import UserOrders from '@/components/UserOrders'
 import UserProfile from '@/components/UserProfile'
-import AdminProductEdit from '@/components/AdminProductEdit'
 import UserAddress from '@/components/UserAddress'
 import AdminProductList from '@/components/productTable/AdminProductList'
-import AdminProductAdd from '@/components/AdminProductAdd'
+import ProductForm from '@/components/forms/ProductForm'
 import AdminDashboard from '@/components/AdminDashboard'
 import UserCard from '@/components/UserCard'
 
@@ -83,8 +82,8 @@ const adminRouter = createBrowserRouter([
       {
         children: [
           { path: "products", element: <AdminProductList /> },
-          { path: "products/add", element: <AdminProductAdd /> },
-          { path: "products/:id", element: <AdminProductEdit /> }
+          { path: "products/add", element: <ProductForm title="Add" /> },
+          { path: "products/:id", element: <ProductForm title="Edit"/> }
         ]
       },
     ]
