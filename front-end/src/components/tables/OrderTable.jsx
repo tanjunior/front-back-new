@@ -5,9 +5,8 @@ import { NavLink, useLocation } from 'react-router-dom'
 
 export default function OrderTable() {
   const {pathname} = useLocation()
-  console.log(pathname)
-  const { data: products, isError, isLoading } = useQuery({
-    queryKey: ['products'],
+  const { data, isError, isLoading } = useQuery({
+    queryKey: ['orders'],
     queryFn: async () => {
       const response = await fetch(`http://localhost:3001/api/orders/all`)
       const data = await response.json()
@@ -30,7 +29,7 @@ export default function OrderTable() {
           </div>
         </div>
       )}
-      <DataTable columns={OrderColumns} data={products}/>
+      <DataTable columns={OrderColumns} data={data}/>
     </div>
   )
 }
