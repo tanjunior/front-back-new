@@ -8,7 +8,7 @@ import {
 
 import axios from "axios"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
-import AddressForm from "./forms/AddressForm"
+import AddressForm from "../../components/forms/AddressForm"
 import { toast } from "sonner"
 import { thaiAddressIdToString } from "@/lib/thaiAddress"
 
