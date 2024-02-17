@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { DataTable } from "./DataTable";
 
 export default function ProductTable() {
-  const { data: products, isError, isLoading } = useQuery({
+  const { data, isError, isLoading } = useQuery({
     queryKey: ['products'],
     queryFn: async () => {
       const response = await fetch('http://localhost:3001/api/products/all')
@@ -26,7 +26,7 @@ export default function ProductTable() {
         </div>
         <NavLink to="/products/add" className="px-12 py-2 text-white rounded-md bg-primary">Add Product</NavLink>
       </div>
-      <DataTable columns={columns} data={products}/>
+      <DataTable columns={columns} data={data}/>
     </div>
   )
 }

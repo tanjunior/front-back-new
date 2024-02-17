@@ -1,4 +1,3 @@
-import { ArrowUpDown, MoreHorizontal } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
@@ -12,6 +11,7 @@ import { Link } from "react-router-dom"
 import axios from "axios"
 import { toast } from "sonner"
 import { useQueryClient } from "@tanstack/react-query"
+import Icons from "../ui/Icons"
 
 export const columns = [
   {
@@ -59,7 +59,7 @@ export const columns = [
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Stock
-          <ArrowUpDown className="w-4 h-4 ml-2" />
+          <Icons.arrowUD className="w-4 h-4 ml-2" />
         </Button>
       )
     },
@@ -95,7 +95,7 @@ export const columns = [
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="w-8 h-8 p-0">
               <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="w-4 h-4" />
+              <Icons.more className="w-4 h-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">

@@ -1,11 +1,5 @@
 /* eslint-disable react/prop-types */
 import {
-  ChevronLeft,
-  ChevronRight,
-  ChevronsLeft,
-  ChevronsRight
-} from "lucide-react"
-import {
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -38,6 +32,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useState } from "react"
+import Icons from "../ui/Icons"
 
 export function DataTable({ columns, data, showPagination = true, showColumnVisibility = true, filterTarget}) {
   const [sorting, setSorting] = useState([])
@@ -195,7 +190,7 @@ export function DataTable({ columns, data, showPagination = true, showColumnVisi
                 disabled={!table.getCanPreviousPage()}
               >
                 <span className="sr-only">Go to first page</span>
-                <ChevronsLeft className="w-4 h-4" />
+                <Icons.chevL2 className="w-4 h-4" />
               </Button>
               <Button
                 variant="outline"
@@ -204,7 +199,7 @@ export function DataTable({ columns, data, showPagination = true, showColumnVisi
                 disabled={!table.getCanPreviousPage()}
               >
                 <span className="sr-only">Go to previous page</span>
-                <ChevronLeft className="w-4 h-4" />
+                <Icons.chevL className="w-4 h-4" />
               </Button>
               <Button
                 variant="outline"
@@ -213,7 +208,7 @@ export function DataTable({ columns, data, showPagination = true, showColumnVisi
                 disabled={!table.getCanNextPage()}
               >
                 <span className="sr-only">Go to next page</span>
-                <ChevronRight className="w-4 h-4" />
+                <Icons.chevR className="w-4 h-4" />
               </Button>
               <Button
                 variant="outline"
@@ -222,7 +217,7 @@ export function DataTable({ columns, data, showPagination = true, showColumnVisi
                 disabled={!table.getCanNextPage()}
               >
                 <span className="sr-only">Go to last page</span>
-                <ChevronsRight className="w-4 h-4" />
+                <Icons.chevR2 className="w-4 h-4" />
               </Button>
             </div>
           </div>

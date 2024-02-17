@@ -1,11 +1,12 @@
 import { OrderColumns } from './OrderColumns'
 import { useQuery } from '@tanstack/react-query'
 import { DataTable } from './DataTable'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 
 export default function OrderTable() {
-  const { data: products, isError, isLoading } = useQuery({
-    queryKey: ['products'],
+  const {pathname} = useLocation()
+  const { data, isError, isLoading } = useQuery({
+    queryKey: ['orders'],
     queryFn: async () => {
       const response = await fetch(`http://localhost:3001/api/orders/all`)
       const data = await response.json()
@@ -19,14 +20,16 @@ export default function OrderTable() {
 
   return (
     <div className="flex flex-col">
-      <div className="flex flex-row items-start justify-between">
-        <div>
-          <NavLink to="/">Dashboard</NavLink>
-          {" > "}
-          <span className="text-primary">Order List</span>
+      { pathname !== "/" && (
+        <div className="flex flex-row items-start justify-between">
+          <div>
+            <NavLink to="/">Dashboard</NavLink>
+            {" > "}
+            <span className="text-primary">Order List</span>
+          </div>
         </div>
-      </div>
-      <DataTable columns={OrderColumns} data={products}/>
+      )}
+      <DataTable columns={OrderColumns} data={data}/>
     </div>
   )
 }

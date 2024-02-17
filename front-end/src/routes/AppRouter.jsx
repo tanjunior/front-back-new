@@ -15,20 +15,21 @@ import RegisterPage from '@/pages/RegisterPage'
 import CheckOutPage from '@/pages/user/CheckOut'
 import OrderDetails from '@/pages/user/OrderDetails'
 import CartPage from '@/pages/user/CartPage'
+import UserDashBoard from '@/pages/user/UserDashboard'
+import UserCard from '@/pages/user/UserCard'
+import UserProfile from '@/pages/user/UserProfile'
+import UserAddress from '@/pages/user/UserAddress'
 
-import UserDashBoard from '@/components/UserDashboard'
-import UserProfile from '@/components/UserProfile'
-import UserAddress from '@/components/UserAddress'
+import AdminDashboard from '@/pages/admin/AdminDashboard'
+import AdminOrderDetails from '@/pages/admin/AdminOrderDetails'
 
 import OrderTable from '@/components/tables/OrderTable'
 import ProductTable from '@/components/tables/ProductTable'
 import UserTable from '@/components/tables/UserTable'
 import UserOrders from '@/components/tables/OrderHistoryTable'
+import PaymentTable from '@/components/tables/PaymentTable'
 
 import ProductForm from '@/components/forms/ProductForm'
-import AdminDashboard from '@/components/AdminDashboard'
-import UserCard from '@/components/UserCard'
-import AdminOrderDetails from '@/pages/admin/AdminOrderDetails'
 
 
 const guestRouter = createBrowserRouter([
@@ -99,6 +100,7 @@ const adminRouter = createBrowserRouter([
       },
       { path: "/admin", element: <UserTable userType='admin'/> },
       { path: "/customer", element: <UserTable /> },
+      { path: "/transactions", element: <PaymentTable /> },
     ]
   }
 ])
