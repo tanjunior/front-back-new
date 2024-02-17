@@ -159,10 +159,10 @@ export default function CartPage() {
             <Button
               className="w-full"
               asChild
-              variant={(data.length > 0 && table.getSelectedRowModel().flatRows.length > 0) ? "default" : "disabled"}
+              variant={table.getSelectedRowModel().flatRows.length > 0 ? "default" : "disabled"}
             >
               <Link
-                to="/checkout"
+                to={table.getSelectedRowModel().flatRows.length > 0 && "/checkout"}
                 // to={{ pathname: "/checkout" }}
                 state={{
                   items: table
