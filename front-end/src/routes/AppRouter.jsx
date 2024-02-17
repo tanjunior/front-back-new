@@ -28,6 +28,7 @@ import UserOrders from '@/components/tables/OrderHistoryTable'
 import ProductForm from '@/components/forms/ProductForm'
 import AdminDashboard from '@/components/AdminDashboard'
 import UserCard from '@/components/UserCard'
+import AdminOrderDetails from '@/pages/admin/AdminOrderDetails'
 
 
 const guestRouter = createBrowserRouter([
@@ -93,8 +94,7 @@ const adminRouter = createBrowserRouter([
       {
         children: [
           { path: "orders", element: <OrderTable /> },
-          { path: "products/add", element: <ProductForm title="Add" /> },
-          { path: "products/:id", element: <ProductForm title="Edit"/> },
+          { path: "orders/:id", element: <AdminOrderDetails /> },
         ]
       },
       { path: "/admin", element: <UserTable userType='admin'/> },
