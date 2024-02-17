@@ -2,7 +2,7 @@ import thaiProvince from "@/lib/thai_province.json"
 import thaiDistrict from "@/lib/thai_district.json"
 import thaiSubdistrict from "@/lib/thai_subdistrict.json"
 
-export default function thaiAddressIdToString(id, type) {
+export function thaiAddressIdToString(id, type) {
   let data
   switch (type) {
     case "province":
@@ -19,4 +19,18 @@ export default function thaiAddressIdToString(id, type) {
   }
 
   return data.name_th
+}
+
+
+
+export default function thaiAddress(address) {
+  return `${address.address}, ${thaiAddressIdToString(
+    address.subdistrict,
+    "subdistrict"
+  )}, ${thaiAddressIdToString(
+    address.district,
+    "district"
+  )}, ${thaiAddressIdToString(address.province, "province")}, ${
+    address.postalCode
+  }`;
 }

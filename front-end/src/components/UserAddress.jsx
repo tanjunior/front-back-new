@@ -10,7 +10,7 @@ import axios from "axios"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import AddressForm from "./forms/AddressForm"
 import { toast } from "sonner"
-import thaiAddressIdToString from "@/lib/thaiAddressIdToString"
+import { thaiAddressIdToString } from "@/lib/thaiAddress"
 
 
 export default function UserAddress() {
