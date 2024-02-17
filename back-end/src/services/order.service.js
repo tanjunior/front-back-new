@@ -24,7 +24,11 @@ const createManyOrderDetail = async (data) => {
 
 // Get all orders
 const getAllOrders = async () => {
-  return prisma.order.findMany();
+  return prisma.order.findMany({
+    include: {
+      orderDetails: true
+    }
+  });
 };
 
 // Get a order by ID
