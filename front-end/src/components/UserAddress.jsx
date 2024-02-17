@@ -54,7 +54,7 @@ export default function UserAddress() {
                 </div>
               </div>
             )) 
-            : "No addresses, add one!" }
+            : "ไม่พบที่อยู่ เพิ่มเลย!" }
         </CardContent>
       </Card>
 

@@ -61,6 +61,7 @@ export default function LoginForm() {
             type="password"
             className="w-full p-2 rounded-md bg-background border border-[#E4E7E9]"
             placeholder='รหัสผ่าน'
+            autoComplete="off"
             name="password"
             value={ input.password }
             onChange={ hdlChange }

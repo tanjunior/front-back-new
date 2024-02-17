@@ -4,7 +4,7 @@ export const columns = [
   {
     accessorKey: "id",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Id" />
+      <DataTableColumnHeader column={column} title="ID" />
     ),
   },
   {
