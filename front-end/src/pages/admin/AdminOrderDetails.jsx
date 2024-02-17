@@ -10,6 +10,12 @@ import {
 } from "@/components/ui/table"
 import thaiAddress from "@/lib/thaiAddress";
 import Moment from 'react-moment';
+import Icons from "@/components/ui/Icons";
+import { calculateTax } from "@/lib/utils";
+
+function calculateItemsTotal(orderDetails) {
+  return orderDetails.reduce((acc, cur) => acc + cur.price * cur.quantity, 0)
+}
 
 export default function AdminOrderDetails() {
   const { state: order } = useLocation();
@@ -29,14 +35,43 @@ export default function AdminOrderDetails() {
       <div className="grid grid-cols-3 gap-4">
         <div className="flex flex-col gap-4 p-4 bg-white rounded-md">
           <div>translate <span>#{order.id}</span></div>
-          <Moment>{order.orderDate}</Moment>
-          <div>payment api to be done</div>
+          
+          <div className="grid grid-cols-2 place-content-between">
+            <div className="flex items-center gap-x-1">
+              <Icons.calendar />
+              <div> translate</div>
+            </div>
+            <Moment interval={0} format="DD MMM YYYY" className="place-self-end">{order.orderDate}</Moment>
+            <div className="flex items-center gap-x-1">
+              <Icons.creditCard />
+              <div>translate</div>
+
+            </div>
+            <div className="place-self-end">{order.payment.method}</div>
+          </div>
+          
+          
         </div>
         <div className="flex flex-col col-span-2 gap-4 p-4 bg-white rounded-md">
           <h1>translate</h1>
-          <div>{order.user.firstName} {order.user.lastName}</div>
-          <div>{order.user.email}</div>
-          <div>{order.user.phoneNumber}</div>
+          <div className="grid grid-cols-2 place-content-between">
+            <div className="flex items-center gap-x-1">
+              <Icons.user />
+              <div> translate</div>
+            </div>
+            <div className="place-self-end">{order.user.firstName} {order.user.lastName}</div>
+            <div className="flex items-center gap-x-1">
+              <Icons.mail />
+              <div> translate</div>
+            </div>
+            <div className="place-self-end">{order.user.email}</div>
+            <div className="flex items-center gap-x-1">
+              <Icons.phone />
+              <div>translate</div>
+
+            </div>
+            <div className="place-self-end">{order.user.phoneNumber}</div>
+          </div>
         </div>
         <div className="flex flex-col col-span-2 gap-4 p-4 bg-white rounded-md">
           <h1>translate</h1>
@@ -72,8 +107,23 @@ export default function AdminOrderDetails() {
             <TableFooter>
               <TableRow>
                 <TableCell colSpan={5}></TableCell>
+                <TableCell colSpan={1}>sub total</TableCell>
+                <TableCell className="text-right">{calculateItemsTotal(order.orderDetails)}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell colSpan={5}></TableCell>
+                <TableCell colSpan={1}>vat</TableCell>
+                <TableCell className="text-right">{calculateTax(calculateItemsTotal(order.orderDetails), 7)}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell colSpan={5}></TableCell>
+                <TableCell colSpan={1}>shipping</TableCell>
+                <TableCell className="text-right">{order.deliveryFee}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell colSpan={5}></TableCell>
                 <TableCell colSpan={1}>Total</TableCell>
-                <TableCell className="text-right">{order.orderDetails.reduce((acc, cur) => acc + cur.price * cur.quantity, 0)}</TableCell>
+                <TableCell className="text-right">{(calculateItemsTotal(order.orderDetails) + order.deliveryFee) * 1.07}</TableCell>
               </TableRow>
             </TableFooter>
           </Table>
@@ -83,11 +133,18 @@ export default function AdminOrderDetails() {
         </div>
         <div className="flex flex-col gap-4 p-4 bg-white rounded-md">
           <h1>translate</h1>
-          {thaiAddress(order.shippingAddress)}
+          <div className="flex items-center gap-x-1">
+            <Icons.mapPin />
+            <div className="flex flex-col gap-y-1">
+              <div>translate</div>
+              {thaiAddress(order.shippingAddress)}
+            </div>
+
+          </div>
         </div>
       </div>
       
-      <pre>{JSON.stringify({...order}, null, 2)}</pre>
+      {/* <pre>{JSON.stringify({...order}, null, 2)}</pre> */}
     </div>
   )
 }
