@@ -9,9 +9,8 @@ import {
   TableFooter
 } from "@/components/ui/table"
 import thaiAddress from "@/lib/thaiAddress";
-import Moment from 'react-moment';
 import Icons from "@/components/Icons";
-import { calculateTax } from "@/lib/utils";
+import { calculateTax, thaiDateFormat } from "@/lib/utils";
 
 function calculateItemsTotal(orderDetails) {
   return orderDetails.reduce((acc, cur) => acc + cur.price * cur.quantity, 0)
@@ -41,7 +40,7 @@ export default function AdminOrderDetails() {
               <Icons.calendar />
               <div> translate</div>
             </div>
-            <Moment interval={0} format="DD MMM YYYY" className="place-self-end">{order.orderDate}</Moment>
+            {thaiDateFormat(order.orderDate)}
             <div className="flex items-center gap-x-1">
               <Icons.creditcard />
               <div>translate</div>

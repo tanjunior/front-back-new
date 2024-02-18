@@ -1,4 +1,4 @@
-import Moment from "react-moment"
+import { thaiDateFormat } from '@/lib/utils';
 
 export const PaymentColumns = [
   {
@@ -8,7 +8,7 @@ export const PaymentColumns = [
   {
     accessorKey: "paymentDate",
     header: "Payment Date",
-    cell: ({ row }) => <Moment format="DD MMM YYYY" interval={0}>{row.getValue("paymentDate")}</Moment>
+    cell: ({ row }) => thaiDateFormat(row.getValue("paymentDate"))
   },
   {
     accessorKey: "amount",

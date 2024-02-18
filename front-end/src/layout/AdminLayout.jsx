@@ -1,7 +1,7 @@
 import {Outlet, useLocation} from 'react-router-dom'
 import AdminSideNav from "@/components/navs/AdminSideNav";
 import { Separator } from '@/components/ui/separator';
-import Moment from "react-moment"
+import { thaiDateFormat } from '@/lib/utils';
 
 export default function AdminLayout() {
   const {pathname} = useLocation()
@@ -14,7 +14,7 @@ export default function AdminLayout() {
       <div className="flex flex-col w-full">
         <div className='flex items-center justify-between pb-2'>
           <h1 className="text-[#191C1F] font-extrabold text-2xl capitalize">{title}</h1>
-          <Moment>{Date.now()}</Moment>
+          <div>{thaiDateFormat(null, true)}</div>
         </div>
         <Outlet />
       </div>

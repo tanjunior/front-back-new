@@ -18,7 +18,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Separator } from "@/components/ui/separator";
-import Moment from "react-moment";
+import { thaiDateFormat } from '@/lib/utils';
 import axios from "axios";
 
 export default function OrderDetails() {
@@ -47,7 +47,7 @@ export default function OrderDetails() {
           <div className="flex flex-row justify-between p-6 border bg-accent">
             <div className="flex flex-col">
               <div>#{order.id}</div>
-              <div>{order.orderDate}</div>
+              <div>{thaiDateFormat(order.orderDate)}</div>
             </div>
             <h1>
               {order.orderDetails &&
@@ -57,7 +57,7 @@ export default function OrderDetails() {
                 )}
             </h1>
           </div>
-          <div>คำสั่งซื้อคาดว่าจะถึงวันที่ <Moment interval={0} />{order.orderDate}</div>
+          <div>คำสั่งซื้อคาดว่าจะถึงวันที่ {thaiDateFormat(order.orderDate)}</div>
           <div className="py-4 space-y-6 px-44">
             <Progress value={25} />
             <div className="flex flex-row items-center justify-between">

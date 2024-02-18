@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
-import Moment from "react-moment"
 import { DataTableColumnHeader } from "./DataTableColumnHeader"
+import { thaiDateFormat } from '@/lib/utils';
 
 export const OrderColumns = [
   {
@@ -18,7 +18,7 @@ export const OrderColumns = [
     accessorKey: "orderDate",
     header: "Order Date",
     cell: ({ row }) => {
-      return <Moment interval={0} format="DD MMM YYYY">{row.getValue('orderDate')}</Moment>
+      return thaiDateFormat(row.getValue('orderDate'))
     }
   },
   {
