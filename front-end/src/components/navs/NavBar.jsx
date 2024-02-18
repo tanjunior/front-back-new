@@ -10,7 +10,7 @@ import {
   SheetFooter,
   SheetClose
 } from "@/components/ui/sheet"
-import Icons from '@/components/ui/Icons'
+import Icons from '@/components/Icons'
 import useCart from '@/hooks/useCart'
 import { Badge } from "@/components/ui/badge"
 import { Button } from '@/components/ui/button'

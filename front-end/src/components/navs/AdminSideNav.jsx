@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { cva } from "class-variance-authority"
 import Logo from "@/components/Logo";
 import useAuth from "@/hooks/useAuth";
-import Icons from "@/components/ui/Icons";
+import Icons from "@/components/Icons";
 
 export default function AdminSideNav() {
   const navigate = useNavigate()
@@ -26,7 +26,7 @@ export default function AdminSideNav() {
       <div className="flex flex-col">
         <h2 className='uppercase text-[#3858D6] opacity-50 text-xs'>menu</h2>
         <NavButton title="Dashboard" path="/" activePath={pathname}><Icons.dashboard/></NavButton>
-        <NavButton title="Products" path="/products" activePath={pathname}><Icons.product /></NavButton>
+        <NavButton title="Products" path="/products" activePath={pathname}><Icons.package /></NavButton>
         <NavButton title="Orders" path="/orders" activePath={pathname}><Icons.stack /></NavButton>
         <NavButton title="Transactions" path="/transactions" activePath={pathname}><Icons.wallet /></NavButton>
       </div>

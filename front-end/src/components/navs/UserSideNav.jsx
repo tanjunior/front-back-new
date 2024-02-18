@@ -3,7 +3,7 @@ import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { cva } from "class-variance-authority"
 import useAuth from "@/hooks/useAuth";
-import Icons from "@/components/ui/Icons";
+import Icons from "@/components/Icons";
 
 const navButtonClass = "px-4 py-6 flex gap-x-2"
 
@@ -27,7 +27,7 @@ export default function UserSideNav() {
       <NavButton title="โปรไฟล์" path="/account/profile" activePath={pathname}><Icons.smile /></NavButton>
       <NavButton title="คำสั่งซื้อ" path="/account/orders" activePath={pathname}><Icons.stack /></NavButton>
       <NavButton title="ที่อยู่" path="/account/address" activePath={pathname}><Icons.notebook /></NavButton>
-      <NavButton title="บัตรเครดิต" path="/account/card" activePath={pathname}><Icons.creditCard /></NavButton>
+      <NavButton title="บัตรเครดิต" path="/account/card" activePath={pathname}><Icons.creditcard /></NavButton>
       <Link className={cn(navButtonClass, "w-full text-[#8B8E99] hover:text-primary")} to="#" onClick={hdlLogout}>
         <Icons.logout /> ออกจากระบบ
       </Link>
