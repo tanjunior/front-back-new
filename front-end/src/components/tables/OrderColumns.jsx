@@ -1,10 +1,14 @@
 import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
+import Moment from "react-moment"
+import { DataTableColumnHeader } from "./DataTableColumnHeader"
 
 export const OrderColumns = [
   {
     accessorKey: "id",
-    header: "ID",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="ID" />
+    ),
   },
   {
     accessorKey: "status",
@@ -13,6 +17,9 @@ export const OrderColumns = [
   {
     accessorKey: "orderDate",
     header: "Order Date",
+    cell: ({ row }) => {
+      return <Moment interval={0} format="DD MMM YYYY">{row.getValue('orderDate')}</Moment>
+    }
   },
   {
     accessorKey: "price",
