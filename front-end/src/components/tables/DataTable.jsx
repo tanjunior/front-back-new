@@ -32,9 +32,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useState } from "react"
-import Icons from "../ui/Icons"
+import Icons from "../Icons"
 
-export function DataTable({ columns, data, showPagination = true, showColumnVisibility = true, filterTarget}) {
+export function DataTable({ columns, data, showSelected = false, showPagination = true, showColumnVisibility = true, filterTarget}) {
   const [sorting, setSorting] = useState([])
   const [columnFilters, setColumnFilters] = useState([])
   const [columnVisibility, setColumnVisibility] = useState({})
@@ -151,13 +151,17 @@ export function DataTable({ columns, data, showPagination = true, showColumnVisi
 
       { showPagination && (
         <div className="flex items-center justify-between px-2">
-          <div className="flex-1 text-sm text-muted-foreground">
-            {table.getFilteredSelectedRowModel().rows.length} of{" "}
-            {table.getFilteredRowModel().rows.length} row(s) selected.
-          </div>
+
+          { showSelected && (
+            <div className="flex-1 text-sm text-muted-foreground">
+              {table.getFilteredSelectedRowModel().rows.length} of{" "}
+              {table.getFilteredRowModel().rows.length} row(s) selected.
+            </div>
+          )}
+          
 
         
-          <div className="flex items-center space-x-6 lg:space-x-8">
+          <div className="flex items-center justify-between flex-1 space-x-6 lg:space-x-8">
             <div className="flex items-center space-x-2">
               <p className="text-sm font-medium">Rows per page</p>
               <Select

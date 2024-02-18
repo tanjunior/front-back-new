@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import Icons from "../components/ui/Icons";
+import Icons from "../components/Icons";
 import { Link } from "react-router-dom";
 import {
   Card,

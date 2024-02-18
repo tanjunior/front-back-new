@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/table"
 import thaiAddress from "@/lib/thaiAddress";
 import Moment from 'react-moment';
-import Icons from "@/components/ui/Icons";
+import Icons from "@/components/Icons";
 import { calculateTax } from "@/lib/utils";
 
 function calculateItemsTotal(orderDetails) {
@@ -43,7 +43,7 @@ export default function AdminOrderDetails() {
             </div>
             <Moment interval={0} format="DD MMM YYYY" className="place-self-end">{order.orderDate}</Moment>
             <div className="flex items-center gap-x-1">
-              <Icons.creditCard />
+              <Icons.creditcard />
               <div>translate</div>
 
             </div>
@@ -144,7 +144,7 @@ export default function AdminOrderDetails() {
         </div>
       </div>
       
-      <pre>{JSON.stringify({...order}, null, 2)}</pre>
+      {/* <pre>{JSON.stringify({...order}, null, 2)}</pre> */}
     </div>
   )
 }

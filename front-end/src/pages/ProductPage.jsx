@@ -1,7 +1,7 @@
 import { useQuery, useMutation } from '@tanstack/react-query'
 import { Link, useParams } from 'react-router-dom'
 import { Button } from '../components/ui/button'
-import Icons from '../components/ui/Icons'
+import Icons from '../components/Icons'
 import { toast } from "sonner"
 import {
   Carousel,

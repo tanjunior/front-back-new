@@ -2,7 +2,7 @@
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form"
-import Icons from "../ui/Icons";
+import Icons from "../Icons";
 import {useDropzone} from 'react-dropzone'
 import { useCallback, useState } from "react";
 import { useMutation } from "@tanstack/react-query";import {
@@ -108,8 +108,8 @@ export default function ProductForm({title}) {
             <Button size="sm" variant="outlineAdmin" onClick={() => navigate("/products")}><Icons.cross />Cancel</Button>
             <Button size="sm" type="submit">
               {title === "Add" 
-                ? <div className="flex gap-x-2"><Icons.add />Add</div>
-                : <div className="flex gap-x-2"><Icons.save />Save</div>
+                ? <div className="flex items-center gap-x-1"><Icons.plus />Add</div>
+                : <div className="flex items-center gap-x-2"><Icons.save />Save</div>
               }
             </Button>
           </div>

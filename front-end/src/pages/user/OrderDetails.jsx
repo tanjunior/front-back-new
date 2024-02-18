@@ -8,7 +8,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { Progress } from "@/components/ui/progress";
-import Icons from "@/components/ui/Icons";
+import Icons from "@/components/Icons";
 import {
   Table,
   TableBody,
@@ -18,6 +18,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Separator } from "@/components/ui/separator";
+import Moment from "react-moment";
 
 export default function OrderDetails() {
   const { id } = useParams();
@@ -58,17 +59,17 @@ export default function OrderDetails() {
                 )}
             </h1>
           </div>
-          <div>คำสั่งซื้อคาดว่าจะถึงวันที่ (Date Time)</div>
+          <div>คำสั่งซื้อคาดว่าจะถึงวันที่ <Moment interval={0} />{order.orderDate}</div>
           <div className="py-4 space-y-6 px-44">
             <Progress value={25} />
             <div className="flex flex-row items-center justify-between">
-              <Icons.product className="w-12 h-12" />
-              <Icons.product className="w-12 h-12" />
-              <Icons.product className="w-12 h-12" />
-              <Icons.product className="w-12 h-12" />
+              <Icons.book className="w-12 h-12" />
+              <Icons.package className="w-12 h-12" />
+              <Icons.truck className="w-12 h-12" />
+              <Icons.handshake className="w-12 h-12" />
             </div>
           </div>
-          <div>สินค้า(Number of products)</div>
+          <div>สินค้า {order.orderDetails && order.orderDetails.reduce((acc, item) => acc + item.quantity, 0)}</div>
           <Table>
             <TableHeader className="bg-accent">
               <TableRow>
@@ -119,6 +120,7 @@ export default function OrderDetails() {
           </div>
         </CardFooter>
       </Card>
+      {/* <pre>{JSON.stringify({...order}, null, 2)}</pre> */}
     </div>
   );
 }

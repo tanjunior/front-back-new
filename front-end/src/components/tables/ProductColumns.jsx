@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,31 +10,9 @@ import { Link } from "react-router-dom"
 import axios from "axios"
 import { toast } from "sonner"
 import { useQueryClient } from "@tanstack/react-query"
-import Icons from "../ui/Icons"
+import Icons from "../Icons"
 
 export const columns = [
-  {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
   {
     accessorKey: "id",
     header: "ID",
@@ -88,6 +65,7 @@ export const columns = [
     id: "actions",
     cell: ({ row }) => {
       const productId = row.original.id
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       const queryClient = useQueryClient() // can't invalidate because I can't use a hook in here
 
       return (

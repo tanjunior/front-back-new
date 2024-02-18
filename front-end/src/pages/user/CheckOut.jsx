@@ -8,7 +8,7 @@ import useAuth from "@/hooks/useAuth";
 import {QRCodeSVG} from 'qrcode.react';
 import promptpay from "@/assets/promptpay.png";
 import AddressForm from "@/components/forms/AddressForm";
-import Icons from "@/components/ui/Icons";
+import Icons from "@/components/Icons";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -308,7 +308,7 @@ export default function CheckOutPage() {
                                 htmlFor="option-four"
                                 className="flex flex-col items-center justify-center p-2 border rounded-md gap-y-4 has-[:checked]:border-primary"
                               >
-                                <Icons.creditCard className="w-12 h-12 text-primary" />
+                                <Icons.creditcard className="w-12 h-12 text-primary" />
                                 บัตรเครดิต
                                 <RadioGroupItem
                                   value="card"

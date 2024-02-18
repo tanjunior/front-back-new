@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState, forwardRef, useEffect } from 'react'
-import Icons from './ui/Icons'
+import Icons from './Icons'
 import { cn } from '@/lib/utils'
 
 const NumberSelector = forwardRef(function NumberSelector({quantity, className, getValue}, ref) {

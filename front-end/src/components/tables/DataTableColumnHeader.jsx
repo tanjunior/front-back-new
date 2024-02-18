@@ -8,7 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import Icons from "../ui/Icons"
+import Icons from "../Icons"
 
 export function DataTableColumnHeader({
   column,
