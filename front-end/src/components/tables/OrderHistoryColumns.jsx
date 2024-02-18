@@ -1,4 +1,7 @@
+
 import { Link } from "react-router-dom"
+import { Button } from "../ui/button"
+import Moment from "react-moment"
 
 export const OrderHistoryColumns = [
   {
@@ -12,6 +15,9 @@ export const OrderHistoryColumns = [
   {
     accessorKey: "orderDate",
     header: "Order Date",
+    cell: ({ row }) => {
+      return <Moment interval={0} format="DD MMM YYYY">{row.getValue('orderDate')}</Moment>
+    }
   },
   {
     accessorKey: "price",
@@ -31,18 +37,7 @@ export const OrderHistoryColumns = [
     id: "details",
     cell: ({ row }) => {
       const order = row.original
-
-      return <Link to={`/order/${order.id}`}>รายละเอียด</Link>
-      
-    },
-  },
-  {
-    id: "track",
-    cell: ({ row }) => {
-      const order = row.original
-
-      return <Link to={`/order/${order.id}`}>ติดตามคำสั่งซื้อ</Link>
-      
+      return <Button asChild><Link to={`/order/${order.id}`}>รายละเอียด</Link></Button>
     },
   },
 ]
