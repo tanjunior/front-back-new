@@ -23,6 +23,7 @@ import {  useRef, useState } from 'react'
 import useAuth from '@/hooks/useAuth'
 import NumberSelector from '@/components/NumberSelector'
 import { useQueryClient } from "@tanstack/react-query"
+import axios from 'axios'
 
 export default function ProductPage() {
   const { id } = useParams()
@@ -34,21 +35,13 @@ export default function ProductPage() {
   const { data: product, isError, isLoading } = useQuery({
     queryKey: ['products'],
     queryFn: async () => {
-      const response = await fetch(`http://localhost:3001/api/products/get/${id}`)
-      const data = await response.json()
-      return data
+      return axios.get(`http://localhost:3001/api/products/get/${id}`).then((res) => res.data);
     },
   })
 
   const {mutate} = useMutation({
     mutationFn: async (data) => {
-      return fetch(`http://localhost:3001/api/carts/add`, {
-        method: "POST",
-        body: JSON.stringify({...data, shoppingCartId: user.shoppingCart.id}),
-        headers: {
-          "Content-Type": "application/json",
-        }
-      }).then(async(res) => await res.json())
+      return axios.post(`http://localhost:3001/api/carts/add`, { ...data, shoppingCartId: user.shoppingCart.id }).then((res) => res.data);
     }
   })
 

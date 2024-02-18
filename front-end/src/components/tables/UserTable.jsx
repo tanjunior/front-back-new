@@ -12,15 +12,14 @@ import {
 
 } from "@/components/ui/dialog"
 import { Button } from "../ui/button";
+import axios from "axios";
 
 
 export default function UserTable({userType = "user"}) {
   const { data, isError, isLoading } = useQuery({
     queryKey: [userType],
     queryFn: async () => {
-      const response = await fetch(`http://localhost:3001/api/users/${userType}s`)
-      const data = await response.json()
-      return data
+      return axios.get(`http://localhost:3001/api/users/${userType}s`).then(res => res.data)
     },
   })
 

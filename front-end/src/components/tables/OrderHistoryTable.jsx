@@ -2,16 +2,14 @@ import { OrderHistoryColumns } from './OrderHistoryColumns'
 import useAuth from '@/hooks/useAuth'
 import { useQuery } from '@tanstack/react-query'
 import { DataTable } from './DataTable'
+import axios from 'axios'
 
 export default function UserOrders() {
   const { user } = useAuth()
   const { data, isError, isLoading } = useQuery({
-    queryKey: [`${user.id}-orders`],
+    queryKey: ["orders"],
     queryFn: async () => {
-      const response = await fetch(`http://localhost:3001/api/orders/user/${user.id}`)
-      const data = await response.json()
-      // console.log(data)
-      return data
+      return axios.get(`http://localhost:3001/api/orders/user/${user.id}`).then(res => res.data)
     },
   })
 

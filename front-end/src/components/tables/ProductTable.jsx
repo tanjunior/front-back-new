@@ -2,14 +2,13 @@ import { NavLink } from "react-router-dom";
 import { columns } from "./ProductColumns";
 import { useQuery } from "@tanstack/react-query";
 import { DataTable } from "./DataTable";
+import axios from "axios";
 
 export default function ProductTable() {
   const { data, isError, isLoading } = useQuery({
     queryKey: ['products'],
     queryFn: async () => {
-      const response = await fetch('http://localhost:3001/api/products/all')
-      const data = await response.json()
-      return data
+      return axios.get('http://localhost:3001/api/products/all').then(res => res.data)
     },
   })
 

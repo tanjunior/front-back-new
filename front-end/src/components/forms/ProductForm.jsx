@@ -24,6 +24,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
+import axios from "axios";
 
 const productFormSchema = z.object({
   name: z.string().min(1),
@@ -49,10 +50,7 @@ export default function ProductForm({title}) {
 
   const {mutate} = useMutation({
     mutationFn: async (formData) => {
-      const response = await fetch('http://localhost:3001/api/products/add', {
-        method: "POST",
-        body: formData,
-      }).then(async(res) => await res.json())
+      const response = axios.post('http://localhost:3001/api/products/add', formData).then(res => res.data)
       
       if (response.error) {
         console.log(response.error)

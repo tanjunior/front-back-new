@@ -2,16 +2,14 @@ import { OrderColumns } from './OrderColumns'
 import { useQuery } from '@tanstack/react-query'
 import { DataTable } from './DataTable'
 import { NavLink, useLocation } from 'react-router-dom'
+import axios from 'axios'
 
 export default function OrderTable() {
   const {pathname} = useLocation()
   const { data, isError, isLoading } = useQuery({
     queryKey: ['orders'],
     queryFn: async () => {
-      const response = await fetch(`http://localhost:3001/api/orders/all`)
-      const data = await response.json()
-      // console.log(data)
-      return data
+      return axios.get('http://localhost:3001/api/orders/all').then(res => res.data)
     },
   })
 

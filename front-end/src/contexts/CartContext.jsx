@@ -12,7 +12,7 @@ function CartContextProvider(props) {
   const { user } = useAuth()
 
   useQuery({
-    queryKey: ['shoppingCartItems', user],
+    queryKey: ['shoppingCartItems'],
     queryFn: fetchCart,
     enabled: !!user,
   })

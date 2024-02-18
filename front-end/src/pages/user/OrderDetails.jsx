@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/table";
 import { Separator } from "@/components/ui/separator";
 import Moment from "react-moment";
+import axios from "axios";
 
 export default function OrderDetails() {
   const { id } = useParams();
@@ -29,10 +30,7 @@ export default function OrderDetails() {
   } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
-      const response = await fetch(`http://localhost:3001/api/orders/${id}`);
-      const data = await response.json();
-      // console.log(data)
-      return data;
+      return axios.get(`http://localhost:3001/api/orders/${id}`).then((res) => res.data);
     },
   });
 

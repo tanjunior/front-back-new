@@ -1,15 +1,13 @@
 import { useQuery } from '@tanstack/react-query'
 import { DataTable } from './DataTable'
 import { PaymentColumns } from './PaymentColumns'
+import axios from 'axios'
 
 export default function PaymentTable() {
   const { data, isError, isLoading } = useQuery({
     queryKey: ['payments'],
     queryFn: async () => {
-      const response = await fetch(`http://localhost:3001/api/payments/all`)
-      const data = await response.json()
-      // console.log(data)
-      return data
+      return axios.get('http://localhost:3001/api/payments/all').then(res => res.data)
     },
   })
 
